@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+    font-family: 'Roboto500';
+    src: url('fonts/Roboto-Medium.eot');
+    src: url('fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Medium.woff2') format('woff2'),
+    url('fonts/Roboto-Medium.woff') format('woff'),
+    url('fonts/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto400';
+    src: url('fonts/Roboto-Regular.eot');
+    src: url('fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Regular.woff2') format('woff2'),
+    url('fonts/Roboto-Regular.woff') format('woff'),
+    url('fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto300';
+    src: url('fonts/Roboto-Light.eot');
+    src: url('fonts/Roboto-Light.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Light.woff2') format('woff2'),
+    url('fonts/Roboto-Light.woff') format('woff'),
+    url('fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto700';
+    src: url('fonts/Roboto-Bold.eot');
+    src: url('fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+    url('fonts/Roboto-Bold.woff2') format('woff2'),
+    url('fonts/Roboto-Bold.woff') format('woff'),
+    url('fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer components {
+
+    .feedback {
+        position: relative;
+        transition: all .5s cubic-bezier(.19,.62,.51,1.6);
+    }
+    .feedback-name {
+        position: relative;
+
+    }
+    .feedback-name:before, .feedback-name:after {
+        position: absolute;
+        content: '';
+        width: 12px;
+        height: 1px;
+        top: 47%;
+        background-color: #183284;
+    }
+    .feedback-name:before {
+        right: -16px;
+    }
+    .feedback-name:after {
+        left: -16px;
+    }
+    .feedback-left {
+        left: -100%;
+    }
+    .feedback-right {
+        left: 100%;
+    }
+    .feedback-active {
+        left: 0;
+    }
+
+    .main-link {
+        position: relative;
+    }
+    .main-link:before {
+        content: '';
+        position: absolute;
+        left: -20px;
+        top: 35%;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background-color: #203065;
+    }
+
+}
