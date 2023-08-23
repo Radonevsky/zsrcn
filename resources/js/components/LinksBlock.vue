@@ -77,7 +77,7 @@ const links = ref([
     <ContentContainer>
         <div class='flex justify-between'>
             <div v-for='column in links'>
-                <ul class='flex flex-col gap-[35px] font-roboto300 text-[20px] leading-[23px] text-link-dark-blue
+                <ul class='flex flex-col gap-[35px] font-roboto300 pl-[20px] text-[20px] leading-[23px] text-link-dark-blue
                     before:bg-link-dark-blue'>
                     <li v-for='link in column' :key='link.id' class='main-link hover:underline hover:underline-offset-4'>
                         <router-link :to='link.href'>{{ link.title }}</router-link>

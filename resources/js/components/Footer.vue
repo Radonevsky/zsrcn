@@ -11,7 +11,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                 Государственное бюджетное учреждение социального обслуживания
                 “Заиграевский реабилитационный центр для несовершеннолетних”
             </h2>
-            <div class='font-roboto400 text-[20px] flex gap-[26px]'>
+            <div class='font-roboto400 text-[20px] flex gap-[26px] justify-between w-[100%]'>
                 <div class='max-w-[291px]'>
                     <h5 class='uppercase'>
                         Контакты:
