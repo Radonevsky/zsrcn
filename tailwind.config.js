@@ -23,6 +23,7 @@ export default {
             bluergba: 'rgba(164, 174, 204, 0.8)',
             bluebg: '#8B97BC',
             'purpl-blue': '#6070A3',
+            'tblue-light': '#476088',
             tblue: '#38529D',
             'line-dark-blue': '#2B438F',
             tdarkblue: '#183284',

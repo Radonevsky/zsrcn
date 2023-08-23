@@ -1,11 +1,15 @@
 import Home from './views/Home.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import MainLayout from "./layouts/MainLayout.vue"
+import News from "./views/News.vue";
 
 const routes = [
     {
         path: '/',
         component: Home,
+    },
+    {
+        path: '/news',
+        component: News,
     },
 ]
 
