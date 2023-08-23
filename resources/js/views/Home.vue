@@ -6,7 +6,6 @@ import CardsBlock from "../components/CardsBlock.vue";
 import LampsBlock from "../components/LampsBlock.vue";
 import FeedbacksBlock from "../components/FeedbacksBlock.vue";
 import LinksBlock from "../components/LinksBlock.vue";
-import Footer from "../components/Footer.vue";
 </script>
 
 <template>
@@ -20,7 +19,6 @@ import Footer from "../components/Footer.vue";
             <LampsBlock></LampsBlock>
             <FeedbacksBlock></FeedbacksBlock>
             <LinksBlock></LinksBlock>
-            <Footer></Footer>
         </MainLayout>
     </div>
 </template>
