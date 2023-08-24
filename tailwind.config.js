@@ -17,6 +17,7 @@ export default {
             'dark-yellow': '#F8E40A',
             yellow: '#FFF481',
             green: '#D7E993',
+            btngreen: '#D1E683',
             'light-blue': '#ACD7E1',
             'light-purple': '#C5CBDD',
             violet: '#ACB9E1',
