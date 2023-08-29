@@ -1,24 +1,7 @@
 <script setup>
 import ContentContainer from "../layouts/ContentContainer.vue";
 import Lamp from "./Lamp.vue";
-import { ref, onMounted, onUnmounted } from "vue";
-
-//const isLampsActive = ref(false)
-// const y = ref(0)
-// const lampsBlock = ref(null)
-// const viewportHeight = window.innerHeight
-//
-// onMounted(() => {
-//     window.addEventListener("scroll", handleScroll)
-// })
-// onUnmounted(() => {
-//     window.removeEventListener("scroll", handleScroll)
-// })
-//
-// const handleScroll = () => {
-//     y.value = window.scrollY
-//     isLampsActive.value = y.value >= lampsBlock.value.offsetTop - viewportHeight + 100;
-// }
+import { ref } from "vue";
 
 const lamps = ref([
     {
