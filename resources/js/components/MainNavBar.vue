@@ -5,43 +5,47 @@ const tabs = [
     {
         title: 'Главная',
         bg: 'bg-pink',
-        link: '/'
+        link: '/',
+        name: 'main',
     },
     {
         title: 'Новости',
         bg: 'bg-orange',
-        link: '/news'
+        link: '/news',
+        name: 'news',
     },
     {
         title: 'Галерея',
         bg: 'bg-yellow',
-        link: '/'
+        link: '/',
+        name: 'gallery',
     },
     {
         title: 'Ау, Родители',
         bg: 'bg-green',
-        link: '/'
+        link: '/',
+        name: 'parents',
     },
     {
         title: 'Усыновление.ру',
         bg: 'bg-light-blue',
-        link: '/'
+        link: '/',
+        name: 'adoption',
     },
     {
         title: 'Контакты',
         bg: 'bg-violet',
-        link: '/'
+        link: '/',
+        name: 'contacts',
     },
 ]
 </script>
 
 <template>
     <div class='flex justify-end gap-[10px] overflow-hidden'>
-        <router-link v-for='tab in tabs' :to='tab.link'>
-            <MainMenuTab :background='tab.bg'>
-                {{ tab.title.toUpperCase() }}
-            </MainMenuTab>
-        </router-link>
+        <MainMenuTab v-for='tab in tabs' :to='tab.link' :background='tab.bg' :name='tab.name'>
+            {{ tab.title.toUpperCase() }}
+        </MainMenuTab>
     </div>
 </template>
 
