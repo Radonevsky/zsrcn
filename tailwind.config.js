@@ -21,6 +21,7 @@ export default {
             'light-blue': '#ACD7E1',
             'light-purple': '#C5CBDD',
             violet: '#ACB9E1',
+            bggray: '#9FA9C9',
             bluergba: 'rgba(164, 174, 204, 0.8)',
             bluebg: '#8B97BC',
             'purpl-blue': '#6070A3',

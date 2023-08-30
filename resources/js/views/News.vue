@@ -3,6 +3,8 @@ import PageTitle from "../components/PageTitle.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
 import NewsCard from "../components/NewsCard.vue";
+import PlusIcon from "../components/icons/plusIcon.vue";
+import {ref} from "vue";
 
 const news = [
     {
@@ -61,14 +63,27 @@ const news = [
         bgClass: 'bg-light-orange'
     },
 ]
+
+const isAdmin = true
+const newArticleMode = ref(false)
 </script>
 
 <template>
     <div>
         <PageTitle title='Наши новости' bgClass='bg-orange'/>
-        <div class='pt-[77px] pb-[60px]'>
+        <div class='pb-[60px]' :class='isAdmin && !newArticleMode ? "pt-[25px] " : "pt-[77px] "'>
             <ContentContainer>
+                <button
+                    v-if='isAdmin && !newArticleMode'
+                    class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'
+                    @click='newArticleMode = true'>
+                    <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
+                        Добавить новость
+                    </span>
+                    <plusIcon></plusIcon>
+                </button>
                 <div class='flex flex-col gap-[60px]'>
+                    <NewsCard v-if='isAdmin && newArticleMode' :create='true'/>
                     <NewsCard
                         v-for='item in news'
                         :title='item.title'

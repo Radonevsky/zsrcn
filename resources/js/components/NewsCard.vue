@@ -8,12 +8,18 @@ const props = defineProps({
     text: String,
     bgClass: String,
     imgPath: String,
+    create: {
+        type: Boolean,
+        default: false,
+    },
 })
 </script>
 
 <template>
-<article class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center' :class='props.bgClass'>
-    <img :src="getImgUrl(props.imgPath)" alt='photo' class='max-w-[340px] max-h-[350px]'>
+<article class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center'
+         :class='create ? "bg-bggray" : props.bgClass'>
+    <div v-if='create' class='dropzone w-[330px] h-[350px] border-light-orange border-2 border-dashed'></div>
+    <img v-if='!create' :src="getImgUrl(props.imgPath)" alt='photo' class='max-w-[340px] max-h-[350px]'>
     <div class='flex flex-col gap-[40px] text-white'>
         <h6 class='font-roboto700 text-[30px] leading-[35px]'>
             {{ props.title }}
