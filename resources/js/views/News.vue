@@ -83,7 +83,7 @@ const newArticleMode = ref(false)
                     <plusIcon></plusIcon>
                 </button>
                 <div class='flex flex-col gap-[60px]'>
-                    <NewsCard v-if='isAdmin && newArticleMode' :create='true'/>
+                    <NewsCard v-if='isAdmin && newArticleMode' :create='true' @closeCreate='newArticleMode = false' />
                     <NewsCard
                         v-for='item in news'
                         :title='item.title'
