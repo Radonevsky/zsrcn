@@ -1,5 +1,6 @@
 <script setup>
 import useCommon from "../use/common.js";
+import {ref, watch} from "vue";
 
 const { getImgUrl } = useCommon()
 
@@ -13,6 +14,19 @@ const props = defineProps({
         default: false,
     },
 })
+
+const newArticleTitle = ref('')
+const newArticleText = ref('')
+const textarea = ref(null)
+
+watch(textarea, ()=> {
+    textarea.value.style.height = '237px'
+})
+watch(newArticleText, ()=> {
+    if (parseInt(textarea.value.scrollHeight) > 237) {
+        textarea.value.style.height = `${textarea.value.scrollHeight}px`
+    }
+})
 </script>
 
 <template>
@@ -21,13 +35,26 @@ const props = defineProps({
     <div v-if='create' class='dropzone w-[330px] h-[350px] border-light-orange border-2 border-dashed'></div>
     <img v-if='!create' :src="getImgUrl(props.imgPath)" alt='photo' class='max-w-[340px] max-h-[350px]'>
     <div class='flex flex-col gap-[40px] text-white grow'>
-        <input v-if='create' type='text' class='bg-bggray p-[5px] border-white border-[1px] rounded-[10px] outline-0
-            py-[15px] focus:shadow-around focus:border-orange focus:bg-bluebg text-[30px] font-roboto700'>
-        <h6 v-if='!create' class='font-roboto700 text-[30px] leading-[35px]'>
+        <input
+            v-if='create'
+            v-model='newArticleTitle'
+            type='text'
+            class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
+                focus:border-orange focus:bg-bluebg text-[30px] font-roboto700'>
+        <h6 v-if='!create'
+            class='font-roboto700 text-[30px] leading-[35px]'>
             {{ props.title }}
         </h6>
         <div class='overflow-auto custom-scrollbar'>
-            <p class='font-roboto500 text-[15px] leading-[18px]'>
+            <textarea
+                v-if='create'
+                v-model='newArticleText'
+                ref='textarea'
+                class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
+                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
+
+            </textarea>
+            <p v-if='!create' class='font-roboto500 text-[15px] leading-[18px]'>
                 {{ props.text }}
             </p>
         </div>
