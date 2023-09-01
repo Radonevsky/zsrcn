@@ -16,17 +16,20 @@ const props = defineProps({
         default: false,
     },
 })
+const emit = defineEmits(['store'])
 
 const newArticleTitle = ref('')
 const newArticleText = ref('')
 const textarea = ref(null)
-let dropzone = ref(null)
+const dropzoneElement = ref(null)
+const dropzone = ref(null)
 
 onMounted(() => {
     if (props.create) {
-        dropzone.value = new Dropzone(dropzone.value, {
+        dropzone.value = new Dropzone(dropzoneElement.value, {
             url: '/asfg',
             autoProcessQueue: false,
+            maxFiles: 1,
         })
     }
 })
@@ -38,6 +41,14 @@ watch(newArticleText, ()=> {
         textarea.value.style.height = `${textarea.value.scrollHeight}px`
     }
 })
+
+function storeArticle() {
+    emit('store', {
+        title: newArticleTitle.value,
+        content: newArticleText.value,
+        img: dropzone.value.getAcceptedFiles(),
+    })
+}
 </script>
 
 <template>
@@ -45,7 +56,7 @@ watch(newArticleText, ()=> {
          :class='create ? "bg-bggray" : props.bgClass'>
     <div
         v-if='create'
-        ref='dropzone'
+        ref='dropzoneElement'
         class='w-[330px] h-[350px] border-light-orange border-2 border-dashed hover:cursor-pointer'>
     </div>
     <img v-if='!create'
@@ -83,14 +94,13 @@ watch(newArticleText, ()=> {
     </div>
     <button
         v-if='props.create'
-        @click=''
+        @click='storeArticle'
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Сохранить
     </button>
     <button
         v-if='!props.create'
-        @click=''
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Редактировать

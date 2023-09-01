@@ -66,6 +66,14 @@ const news = [
 
 const isAdmin = true
 const newArticleMode = ref(false)
+
+function storeArticle(article) {
+    const data = new FormData()
+    data.append('image', article.img[0])
+    data.append('title', article.title)
+    data.append('content', article.content)
+    axios.post('/api/articles', data)
+}
 </script>
 
 <template>
@@ -83,7 +91,11 @@ const newArticleMode = ref(false)
                     <plusIcon></plusIcon>
                 </button>
                 <div class='flex flex-col gap-[60px]'>
-                    <NewsCard v-if='isAdmin && newArticleMode' :create='true' @closeCreate='newArticleMode = false' />
+                    <NewsCard
+                        v-if='isAdmin && newArticleMode'
+                        :create='true'
+                        @closeCreate='newArticleMode = false'
+                        @store='storeArticle'/>
                     <NewsCard
                         v-for='item in news'
                         :title='item.title'
