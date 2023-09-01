@@ -1,7 +1,8 @@
 <script setup>
 import useCommon from "../use/common.js";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import TimesIcon from "./icons/timesIcon.vue";
+import {Dropzone} from "dropzone";
 
 const { getImgUrl } = useCommon()
 
@@ -19,7 +20,16 @@ const props = defineProps({
 const newArticleTitle = ref('')
 const newArticleText = ref('')
 const textarea = ref(null)
+let dropzone = ref(null)
 
+onMounted(() => {
+    if (props.create) {
+        dropzone.value = new Dropzone(dropzone.value, {
+            url: '/asfg',
+            autoProcessQueue: false,
+        })
+    }
+})
 watch(textarea, ()=> {
     textarea.value.style.height = '237px'
 })
@@ -33,11 +43,17 @@ watch(newArticleText, ()=> {
 <template>
 <article class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center w-full relative'
          :class='create ? "bg-bggray" : props.bgClass'>
-    <div v-if='create' class='dropzone w-[330px] h-[350px] border-light-orange border-2 border-dashed'></div>
-    <img v-if='!create' :src="getImgUrl(props.imgPath)" alt='photo' class='max-w-[340px] max-h-[350px]'>
+    <div
+        v-if='create'
+        ref='dropzone'
+        class='w-[330px] h-[350px] border-light-orange border-2 border-dashed hover:cursor-pointer'>
+    </div>
+    <img v-if='!create'
+        :src="getImgUrl(props.imgPath)"
+        alt='photo' class='max-w-[340px] max-h-[350px]'>
     <div class='flex flex-col gap-[40px] text-white grow'>
         <button
-            class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:rotate-90 transition-all active:-rotate-90'
+            class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'
             @click='$emit("closeCreate")'>
             <timesIcon />
         </button>
@@ -51,7 +67,7 @@ watch(newArticleText, ()=> {
             class='font-roboto700 text-[30px] leading-[35px]'>
             {{ props.title }}
         </h6>
-        <div class='overflow-auto custom-scrollbar'>
+        <div class='overflow-auto custom-scrollbar h-[252px]'>
             <textarea
                 v-if='create'
                 v-model='newArticleText'
@@ -65,6 +81,20 @@ watch(newArticleText, ()=> {
             </p>
         </div>
     </div>
+    <button
+        v-if='props.create'
+        @click=''
+        class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
+        hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
+        Сохранить
+    </button>
+    <button
+        v-if='!props.create'
+        @click=''
+        class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
+        hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
+        Редактировать
+    </button>
 </article>
 </template>
 
