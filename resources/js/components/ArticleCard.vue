@@ -1,10 +1,19 @@
 <script setup>
 import useCommon from "../use/common.js";
-import {onMounted, ref, watch} from "vue";
+import {onMounted} from "vue";
 import TimesIcon from "./icons/timesIcon.vue";
-import {Dropzone} from "dropzone";
+import useArticles from "../use/articles.js";
 
 const { getImgUrl } = useCommon()
+const {
+    textareaElement,
+    dropzoneElement,
+    dropzone,
+    newArticleTitle,
+    newArticleText,
+    storeArticle,
+    initializeDropzone,
+} = useArticles()
 
 const props = defineProps({
     title: String,
@@ -16,38 +25,16 @@ const props = defineProps({
         default: false,
     },
 })
-const emit = defineEmits(['store'])
-
-const newArticleTitle = ref('')
-const newArticleText = ref('')
-const textarea = ref(null)
-const dropzoneElement = ref(null)
-const dropzone = ref(null)
 
 onMounted(() => {
     if (props.create) {
-        dropzone.value = new Dropzone(dropzoneElement.value, {
-            url: '/asfg',
-            autoProcessQueue: false,
-            maxFiles: 1,
-        })
-    }
-})
-watch(textarea, ()=> {
-    textarea.value.style.height = '237px'
-})
-watch(newArticleText, ()=> {
-    if (parseInt(textarea.value.scrollHeight) > 237) {
-        textarea.value.style.height = `${textarea.value.scrollHeight}px`
+        initializeDropzone()
     }
 })
 
-function storeArticle() {
-    emit('store', {
-        title: newArticleTitle.value,
-        content: newArticleText.value,
-        img: dropzone.value.getAcceptedFiles(),
-    })
+async function store() {
+    await storeArticle()
+    alert('Success')
 }
 </script>
 
@@ -82,7 +69,7 @@ function storeArticle() {
             <textarea
                 v-if='create'
                 v-model='newArticleText'
-                ref='textarea'
+                ref='textareaElement'
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
 
@@ -94,7 +81,7 @@ function storeArticle() {
     </div>
     <button
         v-if='props.create'
-        @click='storeArticle'
+        @click='store'
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Сохранить

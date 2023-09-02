@@ -2,7 +2,7 @@
 import PageTitle from "../components/PageTitle.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
-import NewsCard from "../components/NewsCard.vue";
+import NewsCard from "../components/ArticleCard.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
 import {ref} from "vue";
 
@@ -67,13 +67,6 @@ const news = [
 const isAdmin = true
 const newArticleMode = ref(false)
 
-function storeArticle(article) {
-    const data = new FormData()
-    data.append('image', article.img[0])
-    data.append('title', article.title)
-    data.append('content', article.content)
-    axios.post('/api/articles', data)
-}
 </script>
 
 <template>
@@ -94,8 +87,7 @@ function storeArticle(article) {
                     <NewsCard
                         v-if='isAdmin && newArticleMode'
                         :create='true'
-                        @closeCreate='newArticleMode = false'
-                        @store='storeArticle'/>
+                        @closeCreate='newArticleMode = false'/>
                     <NewsCard
                         v-for='item in news'
                         :title='item.title'

@@ -10,7 +10,6 @@ const props = defineProps({
 const routeName = computed(() => {
     return useRoute().name
 })
-console.log(props.name === routeName.value)
 </script>
 
 <template>
