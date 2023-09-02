@@ -18,7 +18,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function StoreArticle(ArticleStoreRequest $request, ArticleRepository $ar)
+    public function store(ArticleStoreRequest $request, ArticleRepository $ar)
     {
         $data = $request->validated();
 
@@ -27,6 +27,15 @@ class ArticleController extends Controller
         return response()->json([
             'message' => 'Новость добавлена',
             'article' => $article,
+        ]);
+    }
+
+    public function remove(Request $request, ArticleRepository $ar)
+    {
+        $ar->removeArticle($request->id);
+
+        return response()->json([
+            'message' => 'Новость удалена',
         ]);
     }
 }

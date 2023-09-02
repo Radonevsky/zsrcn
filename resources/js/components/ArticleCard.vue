@@ -11,12 +11,14 @@ const {
     newArticleTitle,
     newArticleText,
     storeArticle,
+    deleteArticle,
     initializeDropzone,
 } = useArticles()
 
 const emit = defineEmits(['articleCreated'])
 
 const props = defineProps({
+    id: Number,
     title: String,
     content: String,
     bgClass: String,
@@ -54,7 +56,8 @@ async function store() {
         <button
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'
             @click='$emit("closeCreate")'>
-            <timesIcon />
+            <timesIcon
+                @click='deleteArticle(props.id)'/>
         </button>
         <input
             v-if='create'

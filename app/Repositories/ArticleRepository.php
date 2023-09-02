@@ -22,6 +22,7 @@ class ArticleRepository
                 'articles.id',
                 'articles.id',
             )
+            ->orderByDesc('articles.created_at')
             ->get();
         return $articles;
     }
@@ -49,5 +50,13 @@ class ArticleRepository
         });
         $article->img_url = $img->url;
         return $article;
+    }
+
+    public function removeArticle($id)
+    {
+        DB::transaction(function() use ($id) {
+            Image::query()->where('article_id', $id)->delete();
+            Article::query()->find($id)->delete();
+        });
     }
 }

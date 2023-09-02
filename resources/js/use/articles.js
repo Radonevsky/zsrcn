@@ -1,5 +1,6 @@
 import {ref, watch} from "vue";
 import {Dropzone} from "dropzone";
+import axios from "axios";
 
 const articles = ref([])
 const newArticleTitle = ref('')
@@ -19,10 +20,15 @@ async function fetchArticles() {
     return response.data.articles
 }
 
-articles.value = await fetchArticles()
-articles.value.forEach(item => {
-    return coloredBg(item)
-})
+async function setArticles() {
+    articles.value = await fetchArticles()
+    articles.value.forEach(item => {
+        return coloredBg(item)
+    })
+}
+setArticles()
+
+
 
 function coloredBg(article) {
     if (colorCounter.value === articleBgClassColors.length) {
@@ -51,6 +57,12 @@ function initializeDropzone() {
         maxFiles: 1,
     })
 }
+
+async function deleteArticle(id) {
+    await axios.delete(`/api/articles/${id}`)
+    articles.value = articles.value.filter(item => item.id !== id)
+    alert('Удалено')
+}
 watch(textareaElement, ()=> {
     if (textareaElement.value) {
         textareaElement.value.style.height = '237px'
@@ -71,6 +83,8 @@ export default function useArticles() {
         newArticleTitle,
         newArticleText,
         storeArticle,
+        deleteArticle,
+        setArticles,
         initializeDropzone,
     }
 }

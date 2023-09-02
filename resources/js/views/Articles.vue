@@ -7,10 +7,15 @@ import {ref} from "vue";
 import useArticles from "../use/articles.js";
 import ArticleCard from "../components/ArticleCard.vue";
 
-const {articles} = useArticles()
+const {articles, setArticles} = useArticles()
 
 const isAdmin = true
 const newArticleMode = ref(false)
+
+function refreshArticles() {
+    newArticleMode.value = false
+    setArticles()
+}
 
 </script>
 
@@ -32,9 +37,11 @@ const newArticleMode = ref(false)
                     <ArticleCard
                         v-if='isAdmin && newArticleMode'
                         :create='true'
-                        @articleCreated='newArticleMode = false'/>
+                        @articleCreated='refreshArticles'/>
                     <ArticleCard
                         v-for='item in articles'
+                        :key='item.id'
+                        :id='item.id'
                         :title='item.title'
                         :content='item.content'
                         :img_url='item.img_url'
