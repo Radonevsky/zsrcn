@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Article;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleStoreRequest;
-use App\Models\Article;
+use App\Repositories\ArticleRepository;
 
 class ArticleController extends Controller
 {
-    public function StoreArticle(ArticleStoreRequest $request)
+    public function StoreArticle(ArticleStoreRequest $request, ArticleRepository $ar)
     {
         $data = $request->validated();
-        $image = $data['image'];
-        unset($data['image']);
-        $article = Article::query()->firstOrCreate($data);
+
+        $article = $ar->storeArticle($data);
+
+        return response()->json([
+            'message' => 'Новость добавлена',
+            'article' => $article,
+        ]);
     }
 }
