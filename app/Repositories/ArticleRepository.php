@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleRepository
 {
+    public function getArticleList()
+    {
+        $articles = Article::query()
+            ->join('images as i', 'i.article_id', 'articles.id')
+            ->select(
+                'articles.id',
+                'articles.title',
+                'articles.content',
+                'i.url as img_url',
+                'articles.id',
+                'articles.id',
+            )
+            ->get();
+        return $articles;
+    }
+
     public function storeArticle($data)
     {
         $image = $data['image'];

@@ -1,11 +1,37 @@
 import {ref, watch} from "vue";
 import {Dropzone} from "dropzone";
 
+const articles = ref([])
 const newArticleTitle = ref('')
 const newArticleText = ref('')
 const textareaElement = ref(null)
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
+const articleBgClassColors = [
+    'bg-light-pink',
+    'bg-light-blue',
+    'bg-purpl-blue',
+]
+
+const colorCounter = ref(0)
+async function fetchArticles() {
+    const response = await axios.get('/api/articles')
+    return response.data.articles
+}
+
+articles.value = await fetchArticles()
+articles.value.forEach(item => {
+    return coloredBg(item)
+})
+
+function coloredBg(article) {
+    if (colorCounter.value === articleBgClassColors.length) {
+        colorCounter.value = 0
+    }
+    article.bgClass = articleBgClassColors[colorCounter.value]
+    colorCounter.value++
+    return article
+}
 async function storeArticle() {
 
     const imgArray = dropzone.value.getAcceptedFiles()
@@ -26,16 +52,19 @@ function initializeDropzone() {
     })
 }
 watch(textareaElement, ()=> {
-    textareaElement.value.style.height = '237px'
+    if (textareaElement.value) {
+        textareaElement.value.style.height = '237px'
+    }
 })
 watch(newArticleText, ()=> {
-    if (parseInt(textareaElement.value.scrollHeight) > 237) {
+    if (newArticleText.value && parseInt(textareaElement.value.scrollHeight) > 237) {
         textareaElement.value.style.height = `${textareaElement.value.scrollHeight}px`
     }
 })
 
 export default function useArticles() {
     return {
+        articles,
         dropzoneElement,
         dropzone,
         textareaElement,

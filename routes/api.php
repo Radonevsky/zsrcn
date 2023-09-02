@@ -19,5 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
+    Route::get('/', [ArticleController::class, 'index'])->name('article_index');
     Route::post('/', [ArticleController::class, 'StoreArticle'])->name('article_store');
 });

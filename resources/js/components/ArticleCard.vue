@@ -8,18 +8,19 @@ const { getImgUrl } = useCommon()
 const {
     textareaElement,
     dropzoneElement,
-    dropzone,
     newArticleTitle,
     newArticleText,
     storeArticle,
     initializeDropzone,
 } = useArticles()
 
+const emit = defineEmits(['articleCreated'])
+
 const props = defineProps({
     title: String,
-    text: String,
+    content: String,
     bgClass: String,
-    imgPath: String,
+    img_url: String,
     create: {
         type: Boolean,
         default: false,
@@ -34,7 +35,7 @@ onMounted(() => {
 
 async function store() {
     await storeArticle()
-    alert('Success')
+    emit('articleCreated')
 }
 </script>
 
@@ -47,7 +48,7 @@ async function store() {
         class='w-[330px] h-[350px] border-light-orange border-2 border-dashed hover:cursor-pointer'>
     </div>
     <img v-if='!create'
-        :src="getImgUrl(props.imgPath)"
+        :src="props.img_url"
         alt='photo' class='max-w-[340px] max-h-[350px]'>
     <div class='flex flex-col gap-[40px] text-white grow'>
         <button
@@ -75,7 +76,7 @@ async function store() {
 
             </textarea>
             <p v-if='!create' class='font-roboto500 text-[15px] leading-[18px]'>
-                {{ props.text }}
+                {{ props.content }}
             </p>
         </div>
     </div>
