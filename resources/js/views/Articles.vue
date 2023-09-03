@@ -3,14 +3,13 @@ import PageTitle from "../components/PageTitle.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
-import {ref} from "vue";
 import useArticles from "../use/articles.js";
 import ArticleCard from "../components/ArticleCard.vue";
 
-const {articles, setArticles} = useArticles()
+const {articles, setArticles, newArticleMode} = useArticles()
 
 const isAdmin = true
-const newArticleMode = ref(false)
+
 
 function refreshArticles() {
     newArticleMode.value = false

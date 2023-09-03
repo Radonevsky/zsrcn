@@ -8,10 +8,11 @@ const newArticleText = ref('')
 const textareaElement = ref(null)
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
+const newArticleMode = ref(false)
 const articleBgClassColors = [
+    'bg-purpl-blue',
     'bg-light-pink',
     'bg-light-blue',
-    'bg-purpl-blue',
 ]
 
 const colorCounter = ref(0)
@@ -59,6 +60,12 @@ function initializeDropzone() {
 }
 
 async function deleteArticle(id) {
+    if (!id) {
+        newArticleMode.value = false
+        newArticleTitle.value = ''
+        newArticleText.value = ''
+        return
+    }
     await axios.delete(`/api/articles/${id}`)
     articles.value = articles.value.filter(item => item.id !== id)
     alert('Удалено')
@@ -82,6 +89,7 @@ export default function useArticles() {
         textareaElement,
         newArticleTitle,
         newArticleText,
+        newArticleMode,
         storeArticle,
         deleteArticle,
         setArticles,

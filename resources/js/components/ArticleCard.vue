@@ -54,8 +54,7 @@ async function store() {
         alt='photo' class='max-w-[340px] max-h-[350px]'>
     <div class='flex flex-col gap-[40px] text-white grow'>
         <button
-            class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'
-            @click='$emit("closeCreate")'>
+            class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>
             <timesIcon
                 @click='deleteArticle(props.id)'/>
         </button>
