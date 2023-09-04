@@ -33,20 +33,26 @@ class ArticleRepository
         unset($data['image']);
         $imgName = md5(Carbon::now() . '_' . $image->getClientOriginalName())
             . '.' . $image->getClientOriginalExtension();
+        $prevName = 'prev_' . $imgName;
 
         $article = null;
         $img = null;
 
-        DB::transaction(function () use (&$img, &$article, $data, $image, $imgName) {
+        DB::transaction(function () use (&$img, &$article, $data, $image, $imgName, $prevName) {
             $article = Article::query()->firstOrCreate($data);
 
             $path = Storage::disk('public')->putFileAs('/images', $image, $imgName);
 
+            \Intervention\Image\Facades\Image::make($image)->fit(340, 360)
+                ->save(storage_path('app/public/images/' . $prevName));
+
             $img = Image::query()->create([
                 'path' => $path,
                 'url' => url('/storage/' . $path),
+                'preview_url' => url('/storage/images/' . $prevName),
                 'article_id' => $article->id,
             ]);
+
         });
         $article->img_url = $img->url;
         return $article;

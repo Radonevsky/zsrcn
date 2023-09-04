@@ -13,5 +13,6 @@ class Image extends Model
         'article_id',
         'path',
         'url',
+        'preview_url',
     ];
 }
