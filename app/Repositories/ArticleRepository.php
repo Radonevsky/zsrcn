@@ -19,6 +19,7 @@ class ArticleRepository
                 'articles.title',
                 'articles.content',
                 'i.url as img_url',
+                'i.preview_url as img_prev_url',
                 'articles.id',
                 'articles.id',
             )

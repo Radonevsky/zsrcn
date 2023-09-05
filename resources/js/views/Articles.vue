@@ -43,7 +43,7 @@ function refreshArticles() {
                         :id='item.id'
                         :title='item.title'
                         :content='item.content'
-                        :img_url='item.img_url'
+                        :img_url='item.img_prev_url'
                         :bg-class='item.bgClass'/>
                 </div>
                 <ShowMoreButton text='показать еще' class='mx-auto mt-[60px]'/>
