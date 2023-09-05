@@ -37,6 +37,8 @@ onMounted(() => {
 
 async function store() {
     await storeArticle()
+    newArticleTitle.value = ''
+    newArticleText.value = ''
     emit('articleCreated')
 }
 </script>
