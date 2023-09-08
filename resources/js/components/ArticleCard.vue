@@ -1,21 +1,22 @@
 <script setup>
-import useCommon from "../use/common.js";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import TimesIcon from "./icons/timesIcon.vue";
 import useArticles from "../use/articles.js";
 
-const { getImgUrl } = useCommon()
 const {
     textareaElement,
     dropzoneElement,
     newArticleTitle,
     newArticleText,
+    editArticleTitle,
+    editArticleText,
+    updateArticle,
     storeArticle,
     deleteArticle,
     initializeDropzone,
 } = useArticles()
 
-const emit = defineEmits(['articleCreated'])
+const emit = defineEmits(['articleCreated', 'articleUpdated'])
 
 const props = defineProps({
     id: Number,
@@ -29,6 +30,8 @@ const props = defineProps({
     },
 })
 
+const editMode = ref(false)
+
 onMounted(() => {
     if (props.create) {
         initializeDropzone()
@@ -41,11 +44,34 @@ async function store() {
     newArticleText.value = ''
     emit('articleCreated')
 }
+
+async function update() {
+    await updateArticle(props.id)
+    editMode.value = false
+    editArticleTitle.value = ''
+    editArticleText.value = ''
+    emit('articleUpdated')
+}
+
+function save() {
+    if (props.create) {
+        store()
+    } else if (editMode) {
+        update()
+    }
+}
+
+function editModeOn() {
+    editMode.value = true
+    editArticleTitle.value = props.title
+    editArticleText.value = props.content
+}
 </script>
 
 <template>
-<article class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center w-full relative'
-         :class='create ? "bg-bggray" : props.bgClass'>
+<article
+    class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center w-full relative '
+    :class='create || editMode ? "bg-bggray" : props.bgClass'>
     <div
         v-if='create'
         ref='dropzoneElement'
@@ -66,7 +92,13 @@ async function store() {
             type='text'
             class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
                 focus:border-orange focus:bg-bluebg text-[30px] font-roboto700 max-w-[465px]'>
-        <h6 v-if='!create'
+        <input
+            v-if='editMode'
+            v-model='editArticleTitle'
+            type='text'
+            class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
+                focus:border-orange focus:bg-bluebg text-[30px] font-roboto700 max-w-[465px]'>
+        <h6 v-if='!create && !editMode'
             class='font-roboto700 text-[30px] leading-[35px]'>
             {{ props.title }}
         </h6>
@@ -79,20 +111,28 @@ async function store() {
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
 
             </textarea>
-            <p v-if='!create' class='font-roboto500 text-[15px] leading-[18px]'>
+            <textarea
+                v-if='editMode'
+                v-model='editArticleText'
+                ref='textareaElement'
+                class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
+                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
+            </textarea>
+            <p v-if='!create && !editMode' class='font-roboto500 text-[15px] leading-[18px]'>
                 {{ props.content }}
             </p>
         </div>
     </div>
     <button
-        v-if='props.create'
-        @click='store'
+        v-if='props.create || editMode'
+        @click='save'
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Сохранить
     </button>
     <button
-        v-if='!props.create'
+        v-if='!props.create && !editMode'
+        @click='editModeOn'
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Редактировать

@@ -5,6 +5,8 @@ import axios from "axios";
 const articles = ref([])
 const newArticleTitle = ref('')
 const newArticleText = ref('')
+const editArticleTitle = ref('')
+const editArticleText = ref('')
 const textareaElement = ref(null)
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
@@ -51,9 +53,19 @@ async function storeArticle() {
     return axios.post('/api/articles', data)
 }
 
+async function updateArticle(id) {
+    const data = {
+        id: id,
+        title: editArticleTitle.value,
+        content: editArticleText.value,
+    }
+
+    return axios.put('/api/articles', data)
+}
+
 function initializeDropzone() {
     dropzone.value = new Dropzone(dropzoneElement.value, {
-        url: '/asfg',
+        url: '/',
         autoProcessQueue: false,
         maxFiles: 1,
     })
@@ -90,6 +102,9 @@ export default function useArticles() {
         newArticleTitle,
         newArticleText,
         newArticleMode,
+        editArticleTitle,
+        editArticleText,
+        updateArticle,
         storeArticle,
         deleteArticle,
         setArticles,

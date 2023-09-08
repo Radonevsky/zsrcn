@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Article;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleStoreRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,17 @@ class ArticleController extends Controller
         return response()->json([
             'message' => 'Новость добавлена',
             'article' => $article,
+        ]);
+    }
+
+    public function update(ArticleUpdateRequest $request, ArticleRepository $ar)
+    {
+        $data = $request->validated();
+
+        $ar->updateArticle($data);
+
+        return response()->json([
+            'message' => 'Новость обновлена',
         ]);
     }
 

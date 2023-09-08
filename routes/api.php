@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
     Route::get('/', [ArticleController::class, 'index'])->name('article_index');
+    Route::put('/', [ArticleController::class, 'update'])->name('article_update');
     Route::post('/', [ArticleController::class, 'store'])->name('article_store');
     Route::delete('/{id}', [ArticleController::class, 'remove'])->name('article_remove');
 });
