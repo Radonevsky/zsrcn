@@ -7,6 +7,7 @@ use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
 
 class ArticleController extends Controller
 {
@@ -31,11 +32,11 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update(ArticleUpdateRequest $request, ArticleRepository $ar)
+    public function update(ArticleUpdateRequest $request, ArticleRepository $ar, $id)
     {
         $data = $request->validated();
 
-        $ar->updateArticle($data);
+        $ar->updateArticle($id, $data);
 
         return response()->json([
             'message' => 'Новость обновлена',

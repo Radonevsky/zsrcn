@@ -59,13 +59,13 @@ class ArticleRepository
         return $article;
     }
 
-    public function updateArticle($data)
+    public function updateArticle($id, $data)
     {
         $article = null;
 
-        DB::transaction(function () use (&$article, $data) {
+        DB::transaction(function () use (&$article, $id, $data) {
             $article = Article::query()
-                ->where('id', $data['id'])
+                ->where('id', $id)
                 ->update($data);
         });
 

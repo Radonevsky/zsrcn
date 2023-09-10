@@ -1,15 +1,14 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import TimesIcon from "./icons/timesIcon.vue";
 import useArticles from "../use/articles.js";
 
 const {
-    textareaElement,
+    textareaCreateElement,
     dropzoneElement,
     newArticleTitle,
     newArticleText,
-    editArticleTitle,
-    editArticleText,
+    textareaMaxHeight,
     updateArticle,
     storeArticle,
     deleteArticle,
@@ -31,10 +30,27 @@ const props = defineProps({
 })
 
 const editMode = ref(false)
+const textareaEditElement = ref('')
+const editArticleTitle = ref('')
+const editArticleText = ref('')
 
 onMounted(() => {
     if (props.create) {
         initializeDropzone()
+    }
+})
+
+watch(textareaEditElement, ()=> {
+    if (textareaEditElement.value) {
+        textareaEditElement.value.style.height = `${textareaMaxHeight.value}px`
+        editArticleText.value = props.content
+        editArticleTitle.value = props.title
+    }
+})
+
+watch(editArticleText, ()=> {
+    if (editArticleText.value && parseInt(textareaEditElement.value.scrollHeight) > textareaMaxHeight.value) {
+        textareaEditElement.value.style.height = `${textareaEditElement.value.scrollHeight}px`
     }
 })
 
@@ -46,7 +62,11 @@ async function store() {
 }
 
 async function update() {
-    await updateArticle(props.id)
+    const data = {
+        title: editArticleTitle.value,
+        content: editArticleText.value
+    }
+    await updateArticle(props.id, data)
     editMode.value = false
     editArticleTitle.value = ''
     editArticleText.value = ''
@@ -59,12 +79,6 @@ function save() {
     } else if (editMode) {
         update()
     }
-}
-
-function editModeOn() {
-    editMode.value = true
-    editArticleTitle.value = props.title
-    editArticleText.value = props.content
 }
 </script>
 
@@ -84,7 +98,6 @@ function editModeOn() {
         <button
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>
             <timesIcon
-                v-if='create'
                 @click='deleteArticle(props.id)'/>
         </button>
         <button
@@ -113,7 +126,7 @@ function editModeOn() {
             <textarea
                 v-if='create'
                 v-model='newArticleText'
-                ref='textareaElement'
+                ref='textareaCreateElement'
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
 
@@ -121,7 +134,7 @@ function editModeOn() {
             <textarea
                 v-if='editMode'
                 v-model='editArticleText'
-                ref='textareaElement'
+                ref='textareaEditElement'
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
             </textarea>
@@ -139,7 +152,7 @@ function editModeOn() {
     </button>
     <button
         v-if='!props.create && !editMode'
-        @click='editModeOn'
+        @click='editMode = true'
         class='absolute bottom-[50px] right-[75px] uppercase font-roboto500 text-white text-[20px]
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Редактировать

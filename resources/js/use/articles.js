@@ -5,9 +5,8 @@ import axios from "axios";
 const articles = ref([])
 const newArticleTitle = ref('')
 const newArticleText = ref('')
-const editArticleTitle = ref('')
-const editArticleText = ref('')
-const textareaElement = ref(null)
+const textareaCreateElement = ref(null)
+const textareaMaxHeight = ref(237)
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
 const newArticleMode = ref(false)
@@ -53,14 +52,8 @@ async function storeArticle() {
     return axios.post('/api/articles', data)
 }
 
-async function updateArticle(id) {
-    const data = {
-        id: id,
-        title: editArticleTitle.value,
-        content: editArticleText.value,
-    }
-
-    return axios.put('/api/articles', data)
+async function updateArticle(id, data) {
+    return axios.put(`/api/articles/${id}`, data)
 }
 
 function initializeDropzone() {
@@ -82,14 +75,15 @@ async function deleteArticle(id) {
     articles.value = articles.value.filter(item => item.id !== id)
     alert('Удалено')
 }
-watch(textareaElement, ()=> {
-    if (textareaElement.value) {
-        textareaElement.value.style.height = '237px'
+watch(textareaCreateElement, ()=> {
+    if (textareaCreateElement.value) {
+        textareaCreateElement.value.style.height = `${textareaMaxHeight.value}px`
     }
 })
+
 watch(newArticleText, ()=> {
-    if (newArticleText.value && parseInt(textareaElement.value.scrollHeight) > 237) {
-        textareaElement.value.style.height = `${textareaElement.value.scrollHeight}px`
+    if (newArticleText.value && parseInt(textareaCreateElement.value.scrollHeight) > textareaMaxHeight.value) {
+        textareaCreateElement.value.style.height = `${textareaCreateElement.value.scrollHeight}px`
     }
 })
 
@@ -98,12 +92,11 @@ export default function useArticles() {
         articles,
         dropzoneElement,
         dropzone,
-        textareaElement,
+        textareaCreateElement,
         newArticleTitle,
         newArticleText,
         newArticleMode,
-        editArticleTitle,
-        editArticleText,
+        textareaMaxHeight,
         updateArticle,
         storeArticle,
         deleteArticle,
