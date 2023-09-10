@@ -84,7 +84,14 @@ function editModeOn() {
         <button
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>
             <timesIcon
+                v-if='create'
                 @click='deleteArticle(props.id)'/>
+        </button>
+        <button
+            class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>
+            <timesIcon
+                v-if='editMode'
+                @click='editMode = false'/>
         </button>
         <input
             v-if='create'
