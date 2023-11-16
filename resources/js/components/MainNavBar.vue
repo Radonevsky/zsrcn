@@ -17,7 +17,7 @@ const tabs = [
     {
         title: 'Галерея',
         bg: 'bg-yellow',
-        link: '/',
+        link: '/gallery',
         name: 'gallery',
     },
     {
