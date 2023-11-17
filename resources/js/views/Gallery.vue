@@ -4,10 +4,14 @@ import useGallery from "../use/gallery.js";
 import ContentContainer from "../layouts/ContentContainer.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
+import SaveButton from "../components/SaveButton.vue";
 
 const {
     dropzoneElement,
-    initializeDropzone
+    storePhotoButtonShow,
+    photos,
+    initializeDropzone,
+    storePhotos,
 } = useGallery()
 
 const dropzoneMode = ref(false)
@@ -47,6 +51,18 @@ onMounted(() => {
                 class='min-h-[100px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer text-center bg-light-bg text-tblue
                        flex justify-items-center'>
             </div>
+            <SaveButton
+                v-if='storePhotoButtonShow'
+                @click=storePhotos
+                text='Сохранить'
+                class='mx-auto mt-9'/>
+
+            <div class='flex'>
+                <div v-for='photo in photos'>
+                    <img :src='photo.preview_url' alt='Фотография'>
+                </div>
+            </div>
+
             <ShowMoreButton text='показать еще' class='mx-auto mt-[60px]'/>
         </ContentContainer>
     </div>

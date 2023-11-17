@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Gallery\GalleryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Article\ArticleController;
@@ -23,4 +24,10 @@ Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
     Route::put('/{id}', [ArticleController::class, 'update'])->name('article_update');
     Route::post('/', [ArticleController::class, 'store'])->name('article_store');
     Route::delete('/{id}', [ArticleController::class, 'remove'])->name('article_remove');
+});
+
+Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
+    Route::get('/', [GalleryController::class, 'index'])->name('photo_index');
+    Route::post('/', [GalleryController::class, 'store'])->name('photo_store');
+    Route::delete('/{id}', [GalleryController::class, 'remove'])->name('photo_remove');
 });
