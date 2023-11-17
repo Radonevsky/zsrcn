@@ -10,6 +10,7 @@ export default {
     theme: {
         colors: {
             white: '#FFFFFF',
+            'light-bg': 'rgba(255,246,246,0.6)',
             'light-pink': '#FDA2A2',
             pink: '#FF8B8B',
             orange: '#FEC670',
