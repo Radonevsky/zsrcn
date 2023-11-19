@@ -56,7 +56,7 @@ async function storePhotos() {
     storePhotoButtonShow.value = false
     photos.value.unshift(...uploadedPhotos.data.photos)
 }
-//
+
 export default function useGallery() {
     return {
         dropzoneElement,

@@ -6,6 +6,7 @@ import ShowMoreButton from "../components/ShowMoreButton.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
 import SaveButton from "../components/SaveButton.vue";
 import GalleryPhoto from "../components/GalleryPhoto.vue";
+import ImageViewModal from "../components/ImageViewModal.vue";
 
 const {
     dropzoneElement,
@@ -19,6 +20,8 @@ const {
 
 const dropzoneMode = ref(false)
 const isAdmin = ref(true)
+const viewMode = ref(false)
+const currentPhotoUrl = ref(null)
 
 onMounted(() => {
     if (isAdmin) {
@@ -29,6 +32,11 @@ onMounted(() => {
 function savePhotos() {
     dropzoneMode.value = false
     storePhotos()
+}
+
+function openPhoto(photo) {
+    currentPhotoUrl.value = photo.url
+    viewMode.value = true
 }
 
 </script>
@@ -68,10 +76,16 @@ function savePhotos() {
             <div class='flex flex-wrap justify-start align-top -mx-[15px]'>
                 <GalleryPhoto
                     v-for='photo in photos'
+                    @click='openPhoto(photo)'
                     :prev-url='photo.preview_url'/>
             </div>
 
             <ShowMoreButton @click='setPhotos(currentPage)' text='показать еще' class='mx-auto mt-[60px]'/>
+
+            <ImageViewModal
+                v-if='viewMode'
+                :url='currentPhotoUrl'/>
+
         </ContentContainer>
     </div>
 </template>

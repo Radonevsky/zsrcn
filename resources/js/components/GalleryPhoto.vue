@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
 <div class='w-[25%] mb-[32px] px-[15px]'>
-    <img :src='props.prevUrl' alt='Фотография' class='w-full h-auto'>
+    <img :src='props.prevUrl' alt='Фотография' class='w-full h-auto cursor-pointer'>
 </div>
 </template>
 
