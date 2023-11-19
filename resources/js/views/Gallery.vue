@@ -48,20 +48,20 @@ function savePhotos() {
                 class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'
                 @click='dropzoneMode = false'>
                     <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
-                        Скрыть
+                        Скрыть область загрузки
                     </span>
             </button>
             <div
                 v-show='dropzoneMode'
                 ref='dropzoneElement'
-                class='min-h-[100px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer text-center bg-light-bg text-tblue
-                       flex justify-items-center'>
+                class='min-h-[100px] mb-[30px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer
+                       text-center bg-light-bg text-tblue flex gap-6 justify-items-center flex-wrap  justify-center'>
             </div>
             <SaveButton
                 v-if='storePhotoButtonShow'
                 @click=savePhotos
                 text='Сохранить'
-                class='mx-auto mt-9'/>
+                class='mx-auto my-9'/>
 
             <div class='flex flex-wrap justify-start align-top -mx-[15px]'>
                 <GalleryPhoto
@@ -74,5 +74,23 @@ function savePhotos() {
     </div>
 </template>
 
-<style scoped>
+<style>
+.dz-image img {
+    margin: 0 auto;
+}
+
+.dz-success-mark,
+.dz-error-mark {
+    display: none;
+}
+
+.dz-preview {
+    width: 200px;
+    overflow: hidden;
+}
+
+.dz-filename {
+    max-width: 100%;
+}
+
 </style>

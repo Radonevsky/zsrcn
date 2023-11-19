@@ -12,9 +12,16 @@ function initializeDropzone() {
         url: '/',
         autoProcessQueue: false,
         addRemoveLinks: true,
+        dictRemoveFile: 'Удалить',
     })
     dropzone.value.on('addedfile', file => {
         storePhotoButtonShow.value = true
+    })
+
+    dropzone.value.on('removedfile', file => {
+        if (dropzone.value.getAcceptedFiles().length <= 0) {
+            storePhotoButtonShow.value = false
+        }
     })
 }
 
