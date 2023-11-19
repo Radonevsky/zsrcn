@@ -63,10 +63,10 @@ function savePhotos() {
                 text='Сохранить'
                 class='mx-auto mt-9'/>
 
-            <div class='flex'>
-                <div v-for='photo in photos'>
-                    <GalleryPhoto :prev-url='photo.preview_url'/>
-                </div>
+            <div class='flex flex-wrap justify-start align-top -mx-[15px]'>
+                <GalleryPhoto
+                    v-for='photo in photos'
+                    :prev-url='photo.preview_url'/>
             </div>
 
             <ShowMoreButton text='показать еще' class='mx-auto mt-[60px]'/>
