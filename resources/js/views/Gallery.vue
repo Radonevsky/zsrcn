@@ -11,8 +11,10 @@ const {
     dropzoneElement,
     storePhotoButtonShow,
     photos,
+    currentPage,
     initializeDropzone,
     storePhotos,
+    setPhotos,
 } = useGallery()
 
 const dropzoneMode = ref(false)
@@ -69,7 +71,7 @@ function savePhotos() {
                     :prev-url='photo.preview_url'/>
             </div>
 
-            <ShowMoreButton text='показать еще' class='mx-auto mt-[60px]'/>
+            <ShowMoreButton @click='setPhotos(currentPage)' text='показать еще' class='mx-auto mt-[60px]'/>
         </ContentContainer>
     </div>
 </template>

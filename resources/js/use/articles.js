@@ -17,13 +17,13 @@ const articleBgClassColors = [
 ]
 
 const colorCounter = ref(0)
-async function fetchArticles() {
-    const response = await axios.get('/api/articles')
+async function fetchArticles(page) {
+    const response = await axios.get(`/api/articles?page=${page}`)
     return response.data.articles
 }
 
-async function setArticles() {
-    articles.value = await fetchArticles()
+async function setArticles(page = 0) {
+    articles.value = await fetchArticles(page)
     articles.value.forEach(item => {
         return coloredBg(item)
     })

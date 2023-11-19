@@ -6,6 +6,7 @@ const dropzoneElement = ref(null)
 const dropzone = ref(null)
 const storePhotoButtonShow = ref(false)
 const photos = ref([])
+const currentPage = ref(0)
 
 function initializeDropzone() {
     dropzone.value = new Dropzone(dropzoneElement.value, {
@@ -25,16 +26,21 @@ function initializeDropzone() {
     })
 }
 
-async function fetchPhotos() {
-    const response = await axios.get('/api/photos')
+async function fetchPhotos(page) {
+    const response = await axios.get(`/api/photos?page=${page}`)
     return response.data.photos
 }
 
-async function setPhotos() {
-    photos.value = await fetchPhotos()
+async function setPhotos(page) {
+    const partionedPhotos = await fetchPhotos(page)
+
+    if (partionedPhotos.length > 0) {
+        photos.value.push(...partionedPhotos)
+        currentPage.value++
+    }
 }
 
-setPhotos()
+setPhotos(currentPage.value)
 
 async function storePhotos() {
     let data = new FormData()
@@ -45,10 +51,10 @@ async function storePhotos() {
         dropzone.value.removeFile(img)
     })
 
-    await axios.post('/api/photos', data)
+    const uploadedPhotos = await axios.post('/api/photos', data)
 
     storePhotoButtonShow.value = false
-    setPhotos()
+    photos.value.unshift(...uploadedPhotos.data.photos)
 }
 
 export default function useGallery() {
@@ -57,6 +63,8 @@ export default function useGallery() {
         dropzone,
         storePhotoButtonShow,
         photos,
+        currentPage,
+        setPhotos,
         initializeDropzone,
         storePhotos,
     }

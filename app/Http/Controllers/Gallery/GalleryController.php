@@ -11,7 +11,7 @@ class GalleryController extends Controller
 {
     public function index(Request $request, GalleryRepository $gr)
     {
-        $photos = $gr->getPhotos();
+        $photos = $gr->getPhotos($request->page);
 
         return response()->json([
             'photos' => $photos,
@@ -27,7 +27,7 @@ class GalleryController extends Controller
 
         return response()->json([
             'message' => 'Фотографии загружены',
-            'article' => $photos,
+            'photos' => $photos,
         ]);
     }
 

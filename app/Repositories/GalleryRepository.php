@@ -4,11 +4,13 @@ namespace App\Repositories;
 
 use App\Models\Image;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryRepository
 {
-    public function getPhotos()
+    private const COUNT_PHOTOS = 16;
+    public function getPhotos($page)
     {
         $photos = Image::query()
             ->select(
@@ -17,6 +19,8 @@ class GalleryRepository
             )
             ->whereNull('article_id')
             ->orderByDesc('created_at')
+            ->skip((int) $page * self::COUNT_PHOTOS)
+            ->limit(self::COUNT_PHOTOS)
             ->get();
 
         return $photos;
@@ -24,7 +28,7 @@ class GalleryRepository
 
     public function storePhotos($data)
     {
-        $previewUrls = [];
+        $createdImages = [];
 
         foreach ($data['photos'] as $image) {
             $imgName = md5(Carbon::now() . '_' . $image->getClientOriginalName())
@@ -37,16 +41,15 @@ class GalleryRepository
                 ->save(storage_path('app/public/images/' . $prevName));
 
             $preview = url('/storage/images/' . $prevName);
-            $previewUrls[] = $preview;
 
-            Image::query()->create([
+            $createdImages[] = Image::query()->create([
                 'path' => $path,
                 'url' => url('/storage/' . $path),
                 'preview_url' => $preview,
             ]);
         }
 
-        return $previewUrls;
+        return $createdImages;
     }
 
     public function removePhoto($id)
