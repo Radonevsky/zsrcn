@@ -5,6 +5,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
 import SaveButton from "../components/SaveButton.vue";
+import GalleryPhoto from "../components/GalleryPhoto.vue";
 
 const {
     dropzoneElement,
@@ -22,6 +23,11 @@ onMounted(() => {
         initializeDropzone()
     }
 })
+
+function savePhotos() {
+    dropzoneMode.value = false
+    storePhotos()
+}
 
 </script>
 
@@ -53,13 +59,13 @@ onMounted(() => {
             </div>
             <SaveButton
                 v-if='storePhotoButtonShow'
-                @click=storePhotos
+                @click=savePhotos
                 text='Сохранить'
                 class='mx-auto mt-9'/>
 
             <div class='flex'>
                 <div v-for='photo in photos'>
-                    <img :src='photo.preview_url' alt='Фотография'>
+                    <GalleryPhoto :prev-url='photo.preview_url'/>
                 </div>
             </div>
 

@@ -35,9 +35,13 @@ async function storePhotos() {
 
     imgArray.forEach(img => {
         data.append('photos[]', img)
+        dropzone.value.removeFile(img)
     })
 
-    return axios.post('/api/photos', data)
+    await axios.post('/api/photos', data)
+
+    storePhotoButtonShow.value = false
+    setPhotos()
 }
 
 export default function useGallery() {

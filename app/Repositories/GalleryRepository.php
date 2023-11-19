@@ -15,6 +15,7 @@ class GalleryRepository
                 'id',
                 'preview_url',
             )
+            ->whereNull('article_id')
             ->orderByDesc('created_at')
             ->get();
 
