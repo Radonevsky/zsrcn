@@ -8,21 +8,25 @@ const lamps = ref([
         id: 1,
         text: 'Памятные даты',
         shifted: true,
+        href: '/memory-dates',
     },
     {
         id: 2,
         text: 'Информационные материалы фонда поддержки детей',
         shifted: false,
+        href: '#',
     },
     {
         id: 3,
         text: 'Министерство соцзащиты РБ',
         shifted: true,
+        href: '#',
     },
     {
         id: 4,
         text: 'Обратная связь',
         shifted: false,
+        href: '#',
     },
 ])
 </script>
@@ -36,7 +40,8 @@ const lamps = ref([
                 :key='lamp.id'
                 :id='lamp.id'
                 :shifted='lamp.shifted'
-                :active='true'>
+                :active='true'
+                :href='lamp.href'>
                 <template v-slot:title>{{ lamp.text }}</template>
             </Lamp>
         </div>

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import News from "./views/Articles.vue";
 import Gallery from "./views/Gallery.vue";
+import MemoryDates from "./views/MemoryDates.vue";
 
 const routes = [
     {
@@ -17,6 +18,11 @@ const routes = [
         path: '/gallery',
         component: Gallery,
         name: 'gallery'
+    },
+    {
+        path: '/memory-dates',
+        component: MemoryDates,
+        name: 'memory-dates'
     },
 ]
 
