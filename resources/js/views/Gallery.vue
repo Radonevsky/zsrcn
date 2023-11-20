@@ -13,15 +13,17 @@ const {
     storePhotoButtonShow,
     photos,
     currentPage,
+    currentPhotoIndex,
+    currentPhotoUrl,
     initializeDropzone,
     storePhotos,
     setPhotos,
+    setPhotoToViewer,
 } = useGallery()
 
 const dropzoneMode = ref(false)
 const isAdmin = ref(true)
 const viewMode = ref(false)
-const currentPhotoUrl = ref(null)
 
 onMounted(() => {
     if (isAdmin) {
@@ -36,6 +38,7 @@ function savePhotos() {
 
 function openPhoto(photo) {
     currentPhotoUrl.value = photo.url
+    currentPhotoIndex.value = photos.value.indexOf(photo)
     viewMode.value = true
 }
 
@@ -84,7 +87,10 @@ function openPhoto(photo) {
 
             <ImageViewModal
                 v-if='viewMode'
-                :url='currentPhotoUrl'/>
+                :url='currentPhotoUrl'
+                @close='viewMode = false'
+                @next-photo='setPhotoToViewer(1)'
+                @prev-photo='setPhotoToViewer(-1)'/>
 
         </ContentContainer>
     </div>
