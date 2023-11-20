@@ -7,6 +7,8 @@ const dropzone = ref(null)
 const storePhotoButtonShow = ref(false)
 const photos = ref([])
 const currentPage = ref(0)
+const currentPhotoIndex = ref(null)
+const currentPhotoUrl = ref(null)
 
 function initializeDropzone() {
     dropzone.value = new Dropzone(dropzoneElement.value, {
@@ -37,6 +39,25 @@ async function setPhotos(page) {
     if (partionedPhotos.length > 0) {
         photos.value.push(...partionedPhotos)
         currentPage.value++
+        return true
+    }
+
+    return false
+}
+
+async function setPhotoToViewer(direction) {
+    const nextPhotoIndex = currentPhotoIndex.value + direction
+    if (!!photos.value[nextPhotoIndex]) {
+        currentPhotoUrl.value = photos.value[nextPhotoIndex].url
+        currentPhotoIndex.value += direction
+    } else if (!photos.value[nextPhotoIndex] && nextPhotoIndex > photos.value.length - 1) {
+
+        const haveMorePhotos = await setPhotos(currentPage.value)
+        if (haveMorePhotos) {
+            console.log('haveMorePhotos page')
+            currentPhotoUrl.value = photos.value[nextPhotoIndex].url
+            currentPhotoIndex.value++
+        }
     }
 }
 
@@ -64,8 +85,11 @@ export default function useGallery() {
         storePhotoButtonShow,
         photos,
         currentPage,
+        currentPhotoIndex,
+        currentPhotoUrl,
         setPhotos,
         initializeDropzone,
         storePhotos,
+        setPhotoToViewer,
     }
 }
