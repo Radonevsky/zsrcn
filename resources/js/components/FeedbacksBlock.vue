@@ -16,7 +16,7 @@ onUnmounted(() => {
 
 const handleScroll = () => {
     y.value = window.scrollY
-    if (y.value >= feedbacksBlock.value.offsetTop - viewportHeight + 300) {
+    if (y.value >= feedbacksBlock.value.offsetTop - viewportHeight + 50) {
         isFeedbackActive.value = true
     }
 }
