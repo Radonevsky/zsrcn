@@ -3,6 +3,7 @@ import Home from './views/Home.vue'
 import News from "./views/Articles.vue";
 import Gallery from "./views/Gallery.vue";
 import MemoryDates from "./views/MemoryDates.vue";
+import ChildSupportFund from "./views/ChildSupportFund.vue";
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
         path: '/memory-dates',
         component: MemoryDates,
         name: 'memory-dates'
+    },
+    {
+        path: '/child-support-fund',
+        component: ChildSupportFund,
+        name: 'child-support-fund'
     },
 ]
 

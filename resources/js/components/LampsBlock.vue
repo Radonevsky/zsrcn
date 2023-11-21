@@ -14,7 +14,7 @@ const lamps = ref([
         id: 2,
         text: 'Информационные материалы фонда поддержки детей',
         shifted: false,
-        href: '#',
+        href: '/child-support-fund',
     },
     {
         id: 3,
