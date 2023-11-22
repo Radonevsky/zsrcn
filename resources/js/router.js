@@ -4,6 +4,10 @@ import News from "./views/Articles.vue";
 import Gallery from "./views/Gallery.vue";
 import MemoryDates from "./views/MemoryDates.vue";
 import ChildSupportFund from "./views/ChildSupportFund.vue";
+import Feedback from "./views/Feedback.vue";
+import FAQ from "./views/FAQ.vue";
+import SatisfactionQuestionnaire from "./views/SatisfactionQuestionnaire.vue";
+import Ask from "./views/Ask.vue";
 
 const routes = [
     {
@@ -29,6 +33,17 @@ const routes = [
         path: '/child-support-fund',
         component: ChildSupportFund,
         name: 'child-support-fund'
+    },
+    {
+        path: '/feedback',
+        component: Feedback,
+        name: 'feedback',
+        children: [
+            { path: 'faq', component: FAQ, name: 'faq' },
+            { path: 'satisfaction-questionnaire', component: SatisfactionQuestionnaire, name: 'satisfaction-questionnaire' },
+            { path: 'ask', component: Ask, name: 'ask' },
+            { path: '', redirect: '/feedback/faq' },
+        ],
     },
 ]
 
