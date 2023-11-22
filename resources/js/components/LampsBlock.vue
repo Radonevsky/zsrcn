@@ -26,7 +26,7 @@ const lamps = ref([
         id: 4,
         text: 'Обратная связь',
         shifted: false,
-        href: '#',
+        href: '/feedback',
     },
 ])
 </script>
