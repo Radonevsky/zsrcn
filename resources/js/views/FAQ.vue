@@ -1,7 +1,6 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
-import PageTitle from "../components/PageTitle.vue";
 </script>
 
 <template>
