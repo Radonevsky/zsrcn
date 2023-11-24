@@ -11,6 +11,7 @@ export default {
         colors: {
             white: '#FFFFFF',
             'light-bg': 'rgba(255,246,246,0.6)',
+            'light-border': '#B5B5B5',
             'gray-bg': 'rgba(0,0,0,0.72)',
             'light-pink': '#FDA2A2',
             pink: '#FF8B8B',
