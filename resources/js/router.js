@@ -8,6 +8,14 @@ import Feedback from "./views/Feedback.vue";
 import FAQ from "./views/FAQ.vue";
 import SatisfactionQuestionnaire from "./views/SatisfactionQuestionnaire.vue";
 import Ask from "./views/Ask.vue";
+import About from "./views/About.vue";
+import Structure from "./views/Structure.vue";
+import License from "./views/License.vue";
+import Staff from "./views/Staff.vue";
+import Activities from "./views/Activities.vue";
+import Available from "./views/Available.vue";
+import Experience from "./views/Experience.vue";
+import SocialServices from "./views/SocialServices.vue";
 
 const routes = [
     {
