@@ -45,6 +45,21 @@ const routes = [
             { path: '', redirect: '/feedback/faq' },
         ],
     },
+    {
+        path: '/about',
+        component: About,
+        name: 'about',
+        children: [
+            { path: 'structure', component: Structure, name: 'center-structure' },
+            { path: 'staff', component: Staff, name: 'center-staff' },
+            { path: 'activities', component: Activities, name: 'center-activities' },
+            { path: 'available', component: Available, name: 'center-available' },
+            { path: 'experience', component: Experience, name: 'center-experience' },
+            { path: 'social-services', component: SocialServices, name: 'center-social-services' },
+            { path: 'license', component: License, name: 'center-license' },
+            { path: '', redirect: '/about/structure' },
+        ],
+    },
 ]
 
 const router = createRouter({
