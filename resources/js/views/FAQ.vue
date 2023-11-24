@@ -6,9 +6,8 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 <template>
     <div>
         <ContentContainer>
-            <div class='py-[60px] text-link-dark-blue text-[20px]'>
-                <h2 class='font-roboto700'>Часто задаваемые вопросы</h2>
-                <p class='mt-[30px]'>Куда я могу обратится, что бы принять ребенка в семью?</p>
+            <div class='pb-[40px] text-link-dark-blue text-[20px]'>
+                <p>Куда я могу обратится, что бы принять ребенка в семью?</p>
                 <p>Где получить информацию по восстановлению в родительских правах?</p>
                 <p class='mt-[30px]'>По этим вопросам Вам необходимо обратится в органы опеки и попечительства по месту жительства.</p>
                 <div class=' mt-[30px]'>
