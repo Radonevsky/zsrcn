@@ -5,7 +5,19 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 
 <template>
 <ContentContainer>
-    <div class='text-[30px] font-roboto700 '>
+    <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+        <p>Структура центра</p>
+        <p class='mt-[20px]'>В центре функционируют:</p>
+        <p class='mt-[20px]'>1.Приёмно-карантинное отделение</p>
+        <p>( рассчитано на 8 мест). Все дети, поступающие в центр, проходят через приёмно-карантинное отделение.</p>
+        <p class='mt-[20px]'>2.Стационарное отделение (рассчитано на 34 места)</p>
+        <p class='mt-[20px]'>3.Отделение службы сопровождения замещающих семей, создано в 2009 года. В рамках работы службы функционирует</p>
+        <p>Школа приёмных родителей и Клуб замещающих родителей «Тепло домашнего очага»</p>
+    </div>
+    <div class='text-[20px] font-roboto700 text-link-dark-blue max-w-[863px] text-center mx-auto mt-[45px]'>
+        Стру ктура ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»
+    </div>
+    <div class='text-[30px] mt-[55px] font-roboto700 '>
         <div class="tree">
             <div class='tree__item--head flex justify-center'>
                 <div class="tree__item tree__item--bottom-center">Директор</div>
