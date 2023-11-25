@@ -15,7 +15,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
         <p>Школа приёмных родителей и Клуб замещающих родителей «Тепло домашнего очага»</p>
     </div>
     <div class='text-[20px] font-roboto700 text-link-dark-blue max-w-[863px] text-center mx-auto mt-[45px]'>
-        Стру ктура ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»
+        Структура ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»
     </div>
     <div class='text-[30px] mt-[55px] font-roboto700 '>
         <div class="tree">
