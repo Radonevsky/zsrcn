@@ -5,16 +5,36 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 
 <template>
 <ContentContainer>
-    <div class='mt-[20px] text-[30px] font-roboto700 '>
+    <div class='text-[30px] font-roboto700 '>
         <div class="tree">
             <div class='tree__item--head flex justify-center'>
-                <div class="tree__item">Директор</div>
+                <div class="tree__item tree__item--bottom-center">Директор</div>
             </div>
 
-            <div class="tree__item tree__item--top-right">Заведующий отделением</div>
-            <div class="tree__item tree__item--top-center">Начальник хозяйственного отдела</div>
-            <div class="tree__item tree__item--top-left">Административно- управленческий персонал</div>
-            <div class="tree__item tree__item--top-center">Административно- управленческий персонал</div>
+            <div class="tree__item tree__item--top-right">
+                Заведующий отделением
+            </div>
+            <div class="tree__item tree__item--top-center">
+                Начальник хозяйственного отдела
+            </div>
+            <div class="tree__item tree__item--top-left">
+                Административно- управленческий персонал
+            </div>
+            <div class="tree__item tree__item--top-center ">
+                Отделение временного содержания детей сирот и детей, оставшихся без попечения родителей, а так же, детей оказавшихся в трудной жизненной ситуациию
+            </div>
+            <div class="tree__item tree__item--top-center max-h-[178px]">
+                Персонал хозяйственного отдела
+            </div>
+            <div class="tree__item tree__item--empty">
+            </div>
+            <div class="tree__item tree__item--top-center">
+                Полустационарное отделение
+            </div>
+            <div class="tree__item tree__item--empty">
+            </div>
+            <div class="tree__item tree__item--empty">
+            </div>
         </div>
     </div>
 </ContentContainer>
@@ -31,7 +51,6 @@ import ContentContainer from "../layouts/ContentContainer.vue";
     padding: 0;
     list-style: none;
     width: 100%;
-    margin: calc(var(--vertical-gap) * -1) auto 0;
     color: #fff;
 }
 
@@ -48,11 +67,19 @@ import ContentContainer from "../layouts/ContentContainer.vue";
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 10px;
+}
+
+.tree__item:first-child {
+    margin-top: 0;
 }
 
 .tree__item--head {
     width: 100%;
+}
 
+.tree__item--empty {
+    background-color: #fff;
 }
 
 .tree__item::before, .tree__item::after {
@@ -72,27 +99,48 @@ import ContentContainer from "../layouts/ContentContainer.vue";
     bottom: calc(var(--vertical-gap) / -2);
     left: calc(50% - 1px);
     width: calc(50% + var(--horizontal-gap) / 2 + 1px);
-    height: 2px;
+    height: 3px;
 }
 
-.tree__item--bottom-left::before {
-    top: 100%;
+.tree__item--top-right::before {
+    bottom: 100%;
     left: calc(50% - 1px);
-    width: 2px;
+    width: 3px;
     height: calc(var(--vertical-gap) / 2);
 }
 
-.tree__item--bottom-left::after {
-    bottom: calc(var(--vertical-gap) / -2);
+.tree__item--top-right::after {
+    top: calc(var(--vertical-gap) / -2);
+    left: calc(50% - 1px);
+    width: calc(100% + 20px);
+    height: 3px;
+}
+
+.tree__item--top-left::before {
+    bottom: 100%;
+    left: calc(50% - 1px);
+    width: 3px;
+    height: calc(var(--vertical-gap) / 2);
+}
+
+.tree__item--top-left::after {
+    top: calc(var(--vertical-gap) / -2);
     right: calc(50% - 1px);
-    width: calc(50% + var(--horizontal-gap) / 2 + 1px);
-    height: 2px;
+    width: calc(100% + 20px);
+    height: 3px;
 }
 
 .tree__item--top-center::before {
     bottom: 100%;
     left: calc(50% - 1px);
-    width: 2px;
+    width: 3px;
+    height: calc(var(--vertical-gap));
+}
+
+.tree__item--bottom-center::before {
+    top: 100%;
+    left: calc(50% - 1px);
+    width: 3px;
     height: calc(var(--vertical-gap) / 2);
 }
 </style>
