@@ -51,7 +51,7 @@ import PageTitle from "../components/PageTitle.vue";
                 Лицензия
             </router-link>
         </div>
-        <div>
+        <div class='pb-[60px]'>
             <router-view></router-view>
         </div>
     </ContentContainer>
