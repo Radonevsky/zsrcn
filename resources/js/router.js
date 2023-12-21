@@ -50,7 +50,7 @@ const routes = [
             { path: 'faq', component: FAQ, name: 'faq' },
             { path: 'satisfaction-questionnaire', component: SatisfactionQuestionnaire, name: 'satisfaction-questionnaire' },
             { path: 'ask', component: Ask, name: 'ask' },
-            { path: '', redirect: '/feedback/faq' },
+            { path: '', redirect: '/feedback/faq', name: 'feedback-default' },
         ],
     },
     {
@@ -65,7 +65,7 @@ const routes = [
             { path: 'experience', component: Experience, name: 'center-experience' },
             { path: 'social-services', component: SocialServices, name: 'center-social-services' },
             { path: 'license', component: License, name: 'center-license' },
-            { path: '', redirect: '/about/structure' },
+            { path: '', redirect: '/about/structure', name: 'about-default' },
         ],
     },
 ]
