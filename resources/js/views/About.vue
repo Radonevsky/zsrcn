@@ -7,7 +7,9 @@ window.scrollTo(0, 0)
 </script>
 
 <template>
-    <PageTitle title='Обратная связь' bg-class='bg-purpl-blue' text-color-class='text-white'/>
+    <router-link to='description' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
+        <PageTitle title='О центре' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
+    </router-link>
     <ContentContainer>
         <div class='py-[60px] text-link-dark-blue text-[20px] font-roboto700 flex justify-between'>
             <router-link
