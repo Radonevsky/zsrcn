@@ -5,7 +5,6 @@ import CardsBlock from "../components/CardsBlock.vue";
 import LampsBlock from "../components/LampsBlock.vue";
 import FeedbacksBlock from "../components/FeedbacksBlock.vue";
 import LinksBlock from "../components/LinksBlock.vue";
-//test
 </script>
 
 <template>
