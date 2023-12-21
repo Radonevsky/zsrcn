@@ -16,6 +16,7 @@ import Activities from "./views/Activities.vue";
 import Available from "./views/Available.vue";
 import Experience from "./views/Experience.vue";
 import SocialServices from "./views/SocialServices.vue";
+import AboutDescription from "./views/AboutDescription.vue";
 
 const routes = [
     {
@@ -65,6 +66,7 @@ const routes = [
             { path: 'experience', component: Experience, name: 'center-experience' },
             { path: 'social-services', component: SocialServices, name: 'center-social-services' },
             { path: 'license', component: License, name: 'center-license' },
+            { path: 'description', component: AboutDescription, name: 'about-description' },
             { path: '', redirect: '/about/structure', name: 'about-default' },
         ],
     },
