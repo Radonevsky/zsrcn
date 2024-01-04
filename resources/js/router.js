@@ -67,7 +67,7 @@ const routes = [
             { path: 'social-services', component: SocialServices, name: 'center-social-services' },
             { path: 'license', component: License, name: 'center-license' },
             { path: 'description', component: AboutDescription, name: 'about-description' },
-            { path: '', redirect: '/about/structure', name: 'about-default' },
+            { path: '', redirect: '/about/description', name: 'about-default' },
         ],
     },
 ]
