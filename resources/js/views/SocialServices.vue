@@ -2,6 +2,7 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import {ref} from "vue";
+import SaveButton from "../components/SaveButton.vue";
 
 const centerInfoItems = ref([
     {
@@ -81,6 +82,21 @@ const centerInfoItems = ref([
     },
 
 ])
+
+const contractSample = ref(null)
+
+function contractAttachmentChange(e) {
+    contractSample.value = e.target.files[0]
+}
+
+function uploadContractSample() {
+    const formData = new FormData()
+    formData.append('document', contractSample.value)
+
+    axios.post('/api/documents/upload-contract-sample', formData)
+        .then(response => console.log(response.data.message))
+        .catch(error => console.log(error))
+}
 </script>
 
 <template>
@@ -171,7 +187,10 @@ const centerInfoItems = ref([
                 социальных услуг несовершеннолетним гражданам в форме социального обслуживания на дому в Республике Бурятия")
             </p>
 
+            <p class='mt-[20px]'>Договор о предоставлении социальных услуг (образец)</p>
+            <span>Выберите файл</span><input id="customFile" type="file" @change="contractAttachmentChange">
 
+            <save-button class="mt-[20px]" text="Загрузить" @click="uploadContractSample"></save-button>
         </div>
     </ContentContainer>
 </template>
