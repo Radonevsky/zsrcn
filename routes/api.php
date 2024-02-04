@@ -34,5 +34,6 @@ Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
 });
 
 Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
+    Route::get('/download-contract-sample', [DocumentController::class, 'getSampleContract'])->name('contract_sample');
     Route::post('/upload-contract-sample', [DocumentController::class, 'storeSampleContract'])->name('contract_sample_store');
 });

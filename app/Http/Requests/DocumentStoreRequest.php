@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class DocumentStoreRequest extends FormRequest
 {
@@ -22,7 +23,23 @@ class DocumentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'document' => ['required', 'mimes:doc,pdf']
+            'document' => ['required', 'mimes:docx,doc,pdf']
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'document.required' => 'Пожалуйста, загрузите документ',
+            'document.mimes' => 'Разрешены только файлы с расширением: .doc или .pdf',
+        ];
+    }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        throw new ValidationException($validator, response()->json([
+            'error' => true,
+            'message' => $validator->errors()->first(),
+        ], 422));
     }
 }
