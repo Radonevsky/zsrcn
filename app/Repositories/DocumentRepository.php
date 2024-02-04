@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Document;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentRepository
@@ -12,9 +13,12 @@ class DocumentRepository
     {
         $docName = md5(Carbon::now() . '_' . $data->getClientOriginalName())
             . '.' . $data->getClientOriginalExtension();
-        $path = Storage::disk('public')->putFileAs('/images', $data, $docName);
+        $path = Storage::disk('public')->putFileAs('/documents', $data, $docName);
 
-        $document = new Document();
+        $document = Document::query()
+            ->firstOrNew([
+                'type' => Document::TYPE_SAMPLE_CONTRACT
+            ]);
         $document->path = $path;
         $document->url = url('/storage/' . $path);
         $document->save();
@@ -22,4 +26,15 @@ class DocumentRepository
         return $document->url;
     }
 
+    public function getSampleContract(): string
+    {
+        try {
+            $document = Document::where('type', Document::TYPE_SAMPLE_CONTRACT)->first();
+
+            return storage_path('app/public/' . $document->path);
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или небыл загружен');
+        }
+    }
 }
