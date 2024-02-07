@@ -4,35 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DocumentStoreRequest;
 use App\Repositories\DocumentRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DocumentController extends Controller
 {
-    public function storeSampleContract(DocumentStoreRequest $request, DocumentRepository $dr): JsonResponse
-    {
-        $request->validated();
-        $data = $request->file('document');
-
-        $sampleContractUrl = $dr->storeSampleContract($data);
-
-        return response()->json([
-            'message' => 'Документ загружен',
-            'url' => $sampleContractUrl,
-        ]);
-    }
-
-    public function getSampleContract(DocumentRepository $dr)
+    public function store(DocumentStoreRequest $request, DocumentRepository $dr): JsonResponse
     {
         try {
-            $sampleContractPath = $dr->getSampleContract();
+            $request->validated();
+            $data = $request->file('document');
+
+            $sampleContractUrl = $dr->storeDocument($data, $request->type);
+
+            return response()->json([
+                'message' => 'Документ загружен',
+                'url' => $sampleContractUrl,
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => true,
+                'message' => 'Ошибка загрузки документа',
+            ], 400);
+        }
+    }
+
+    public function index(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $sampleContractPath = $dr->getDocument($request->type);
 
             return response()->download($sampleContractPath);
         } catch (\Exception $e) {
 
             return response()->json([
                 'error' => true,
-                'message' => $e->getMessage(),
+                'message' => 'Ошибка загрузки документа',
             ], 404);
         }
     }
