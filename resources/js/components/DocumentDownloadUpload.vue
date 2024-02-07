@@ -97,8 +97,4 @@ th {
     display: inline-block;
     vertical-align: middle;
 }
-
-.file-name {
-    margin-left: 10px;
-}
 </style>
