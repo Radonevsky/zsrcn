@@ -2,10 +2,7 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import {ref} from "vue";
-import useCommon from "../use/common.js";
-import CommonButton from "../components/CommonButton.vue";
-
-const {isAdmin} = useCommon()
+import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
 
 const centerInfoItems = ref([
     {
@@ -86,49 +83,34 @@ const centerInfoItems = ref([
 
 ])
 
-const contractSample = ref(null)
-const uploadContractSampleMode = ref(false)
+const documents = ref([
+    {
+        id: 1,
+        name: 'Договор о предоставлении социальных услуг (образец)',
+        type: 'sample-contract',
+    },
+    {
+        id: 2,
+        name: 'Приказ от 31 мая 2019 г. N 457 Об утверждении тарифов на социальные услуги на основании подушевых нормативов финансирования социальных услуг',
+        type: 'tariff-declaration',
+    },
+    {
+        id: 3,
+        name: 'Анкета опроса получателей социальных услуг',
+        type: 'blank-social-client',
+    },
+    {
+        id: 4,
+        name: 'Правила внутреннего распорядка для получателей социальных услуг',
+        type: 'internal-rules',
+    },
+    {
+        id: 5,
+        name: 'Бланк индивидуальной программы социальных услуг',
+        type: 'personal-program',
+    },
+])
 
-function contractAttachmentChange(e) {
-    contractSample.value = e.target.files[0]
-}
-
-async function downloadContractSample(e) {
-    try {
-        const response = await axios.get('/api/documents/download-contract-sample', {
-          responseType: 'blob',
-        });
-
-        const contentDisposition = response.headers['content-disposition'];
-        const extension = contentDisposition.split(';')[1].split('=')[1].trim().split('.').pop();
-        const fileName = 'Образец договора о предоставлении социальных услуг.' + extension;
-
-        const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
-
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.setAttribute('download', fileName);
-
-        document.body.appendChild(link);
-        link.click();
-
-        document.body.removeChild(link);
-    } catch (error) {
-        alert(error.response.data.message)
-    }
-}
-
-function uploadContractSample() {
-    const formData = new FormData()
-    formData.append('document', contractSample.value)
-
-    axios.post('/api/documents/upload-contract-sample', formData)
-        .then(response => {
-            contractSample.value = null
-            alert(response.data.message)
-        })
-        .catch(error => alert(error.response.data.message))
-}
 </script>
 
 <template>
@@ -219,75 +201,16 @@ function uploadContractSample() {
                 социальных услуг несовершеннолетним гражданам в форме социального обслуживания на дому в Республике Бурятия")
             </p>
 
-            <div class="flex font-roboto700 mt-[20px]">
-                <a
-                    href="#"
-                    class="hover:underline"
-                    @click.prevent="downloadContractSample">Договор о предоставлении социальных услуг (образец)</a>
-                <common-button
-                    v-if="isAdmin"
-                    @click="uploadContractSampleMode = !uploadContractSampleMode"
-                    class="ml-[10px]"
-                    text="Загрузить другой документ">
-                </common-button>
-            </div>
-
-            <div v-if="uploadContractSampleMode && isAdmin">
-                <label for="customFile" class="custom-file-upload">
-                    <span v-if="!contractSample">Выберите файл</span>
-                    <span v-else>Выбранный файл:</span>
-                    <span class="ml-[10px]" v-if="contractSample">{{contractSample.name}}</span>
-                </label>
-                <input id="customFile" type="file" @change="contractAttachmentChange"  style="display: none;">
-            </div>
-
-            <common-button
-                v-if="contractSample && uploadContractSampleMode && isAdmin"
-                class="mt-[20px]"
-                text="Загрузить"
-                @click="uploadContractSample">
-            </common-button>
-
+            <document-download-upload
+                v-for="doc in documents" :key="doc.id"
+                :name="doc.name"
+                :type="doc.type">
+            </document-download-upload>
 
         </div>
     </ContentContainer>
 </template>
 
 <style scoped>
-table {
-    text-align: center;
-    width: 100%;
-    border-collapse: collapse;
-}
 
-table, th, td {
-    padding: 3px 7px;
-    border: 1px solid black;
-    text-align: left;
-}
-th {
-    text-align: center;
-}
-
-.custom-file-upload {
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-}
-
-.custom-file-upload:hover {
-    background-color: #e0e0e0;
-}
-
-.custom-file-upload span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.file-name {
-    margin-left: 10px;
-}
 </style>
