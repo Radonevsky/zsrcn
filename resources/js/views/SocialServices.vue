@@ -212,5 +212,18 @@ const documents = ref([
 </template>
 
 <style scoped>
+table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+table, th, td {
+    padding: 3px 7px;
+    border: 1px solid black;
+    text-align: left;
+}
+th {
+    text-align: center;
+}
 </style>
