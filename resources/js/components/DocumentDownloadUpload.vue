@@ -35,7 +35,7 @@ async function triggerDownloadDocument() {
 
 <template>
     <div class="mt-[20px]">
-        <div class="flex font-roboto700">
+        <div class="flex font-roboto700 items-center">
             <download-doc-button
                 @click="triggerDownloadDocument">
                 {{ name }}
@@ -65,21 +65,6 @@ async function triggerDownloadDocument() {
 </template>
 
 <style scoped>
-table {
-    text-align: center;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    padding: 3px 7px;
-    border: 1px solid black;
-    text-align: left;
-}
-th {
-    text-align: center;
-}
-
 .custom-file-upload {
     display: inline-block;
     padding: 6px 12px;
