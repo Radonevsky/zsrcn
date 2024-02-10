@@ -25,6 +25,7 @@ function docAttachmentChange(e) {
 async function triggerUploadDocument() {
     await uploadDocument(documentToUpload.value, props.type)
     documentToUpload.value = null
+    uploadMode.value = false
 }
 
 async function triggerDownloadDocument() {
