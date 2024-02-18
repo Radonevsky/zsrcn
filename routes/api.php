@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Gallery\GalleryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,9 @@ Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
     Route::get('/', [GalleryController::class, 'index'])->name('photo_index');
     Route::post('/', [GalleryController::class, 'store'])->name('photo_store');
     Route::delete('/{id}', [GalleryController::class, 'remove'])->name('photo_remove');
+});
+
+Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
+    Route::get('/{type}', [DocumentController::class, 'index'])->name('document_index');
+    Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
 });

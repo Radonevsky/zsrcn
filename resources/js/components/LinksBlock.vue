@@ -8,12 +8,12 @@ const links = ref([
         {
             id: 1,
             title: 'О центре',
-            href: '#',
+            href: '/about',
         },
         {
             id: 2,
             title: 'Документы',
-            href: '#',
+            href: '/documents',
         },
         {
             id: 3,
