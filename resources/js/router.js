@@ -17,6 +17,12 @@ import Available from "./views/Available.vue";
 import Experience from "./views/Experience.vue";
 import SocialServices from "./views/SocialServices.vue";
 import AboutDescription from "./views/AboutDescription.vue";
+import DocumentRoutes from "./views/DocumentRoutes.vue";
+import PassportRoutes from "./views/PassportRoutes.vue";
+import CharterRoutes from "./views/CharterRoutes.vue";
+import Charter from "./views/Charter.vue";
+import Passport from "./views/Passport.vue";
+import DocumentView from "./views/DocumentView.vue";
 
 const routes = [
     {
@@ -68,6 +74,42 @@ const routes = [
             { path: 'license', component: License, name: 'center-license' },
             { path: 'description', component: AboutDescription, name: 'about-description' },
             { path: '', redirect: '/about/description', name: 'about-default' },
+        ],
+    },
+    {
+        path: '/documents',
+        component: DocumentRoutes,
+        name: 'documents',
+        children: [
+            {
+                path: 'charter',
+                component: CharterRoutes,
+                name: 'center-charter',
+                children: [
+                    { path: 'charter-changes', component: Charter, name: 'center-charter-changes' },
+                    { path: 'ogrn', component: Charter, name: 'center-ogrn' },
+                    { path: 'center-charter-doc', component: Charter, name: 'center-charter-doc' },
+                ],
+            },
+            {
+                path: 'passport',
+                component: PassportRoutes,
+                name: 'center-passport',
+                children: [
+                    { path: 'passport-2023', component: Passport, name: 'center-passport-2023' },
+                    { path: 'passport-2021', component: Passport, name: 'center-passport-2021' },
+                    { path: 'passport-2020', component: Passport, name: 'center-passport-2020' },
+                ],
+            },
+            { path: 'convention', component: DocumentView, name: 'rights-convention' },
+            { path: 'strategy', component: DocumentView, name: 'nation-strategy' },
+            { path: 'protection', component: DocumentView, name: 'protection-regulation' },
+            { path: 'assessment', component: DocumentView, name: 'social-assessment' },
+            { path: 'internal-rules', component: DocumentView, name: 'center-internal-rules' },
+            { path: 'material-technical', component: DocumentView, name: 'center-material-technical' },
+            { path: 'board-trustees', component: DocumentView, name: 'center-board-trustees' },
+            { path: 'inspection-reports', component: DocumentView, name: 'center-inspection-reports' },
+            { path: '', redirect: '/documents/charter', name: 'documents-default' },
         ],
     },
 ]

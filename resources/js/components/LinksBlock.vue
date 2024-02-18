@@ -13,7 +13,7 @@ const links = ref([
         {
             id: 2,
             title: 'Документы',
-            href: '#',
+            href: '/documents',
         },
         {
             id: 3,

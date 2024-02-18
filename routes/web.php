@@ -25,3 +25,6 @@ Route::get('/feedback/{any}', function () {
 Route::get('/about/{any}', function () {
     return view('app');
 });
+Route::get('/documents/{any}', function () {
+    return view('app');
+});
