@@ -6,10 +6,12 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="max-w-[392px]">
-        <button class='bg-violet mb-[30px] w-full py-[20px] btn rounded-[10px] text-link-dark-blue hover:bg-btngreen'>
-            <slot></slot>
-        </button>
+    <div class="mb-[30px]">
+        <router-link :to="link">
+            <button class='bg-violet w-full max-w-[392px] px-[5px] py-[20px] btn rounded-[10px] text-link-dark-blue hover:bg-btngreen'>
+                <slot></slot>
+            </button>
+        </router-link>
     </div>
 </template>
 
