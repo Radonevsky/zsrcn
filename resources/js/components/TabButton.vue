@@ -6,9 +6,13 @@ const props = defineProps({
 </script>
 
 <template>
-<button class='flex gap-[15px] bg-purpl-blue py-[3px] px-[15px] btn rounded-[5px] max-w-[298px] hover:bg-btngreen'>
-    <slot></slot>
-</button>
+    <div class="mb-[30px]">
+        <router-link :to="link">
+            <button class='bg-violet w-full max-w-[392px] px-[5px] py-[20px] btn rounded-[10px] text-link-dark-blue hover:bg-btngreen'>
+                <slot></slot>
+            </button>
+        </router-link>
+    </div>
 </template>
 
 <style scoped>

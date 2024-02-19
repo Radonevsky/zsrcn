@@ -89,6 +89,7 @@ const routes = [
                     { path: 'charter-changes', component: Charter, name: 'center-charter-changes' },
                     { path: 'ogrn', component: Charter, name: 'center-ogrn' },
                     { path: 'center-charter-doc', component: Charter, name: 'center-charter-doc' },
+                    { path: '', redirect: '/documents/charter/center-charter-doc', name: 'charter-default' },
                 ],
             },
             {
@@ -99,6 +100,7 @@ const routes = [
                     { path: 'passport-2023', component: Passport, name: 'center-passport-2023' },
                     { path: 'passport-2021', component: Passport, name: 'center-passport-2021' },
                     { path: 'passport-2020', component: Passport, name: 'center-passport-2020' },
+                    { path: '', redirect: '/documents/passport/passport-2023', name: 'passport-default' },
                 ],
             },
             { path: 'convention', component: DocumentView, name: 'rights-convention' },
