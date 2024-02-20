@@ -42,11 +42,16 @@ async function downloadDocument(name, type) {
     }
 }
 
+function documentsScrollUp() {
+    window.scrollTo(0, 420)
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
         uploadDocument,
         downloadDocument,
+        documentsScrollUp,
         isAdmin,
     }
 }

@@ -62,11 +62,11 @@ const tabs = ref([
 </script>
 
 <template>
-    <router-link to='charter' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
+    <router-link to='/documents' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
         <PageTitle title='Документы' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='mt-[60px] gap-[114px] mb-[30px] text-[20px] font-roboto700 flex justify-between'>
+        <div class='mt-[60px] gap-[20px] mb-[30px] text-[20px] font-roboto700 flex justify-between'>
             <div class="flex-column w-full">
                 <tab-button v-for="tab in tabs" :key="tab.id" :link="tab.link">
                     {{ tab.name }}
