@@ -1,8 +1,10 @@
 <script setup>
 
 import {ref} from "vue";
+import useCommon from "../use/common.js";
 
-window.scrollTo(0, 300)
+const { documentsScrollUp } = useCommon()
+documentsScrollUp()
 
 const tabs = ref([
     {

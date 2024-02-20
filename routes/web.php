@@ -28,3 +28,9 @@ Route::get('/about/{any}', function () {
 Route::get('/documents/{any}', function () {
     return view('app');
 });
+Route::get('/documents/charter/{any}', function () {
+    return view('app');
+});
+Route::get('/documents/passport/{any}', function () {
+    return view('app');
+});

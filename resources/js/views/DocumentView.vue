@@ -1,20 +1,21 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
-import PageTitle from "../components/PageTitle.vue";
-import {ref} from "vue";
+import useCommon from "../use/common.js";
+import {useRouter} from "vue-router";
 
-window.scrollTo(0, 0)
+const router = useRouter();
 
-const tabs = ref([
+router.afterEach(() => {
+    documentsScrollUp()
+});
 
-])
+const { documentsScrollUp } = useCommon()
+documentsScrollUp()
+
 </script>
 
 <template>
-    <router-link to='description' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
-        <PageTitle title='Документы' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
-    </router-link>
     <ContentContainer>
         DocumentView
     </ContentContainer>
