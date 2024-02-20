@@ -6,7 +6,7 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
     documentsScrollUp()
 });
 
