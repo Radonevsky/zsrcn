@@ -66,13 +66,13 @@ const tabs = ref([
         <PageTitle title='Документы' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='mt-[60px] gap-[20px] mb-[30px] text-[20px] font-roboto700 flex justify-between'>
-            <div class="flex-column w-full">
+        <div class='mt-[60px] gap-[40px] mb-[30px] text-[20px] font-roboto700 flex justify-between'>
+            <div class="flex-column w-full max-w-[400px]">
                 <tab-button v-for="tab in tabs" :key="tab.id" :link="tab.link">
                     {{ tab.name }}
                 </tab-button>
             </div>
-            <div class="flex-column w-full">
+            <div class="flex-column w-full grow">
                 <router-view></router-view>
             </div>
         </div>
