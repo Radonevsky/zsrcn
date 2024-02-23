@@ -35,6 +35,9 @@ const tabs = ref([
                 {{ tab.name }}
             </router-link>
         </div>
+        <div>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
