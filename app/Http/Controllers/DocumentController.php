@@ -35,12 +35,19 @@ class DocumentController extends Controller
         try {
             $sampleContractPath = $dr->getDocument($request->type);
 
+            if (is_null($sampleContractPath)) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Документ не найден',
+                ], 404);
+            }
+
             return response()->download($sampleContractPath);
         } catch (\Exception $e) {
 
             return response()->json([
                 'error' => true,
-                'message' => 'Ошибка загрузки документа',
+                'message' => $e->getMessage(),
             ], 404);
         }
     }

@@ -32,16 +32,16 @@ class DocumentRepository
             }
         }
 
-    public function getDocument(string $type): string
+    public function getDocument(string $type): ?string
     {
         try {
             $type = $this->kebabToSnake($type);
             $document = Document::where('type', $type)->first();
 
-            return storage_path('app/public/' . $document->path);
+            return $document ? storage_path('app/public/' . $document->path) : null;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
-            throw new \Exception('Документ не найден или небыл загружен');
+            throw new \Exception('Документ не найден или не был загружен');
         }
     }
 

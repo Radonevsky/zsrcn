@@ -19,8 +19,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Document extends Authenticatable
 {
-    const TYPE_SAMPLE_CONTRACT = 'sample_contract';
-
     protected $fillable = [
         'path',
         'url',
