@@ -20,12 +20,20 @@ async function uploadDocument(doc, type) {
 async function downloadDocument(name, type) {
     try {
         const response = await axios.get(`/api/documents/${type}`, {
-            responseType: 'blob',
+            responseType: 'arraybuffer',
         })
 
         const contentDisposition = response.headers['content-disposition']
         const extension = contentDisposition.split(';')[1].split('=')[1].trim().split('.').pop()
         const fileName = `${name}.${extension}`
+
+        if (extension === 'pdf') {
+            const blob = new Blob([response.data], { type: 'application/pdf' })
+            const blobUrl = window.URL.createObjectURL(blob)
+            window.open(blobUrl, '_blank')
+
+            return
+        }
 
         const blobUrl = window.URL.createObjectURL(new Blob([response.data]))
 
@@ -38,7 +46,7 @@ async function downloadDocument(name, type) {
 
         document.body.removeChild(link)
     } catch (error) {
-        alert(error.response.data.message)
+        alert('Документ не найден')
     }
 }
 

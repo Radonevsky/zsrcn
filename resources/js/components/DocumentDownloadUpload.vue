@@ -17,15 +17,18 @@ const {
 } = useCommon()
 const uploadMode = ref(false)
 const documentToUpload = ref(null)
+const isHideDownloadAnotherBtn = ref(false)
 
 function docAttachmentChange(e) {
     documentToUpload.value = e.target.files[0]
+    isHideDownloadAnotherBtn.value = true
 }
 
 async function triggerUploadDocument() {
     await uploadDocument(documentToUpload.value, props.type)
     documentToUpload.value = null
     uploadMode.value = false
+    isHideDownloadAnotherBtn.value = false
 }
 
 async function triggerDownloadDocument() {
@@ -42,7 +45,7 @@ async function triggerDownloadDocument() {
                 {{ name }}
             </download-doc-button>
             <common-button
-                v-if="isAdmin"
+                v-if="isAdmin && !isHideDownloadAnotherBtn"
                 @click="uploadMode = !uploadMode"
                 class="ml-[10px]"
                 text="Загрузить другой документ">
