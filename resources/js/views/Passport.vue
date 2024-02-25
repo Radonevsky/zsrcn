@@ -10,7 +10,6 @@ const { documentsScrollUp } = useCommon()
 const routerName = ref('center-passport-2023')
 
 router.afterEach((to) => {
-    console.log(11)
     documentsScrollUp()
     routerName.value = to.name
 });
