@@ -8,6 +8,8 @@ import MainLayout from "./layouts/MainLayout.vue";
     </MainLayout>
 </template>
 
-<style scoped>
-
+<style>
+html {
+    scroll-behavior: smooth;
+}
 </style>

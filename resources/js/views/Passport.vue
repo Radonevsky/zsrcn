@@ -1,22 +1,31 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
-import PageTitle from "../components/PageTitle.vue";
+import {useRouter} from "vue-router";
+import useCommon from "../use/common.js";
 import {ref} from "vue";
+import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
+const router = useRouter();
+const { documentsScrollUp } = useCommon()
+const routerName = ref('center-passport-2023')
 
-window.scrollTo(0, 0)
-
-const tabs = ref([
-
-])
+router.afterEach((to) => {
+    documentsScrollUp()
+    routerName.value = to.name
+});
 </script>
 
 <template>
-    <router-link to='description' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
-        <PageTitle title='Документы' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
-    </router-link>
     <ContentContainer>
-        Passport
+        <div v-if="routerName === 'center-passport-2023'">
+            <document-download-upload name="Паспорт учреждения 2023г." type="passport_2023"></document-download-upload>
+        </div>
+        <div v-if="routerName === 'center-passport-2021'">
+            <document-download-upload name="Паспорт учреждения 2021г." type="passport_2021"></document-download-upload>
+        </div>
+        <div v-if="routerName === 'center-passport-2020'">
+            <document-download-upload name="Паспорт учреждения 2020г." type="passport_2020"></document-download-upload>
+        </div>
     </ContentContainer>
 </template>
 

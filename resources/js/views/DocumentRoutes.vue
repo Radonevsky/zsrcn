@@ -11,69 +11,70 @@ const tabs = ref([
     {
         id: 1,
         name: 'Устав учреждения',
-        link: 'charter',
+        link: '/documents/charter',
     },
     {
         id: 2,
         name: 'Паспорт учреждения',
-        link: 'passport',
+        link: '/documents/passport',
     },
     {
         id: 3,
         name: 'Конвенция о правах ребенка',
-        link: 'convention',
+        link: '/documents/convention',
     },
     {
         id: 4,
         name: 'Национальная стратегия действий',
-        link: 'strategy',
+        link: '/documents/strategy',
     },
     {
         id: 5,
         name: 'Положение о защите детей',
-        link: 'protection',
+        link: '/documents/protection',
     },
     {
         id: 6,
         name: 'Социальная экспертиза',
-        link: 'assessment',
+        link: '/documents/assessment',
     },
     {
         id: 7,
         name: 'Правила внутреннего распорядка',
-        link: 'internal-rules',
+        link: '/documents/internal-rules',
     },
     {
         id: 8,
         name: 'Материально-техническое обеспечение',
-        link: 'material-technical',
+        link: '/documents/material-technical',
     },
     {
         id: 9,
         name: 'Попечительский совет',
-        link: 'board-trustees',
+        link: '/documents/board-trustees',
     },
     {
         id: 10,
         name: 'Акты проверок',
-        link: 'inspection-reports',
+        link: '/documents/inspection-reports',
     },
 ])
 </script>
 
 <template>
-    <router-link to='description' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
+    <router-link to='/documents' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
         <PageTitle title='Документы' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='pt-[30px] pb-[60px] text-link-dark-blue text-[20px] font-roboto700 flex justify-between'>
-            <tab-button v-for="tab in tabs" :key="tab.id" :link="tab.link">
-                {{ tab.name }}
-            </tab-button>
-
-        </div>
-        <div class='pb-[60px]'>
-            <router-view></router-view>
+        <div class='mt-[60px] gap-[40px] mb-[30px] text-[20px] font-roboto700 flex justify-between'>
+            <div class="flex-column w-full max-w-[400px]">
+                <tab-button v-for="tab in tabs" :key="tab.id" :link="tab.link">
+                    {{ tab.name }}
+                </tab-button>
+            </div>
+            <div class="flex-column w-full grow">
+                <router-view></router-view>
+            </div>
         </div>
     </ContentContainer>
 </template>
