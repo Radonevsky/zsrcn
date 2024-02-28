@@ -1,8 +1,8 @@
-<script setup>
+3<script setup>
 
-const props = defineProps([
-    'link'
-])
+const props = defineProps({
+    link: String,
+})
 </script>
 
 <template>

@@ -23,6 +23,8 @@ import CharterRoutes from "./views/CharterRoutes.vue";
 import Charter from "./views/Charter.vue";
 import Passport from "./views/Passport.vue";
 import DocumentView from "./views/DocumentView.vue";
+import InspectionReports from "./views/InspectionReports.vue";
+import InspectionReportView from "./views/InspectionReportView.vue";
 
 const routes = [
     {
@@ -110,7 +112,16 @@ const routes = [
             { path: 'internal-rules', component: DocumentView, name: 'center-internal-rules' },
             { path: 'material-technical', component: DocumentView, name: 'center-material-technical' },
             { path: 'board-trustees', component: DocumentView, name: 'center-board-trustees' },
-            { path: 'inspection-reports', component: DocumentView, name: 'center-inspection-reports' },
+            {
+                path: 'inspection-reports/:type',
+                component: InspectionReportView,
+                name: 'center-inspection-reports',
+            },
+            {
+                path: 'inspection-reports',
+                component: InspectionReports,
+                name: 'center-inspection-report',
+            },
             { path: '', redirect: '/documents/charter', name: 'documents-default' },
         ],
     },
