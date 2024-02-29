@@ -35,5 +35,6 @@ Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
 
 Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
     Route::get('/{type}', [DocumentController::class, 'index'])->name('document_index');
+    Route::get('/scope/{type}', [DocumentController::class, 'getDocuments'])->name('document_index');
     Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
 });

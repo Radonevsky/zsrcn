@@ -33,18 +33,35 @@ class DocumentController extends Controller
     public function index(Request $request, DocumentRepository $dr)
     {
         try {
-            $sampleContractPath = $dr->getDocument($request->type);
+            $document = $dr->getDocument($request->type);
 
-            if (is_null($sampleContractPath)) {
+            if (is_null($document)) {
                 return response()->json([
                     'error' => true,
                     'message' => 'Документ не найден',
                 ], 404);
             }
 
-            return response()->download($sampleContractPath);
+            return response()->download($document);
         } catch (\Exception $e) {
 
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getDocuments(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $documents = $dr->getDocumentsByType($request->type);
+
+            return response()->json([
+                'error' => false,
+                'documents' => $documents,
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),

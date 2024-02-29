@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int $id
+ * @property string $uuid
  * @property int $article_id
  * @property string $path
  * @property string $url
