@@ -14,10 +14,15 @@ router.afterEach(() => {
     documentsScrollUp()
 });
 
-const { documentsScrollUp } = useCommon()
+const {
+    documentsScrollUp,
+    fetchDocumentsByType,
+} = useCommon()
 documentsScrollUp()
 
 const sections = ref([])
+sections.value = await fetchDocumentsByType('reports')
+
 </script>
 
 <template>

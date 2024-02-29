@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Document;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,6 +40,25 @@ class DocumentRepository
             $document = Document::where('type', $type)->first();
 
             return $document ? storage_path('app/public/' . $document->path) : null;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или не был загружен');
+        }
+    }
+
+    public function getDocumentsByType(string $type): ?Collection
+    {
+        try {
+            $documents = Document::query()->where('type', $type)->get();
+            if ($documents->isEmpty()) {
+                return $documents;
+            }
+
+            $documents = $documents->transform(function ($doc) {
+                $doc->storage_path = storage_path('app/public/' . $doc->path);
+            });
+
+            return $documents;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Документ не найден или не был загружен');

@@ -1,4 +1,5 @@
 import {ref} from "vue";
+import axios from "axios";
 
 const isAdmin = ref(true)
 
@@ -54,12 +55,18 @@ function documentsScrollUp() {
     window.scrollTo(0, 420)
 }
 
+async function fetchDocumentsByType(type) {
+    const response = await axios.get(`/api/documents/scope/${type}`)
+    return response.data.photos
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
         uploadDocument,
         downloadDocument,
         documentsScrollUp,
+        fetchDocumentsByType,
         isAdmin,
     }
 }
