@@ -4,6 +4,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 import useCommon from "../use/common.js";
 import {useRouter} from "vue-router";
 import {ref} from "vue";
+import AddButton from "./AddButton.vue";
 
 const router = useRouter();
 const currentRoute = ref(null)
@@ -21,12 +22,16 @@ const {
 documentsScrollUp()
 
 const sections = ref([])
-sections.value = await fetchDocumentsByType('reports')
+async function fetchDocuments() {
+    sections.value = await fetchDocumentsByType('reports')
+}
 
+fetchDocuments()
 </script>
 
 <template>
     <ContentContainer>
+        <add-button @click="open"></add-button>
         Reports
     </ContentContainer>
 </template>
