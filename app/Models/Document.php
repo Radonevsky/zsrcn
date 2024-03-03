@@ -20,6 +20,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Document extends Authenticatable
 {
+    const DOCUMENT_TYPES_PLURAL = [
+        'reports',
+    ];
+
     protected $fillable = [
         'path',
         'url',

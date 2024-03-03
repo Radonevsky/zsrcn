@@ -6,6 +6,7 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import AddButton from "./AddButton.vue";
 import DocumentUpload from "../components/DocumentUpload.vue";
+import SectionDocumentItem from "../components/SectionDocumentItem.vue";
 
 const router = useRouter();
 const currentRoute = ref(null)
@@ -24,18 +25,29 @@ documentsScrollUp()
 
 const addSectionMode = ref(false)
 const sections = ref([])
-async function fetchDocuments() {
+async function setDocuments() {
+    addSectionMode.value = false
     sections.value = await fetchDocumentsByType('reports')
 }
 
-fetchDocuments()
+setDocuments()
 </script>
 
 <template>
     <ContentContainer>
         <add-button @click="addSectionMode = true">Добавить документ</add-button>
-        <document-upload type="reports">
+        <document-upload
+            v-if="addSectionMode"
+            @close="addSectionMode = false"
+            @uploaded="setDocuments"
+            type="reports">
         </document-upload>
+        <section-document-item
+            v-for="item in sections"
+            :type="item.type"
+            :name="item.uuid"
+            :key="item.uuid">
+        </section-document-item>
     </ContentContainer>
 </template>
 
