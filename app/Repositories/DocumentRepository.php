@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DocumentRepository
 {
@@ -18,12 +19,16 @@ class DocumentRepository
                 . '.' . $data->getClientOriginalExtension();
             $path = Storage::disk('public')->putFileAs('/documents', $data, $docName);
 
-            $document = Document::query()
-                ->firstOrNew([
-                    'type' => $type,
-                ]);
+            if (in_array($type, Document::DOCUMENT_TYPES_PLURAL)) {
+                $document = new Document();
+                $document->type = $type;
+            } else {
+                $document = Document::query()
+                    ->firstOrNew(['type' => $type,]);
+            }
             $document->path = $path;
             $document->url = url('/storage/' . $path);
+            $document->uuid = Str::uuid();
             $document->save();
 
             return $document->url;
@@ -53,9 +58,10 @@ class DocumentRepository
             if ($documents->isEmpty()) {
                 return $documents;
             }
-
             $documents = $documents->transform(function ($doc) {
                 $doc->storage_path = storage_path('app/public/' . $doc->path);
+
+                return $doc;
             });
 
             return $documents;

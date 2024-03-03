@@ -2,7 +2,7 @@
 
 import CommonButton from "./CommonButton.vue";
 import useCommon from "../use/common.js";
-import {ref} from "vue";
+import {ref, defineEmits} from "vue";
 
 const props = defineProps({
     type: String,
@@ -11,7 +11,8 @@ const props = defineProps({
 const {
     uploadDocument,
 } = useCommon()
-const uploadMode = ref(false)
+const emit = defineEmits(['uploaded',])
+
 const documentToUpload = ref(null)
 
 function docAttachmentChange(e) {
@@ -20,8 +21,8 @@ function docAttachmentChange(e) {
 
 async function triggerUploadDocument() {
     await uploadDocument(documentToUpload.value, props.type)
+    emit('uploaded')
     documentToUpload.value = null
-    uploadMode.value = false
 }
 </script>
 
@@ -36,7 +37,7 @@ async function triggerUploadDocument() {
             <input id="customFile" type="file" @change="docAttachmentChange" style="display: none;">
         </div>
         <common-button
-            v-if="documentToUpload && uploadMode"
+            v-if="documentToUpload"
             class="mt-[20px]"
             text="Загрузить"
             @click="triggerUploadDocument">

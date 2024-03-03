@@ -57,7 +57,7 @@ function documentsScrollUp() {
 
 async function fetchDocumentsByType(type) {
     const response = await axios.get(`/api/documents/scope/${type}`)
-    return response.data.photos
+    return response.data.documents
 }
 
 export default function useCommon() {
