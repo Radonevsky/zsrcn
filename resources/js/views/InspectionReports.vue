@@ -42,12 +42,14 @@ setDocuments()
             @uploaded="setDocuments"
             type="reports">
         </document-upload>
-        <section-document-item
-            v-for="item in sections"
-            :type="item.type"
-            :name="item.uuid"
-            :key="item.uuid">
-        </section-document-item>
+        <div class="flex flex-col gap-[22px]">
+            <section-document-item
+                v-for="item in sections"
+                :type="item.type"
+                :name="item.uuid"
+                :key="item.uuid">
+            </section-document-item>
+        </div>
     </ContentContainer>
 </template>
 
