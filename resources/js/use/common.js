@@ -64,6 +64,11 @@ async function fetchDocumentsByType(type) {
     return response.data.documents
 }
 
+async function fetchDocumentsByUuid(uuid) {
+    const response = await axios.get(`/api/documents/uuid/${uuid}`)
+    return response.data.document
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -71,6 +76,7 @@ export default function useCommon() {
         downloadDocument,
         documentsScrollUp,
         fetchDocumentsByType,
+        fetchDocumentsByUuid,
         isAdmin,
     }
 }

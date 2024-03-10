@@ -68,4 +68,21 @@ class DocumentController extends Controller
             ], 404);
         }
     }
+
+    public function getDocumentByUuid(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $document = $dr->getDocumentByUuid($request->uuid);
+
+            return response()->json([
+                'error' => false,
+                'document' => $document,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }

@@ -24,7 +24,7 @@ import Charter from "./views/Charter.vue";
 import Passport from "./views/Passport.vue";
 import DocumentView from "./views/DocumentView.vue";
 import InspectionReports from "./views/InspectionReports.vue";
-import InspectionReportView from "./views/InspectionReportView.vue";
+import DocumentSection from "./components/DocumentSection.vue";
 
 const routes = [
     {
@@ -113,8 +113,8 @@ const routes = [
             { path: 'material-technical', component: DocumentView, name: 'center-material-technical' },
             { path: 'board-trustees', component: DocumentView, name: 'center-board-trustees' },
             {
-                path: 'inspection-reports/:type',
-                component: InspectionReportView,
+                path: 'inspection-reports/:uuid',
+                component: DocumentSection,
                 name: 'center-inspection-reports',
             },
             {

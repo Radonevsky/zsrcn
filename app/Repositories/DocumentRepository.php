@@ -15,7 +15,8 @@ class DocumentRepository
     {
         try {
             $type = $this->kebabToSnake($type);
-            $docName = md5(Carbon::now() . '_' . $data->getClientOriginalName())
+            $originalName = $data->getClientOriginalName();
+            $docName = md5(Carbon::now() . '_' . $originalName)
                 . '.' . $data->getClientOriginalExtension();
             $path = Storage::disk('public')->putFileAs('/documents', $data, $docName);
 
@@ -31,6 +32,7 @@ class DocumentRepository
                 $document->description = $description;
             }
 
+            $document->name = $originalName;
             $document->path = $path;
             $document->url = url('/storage/' . $path);
             $document->uuid = Str::uuid();
@@ -63,17 +65,17 @@ class DocumentRepository
             if ($documents->isEmpty()) {
                 return $documents;
             }
-            $documents = $documents->transform(function ($doc) {
-                $doc->storage_path = storage_path('app/public/' . $doc->path);
-
-                return $doc;
-            });
 
             return $documents;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
-            throw new \Exception('Документ не найден или не был загружен');
+            throw new \Exception('Не удалось получить документы');
         }
+    }
+
+    public function getDocumentByUuid($uuid): Document
+    {
+        return Document::query()->where('uuid', $uuid)->get()->first();
     }
 
     private function kebabToSnake(string $text): string
