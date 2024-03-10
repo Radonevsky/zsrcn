@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class DocumentRepository
 {
-    public function storeDocument($data, $type): string
+    public function storeDocument($data, $type, $description = null): string
     {
         try {
             $type = $this->kebabToSnake($type);
@@ -26,6 +26,11 @@ class DocumentRepository
                 $document = Document::query()
                     ->firstOrNew(['type' => $type,]);
             }
+
+            if (!is_null($description)) {
+                $document->description = $description;
+            }
+
             $document->path = $path;
             $document->url = url('/storage/' . $path);
             $document->uuid = Str::uuid();

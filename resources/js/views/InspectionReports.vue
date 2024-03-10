@@ -5,8 +5,8 @@ import useCommon from "../use/common.js";
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import AddButton from "./AddButton.vue";
-import DocumentUpload from "../components/DocumentUpload.vue";
 import SectionDocumentItem from "../components/SectionDocumentItem.vue";
+import AddSectionDocument from "../components/AddSectionDocument.vue";
 
 const router = useRouter();
 const currentRoute = ref(null)
@@ -36,18 +36,19 @@ setDocuments()
 <template>
     <ContentContainer>
         <add-button @click="addSectionMode = true">Добавить документ</add-button>
-        <document-upload
+        <add-section-document
             v-if="addSectionMode"
-            @close="addSectionMode = false"
             @uploaded="setDocuments"
             type="reports">
-        </document-upload>
-        <section-document-item
-            v-for="item in sections"
-            :type="item.type"
-            :name="item.uuid"
-            :key="item.uuid">
-        </section-document-item>
+        </add-section-document>
+        <div class="flex flex-col gap-[22px] mt-[20px]">
+            <section-document-item
+                v-for="item in sections"
+                :type="item.type"
+                :name="item.uuid"
+                :key="item.uuid">
+            </section-document-item>
+        </div>
     </ContentContainer>
 </template>
 

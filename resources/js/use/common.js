@@ -7,9 +7,13 @@ function getImgUrl(url) {
     return new URL(`${url}`, import.meta.url)
 }
 
-async function uploadDocument(doc, type) {
+async function uploadDocument(doc, type, description = null) {
     const formData = new FormData()
     formData.append('document', doc)
+    if (description) {
+        console.log(description)
+        formData.append('description', description)
+    }
 
     return axios.post(`/api/documents/${type}`, formData)
         .then(response => {

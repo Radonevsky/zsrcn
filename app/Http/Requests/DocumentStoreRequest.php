@@ -23,7 +23,8 @@ class DocumentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'document' => ['required', 'mimes:docx,doc,pdf']
+            'document' => ['required', 'mimes:docx,doc,pdf'],
+            'description' => ['nullable', 'string', 'max:3000']
         ];
     }
 
