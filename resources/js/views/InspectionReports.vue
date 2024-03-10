@@ -45,7 +45,9 @@ setDocuments()
             <section-document-item
                 v-for="item in sections"
                 :type="item.type"
-                :name="item.uuid"
+                rout-name="inspection-reports"
+                :name="item.name"
+                :uuid="item.uuid"
                 :key="item.uuid">
             </section-document-item>
         </div>

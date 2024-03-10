@@ -34,3 +34,6 @@ Route::get('/documents/charter/{any}', function () {
 Route::get('/documents/passport/{any}', function () {
     return view('app');
 });
+Route::get('/documents/inspection-reports/{any}', function () {
+    return view('app');
+});

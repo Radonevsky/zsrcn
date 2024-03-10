@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $article_id
  * @property string $path
  * @property string $url
+ * @property string $name
  * @property string $type
  * @property string $created_at
  * @property string $updated_at
@@ -28,5 +29,6 @@ class Document extends Authenticatable
         'path',
         'url',
         'type',
+        'name,'
     ];
 }
