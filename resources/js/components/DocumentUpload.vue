@@ -1,47 +1,28 @@
 <script setup>
 
-import CommonButton from "./CommonButton.vue";
-import useCommon from "../use/common.js";
 import {ref, defineEmits} from "vue";
 
-const props = defineProps({
-    type: String,
-})
 
-const {
-    uploadDocument,
-} = useCommon()
-const emit = defineEmits(['uploaded',])
 
+const emit = defineEmits(['docChange',])
 const documentToUpload = ref(null)
 
 function docAttachmentChange(e) {
     documentToUpload.value = e.target.files[0]
-}
-
-async function triggerUploadDocument() {
-    await uploadDocument(documentToUpload.value, props.type)
-    emit('uploaded')
-    documentToUpload.value = null
+    emit('docChange', documentToUpload.value)
 }
 </script>
 
 <template>
-    <div class="mt-[20px]">
-        <div class="mt-[16px]">
-            <label for="customFile" class="custom-file-upload" @click="openFiles">
+    <div class="mt-[20px] flex flex-col justify-center">
+        <div class="mt-[16px] flex justify-center">
+            <label for="customFile" class="custom-file-upload text-[16px]">
                 <span v-if="!documentToUpload">Выберите файл</span>
                 <span v-else>Выбранный файл:</span>
                 <span class="ml-[10px]" v-if="documentToUpload">{{documentToUpload.name}}</span>
             </label>
             <input id="customFile" type="file" @change="docAttachmentChange" style="display: none;">
         </div>
-        <common-button
-            v-if="documentToUpload"
-            class="mt-[20px]"
-            text="Загрузить"
-            @click="triggerUploadDocument">
-        </common-button>
     </div>
 </template>
 
@@ -52,11 +33,11 @@ async function triggerUploadDocument() {
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #f0f0f0;
+    background-color: #ACB9E1;
 }
 
 .custom-file-upload:hover {
-    background-color: #e0e0e0;
+    background-color: #D7E993;
 }
 
 .custom-file-upload span {

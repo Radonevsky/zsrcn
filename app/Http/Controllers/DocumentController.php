@@ -14,8 +14,8 @@ class DocumentController extends Controller
         try {
             $request->validated();
             $data = $request->file('document');
-
-            $sampleContractUrl = $dr->storeDocument($data, $request->type);
+            $description = $request->input('description');
+            $sampleContractUrl = $dr->storeDocument($data, $request->type, $description);
 
             return response()->json([
                 'message' => 'Документ загружен',
