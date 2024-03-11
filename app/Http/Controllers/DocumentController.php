@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DocumentReplaceRequest;
 use App\Http\Requests\DocumentStoreRequest;
 use App\Repositories\DocumentRepository;
 use Illuminate\Http\Request;
@@ -74,15 +75,40 @@ class DocumentController extends Controller
         try {
             $document = $dr->getDocumentByUuid($request->uuid);
 
-            return response()->json([
-                'error' => false,
-                'document' => $document,
-            ]);
+            if (is_null($document)) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Документ не найден',
+                ], 404);
+            }
+
+            return response()->download($document);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
             ], 404);
+        }
+    }
+
+    public function replaceDocumentByUuid(DocumentReplaceRequest $request, DocumentRepository $dr)
+    {
+        try {
+            $request->validated();
+            $data = $request->file('document');
+            $description = $request->input('description');
+            $sampleContractUrl = $dr->replaceDocument($data, $request->uuid, $description);
+
+            return response()->json([
+                'message' => 'Документ загружен',
+                'url' => $sampleContractUrl,
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => true,
+                'message' => 'Ошибка загрузки документа',
+            ], 400);
         }
     }
 }
