@@ -42,8 +42,31 @@ class DocumentRepository
         } catch (\Exception $e) {
                 Log::error('Error: ' . $e->getMessage());
                 throw new \Exception('Ошибка загрузки документа');
-            }
         }
+    }
+
+    public function replaceDocument($data, $uuid): string
+    {
+        try {
+            $originalName = $data->getClientOriginalName();
+            $docName = md5(Carbon::now() . '_' . $originalName)
+                . '.' . $data->getClientOriginalExtension();
+            $path = Storage::disk('public')->putFileAs('/documents', $data, $docName);
+
+            $document = Document::query()
+                ->firstOrNew(['uuid' => $uuid,]);
+
+            $document->name = $originalName;
+            $document->path = $path;
+            $document->url = url('/storage/' . $path);
+            $document->save();
+
+            return $document->url;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки документа');
+        }
+    }
 
     public function getDocument(string $type): ?string
     {
@@ -73,9 +96,16 @@ class DocumentRepository
         }
     }
 
-    public function getDocumentByUuid($uuid): Document
+    public function getDocumentByUuid($uuid): ?string
     {
-        return Document::query()->where('uuid', $uuid)->get()->first();
+        try {
+            $document = Document::where('uuid', $uuid)->first();
+
+            return $document ? storage_path('app/public/' . $document->path) : null;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или не был загружен');
+        }
     }
 
     private function kebabToSnake(string $text): string

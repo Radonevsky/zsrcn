@@ -54,7 +54,6 @@ async function setPhotoToViewer(direction) {
 
         const haveMorePhotos = await setPhotos(currentPage.value)
         if (haveMorePhotos) {
-            console.log('haveMorePhotos page')
             currentPhotoUrl.value = photos.value[nextPhotoIndex].url
             currentPhotoIndex.value++
         }
