@@ -81,6 +81,17 @@ class DocumentRepository
         }
     }
 
+    public function getDocumentForDownload(string $uuid): ?string
+    {
+        try {
+            $document = Document::where('uuid', $uuid)->first();
+            return $document ? storage_path('app/public/' . $document->path) : null;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или не был загружен');
+        }
+    }
+
     public function getDocumentsByType(string $type): ?Collection
     {
         try {
@@ -96,12 +107,10 @@ class DocumentRepository
         }
     }
 
-    public function getDocumentByUuid($uuid): ?string
+    public function getDocumentByUuid($uuid): ?Document
     {
         try {
-            $document = Document::where('uuid', $uuid)->first();
-
-            return $document ? storage_path('app/public/' . $document->path) : null;
+            return Document::where('uuid', $uuid)->first();
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Документ не найден или не был загружен');

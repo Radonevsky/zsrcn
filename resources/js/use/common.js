@@ -46,11 +46,9 @@ async function downloadDocument(name, type) {
 
 async function downloadByUuid(uuid) {
     try {
-        const response = await axios.get(`/api/documents/uuid/${uuid}`, {
+        const response = await axios.get(`/api/documents/download/${uuid}`, {
             responseType: 'arraybuffer',
         })
-
-    const contentDisposition = response.headers['content-disposition']
 
         processDownload(response)
     } catch (error) {
