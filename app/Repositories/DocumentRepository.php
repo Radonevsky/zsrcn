@@ -127,6 +127,16 @@ class DocumentRepository
         }
     }
 
+    public function updateDocumentDesriptionByUuid($uuid, $desription): void
+    {
+        try {
+            Document::where('uuid', $uuid)->update(['description' => $desription]);
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или не был загружен');
+        }
+    }
+
     private function kebabToSnake(string $text): string
     {
         return str_replace('-', '_', $text);

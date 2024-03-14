@@ -154,4 +154,22 @@ class DocumentController extends Controller
             ], 404);
         }
     }
+
+    public function updateDocumentDescription(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $dr->updateDocumentDesriptionByUuid($request->uuid, $request->description);
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Описание сохранено'
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
