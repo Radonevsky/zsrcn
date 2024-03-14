@@ -106,6 +106,14 @@ async function deleteDocumentsByUuid(uuid) {
         .catch(error => alert(error.response.data.message))
 }
 
+async function saveDocDescriptionByUuid(uuid, description) {
+    await axios.patch(`/api/documents/description/${uuid}`, {'description': description})
+        .then(response => {
+            alert(response.data.message)
+        })
+        .catch(error => alert(error.response.data.message))
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -117,6 +125,7 @@ export default function useCommon() {
         replaceDocument,
         downloadByUuid,
         deleteDocumentsByUuid,
+        saveDocDescriptionByUuid,
         isAdmin,
     }
 }

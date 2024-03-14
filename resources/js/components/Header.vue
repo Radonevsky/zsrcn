@@ -20,7 +20,7 @@ import MainNavBar from "./MainNavBar.vue";
             </div>
             <main-nav-bar class='mt-[2px]'></main-nav-bar>
         </ContentContainer>
-        <div class='w-full h-[3px] bg-line-dark-blue'></div>
+        <div class='w-full h-[3px] bg-purpl-blue'></div>
     </div>
 </template>
 

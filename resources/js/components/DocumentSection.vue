@@ -9,6 +9,8 @@ const router = useRouter()
 const uuid = ref(null)
 const document = ref(null)
 const loaded = ref(false)
+const description = ref(null)
+const editMode = ref(false)
 
 uuid.value = router.currentRoute.value.params.uuid
 
@@ -16,11 +18,12 @@ router.afterEach(() => {
     documentsScrollUp()
 });
 
-const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid } = useCommon()
+const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid, saveDocDescriptionByUuid } = useCommon()
 documentsScrollUp()
 
 async function setDocument() {
     document.value = await fetchDocumentsByUuid(uuid.value)
+    description.value = document.value.description
     loaded.value = true
 }
 setDocument()
@@ -30,6 +33,11 @@ async function deleteDocument() {
     router.push({
         name: 'center-inspection-report'
     })
+}
+
+async function saveDescription() {
+    await saveDocDescriptionByUuid(uuid.value, description.value)
+    editMode.value = false
 }
 
 </script>
@@ -43,9 +51,22 @@ async function deleteDocument() {
             :type="null"
             @update-doc="setDocument"
             :uuid="document.uuid"></document-download-upload>
-        <p v-if="document.description"
+        <common-button
+            text="Редактировать описание"
+            @click="editMode = !editMode"
+            class="mt-[16px]"></common-button>
+        <textarea
+            v-if="editMode"
+            v-model="description"
+            rows="5"
+            class="border text-link-dark-blue font-roboto500 text-[20px] mt-[15px] p-[10px] border-blue-border rounded-[8px] w-full border"></textarea>
+        <common-button
+            v-if="editMode"
+            text="Сохранить описание документа"
+            @click="saveDescription"></common-button>
+        <p v-if="description && !editMode"
            class="text-link-dark-blue font-roboto500 text-[20px] mt-[20px]">
-            {{ document.description }}
+            {{ description }}
         </p>
     </div>
 </template>
