@@ -82,7 +82,10 @@ class DocumentController extends Controller
                 ], 404);
             }
 
-            return response()->download($document);
+            return response()->json([
+                'error' => false,
+                'document' => $document,
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
@@ -109,6 +112,28 @@ class DocumentController extends Controller
                 'error' => true,
                 'message' => 'Ошибка загрузки документа',
             ], 400);
+        }
+    }
+
+    public function getDocumentDownloadByUuid(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $document = $dr->getDocumentForDownload($request->uuid);
+
+            if (is_null($document)) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Документ не найден',
+                ], 404);
+            }
+
+            return response()->download($document);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
         }
     }
 }
