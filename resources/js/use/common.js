@@ -50,8 +50,6 @@ async function downloadByUuid(uuid) {
             responseType: 'arraybuffer',
         })
 
-    const contentDisposition = response.headers['content-disposition']
-
         processDownload(response)
     } catch (error) {
         alert('Документ не найден')

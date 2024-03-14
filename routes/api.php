@@ -37,7 +37,7 @@ Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
     Route::get('/{type}', [DocumentController::class, 'index'])->name('document_index');
     Route::get('/scope/{type}', [DocumentController::class, 'getDocuments'])->name('document_types');
     Route::get('/uuid/{uuid}', [DocumentController::class, 'getDocumentByUuid'])->name('get_document');
-    Route::get('/download/{uuid}', [DocumentController::class, 'getDocumentDownloadByUuid'])->name('get_document');
+    Route::get('/download/{uuid}', [DocumentController::class, 'getDocumentDownloadByUuid'])->name('get_document_uuid');
     Route::post('/uuid/{uuid}', [DocumentController::class, 'replaceDocumentByUuid'])->name('replace_document');
     Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
 });

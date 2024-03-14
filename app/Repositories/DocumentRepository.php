@@ -81,12 +81,10 @@ class DocumentRepository
         }
     }
 
-    public function getDocumentForDownload(string $type): ?string
+    public function getDocumentForDownload(string $uuid): ?string
     {
         try {
-            $type = $this->kebabToSnake($type);
-            $document = Document::where('type', $type)->first();
-
+            $document = Document::where('uuid', $uuid)->first();
             return $document ? storage_path('app/public/' . $document->path) : null;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
