@@ -3,6 +3,7 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import useCommon from "../use/common.js";
 import DocumentDownloadUpload from "./DocumentDownloadUpload.vue";
+import CommonButton from "./CommonButton.vue";
 
 const router = useRouter()
 const uuid = ref(null)
@@ -15,7 +16,7 @@ router.afterEach(() => {
     documentsScrollUp()
 });
 
-const { documentsScrollUp, fetchDocumentsByUuid } = useCommon()
+const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid } = useCommon()
 documentsScrollUp()
 
 async function setDocument() {
@@ -24,10 +25,19 @@ async function setDocument() {
 }
 setDocument()
 
+async function deleteDocument() {
+    await deleteDocumentsByUuid(uuid.value)
+    router.push({
+        name: 'center-inspection-report'
+    })
+}
+
 </script>
 
 <template>
     <div v-if="loaded">
+        <common-button
+            text="Удалить страницу и документ" @click="deleteDocument"></common-button>
         <document-download-upload
             :name="document.name"
             :type="null"

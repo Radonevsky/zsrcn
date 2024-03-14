@@ -98,6 +98,14 @@ async function fetchDocumentsByUuid(uuid) {
     return response.data.document
 }
 
+async function deleteDocumentsByUuid(uuid) {
+    await axios.delete(`/api/documents/uuid/${uuid}`)
+        .then(response => {
+            alert(response.data.message)
+        })
+        .catch(error => alert(error.response.data.message))
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -108,6 +116,7 @@ export default function useCommon() {
         fetchDocumentsByUuid,
         replaceDocument,
         downloadByUuid,
+        deleteDocumentsByUuid,
         isAdmin,
     }
 }

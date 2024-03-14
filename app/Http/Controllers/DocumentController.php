@@ -136,4 +136,22 @@ class DocumentController extends Controller
             ], 404);
         }
     }
+
+    public function removeDocumentByUuid(Request $request, DocumentRepository $dr)
+    {
+        try {
+            $dr->removeDocumentByUuid($request->uuid);
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Документ удален'
+            ]);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }
