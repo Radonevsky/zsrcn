@@ -92,6 +92,16 @@ class DocumentRepository
         }
     }
 
+    public function removeDocumentByUuid(string $uuid): void
+    {
+        try {
+            Document::where('uuid', $uuid)->delete();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Документ не найден или не был загружен');
+        }
+    }
+
     public function getDocumentsByType(string $type): ?Collection
     {
         try {
