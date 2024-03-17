@@ -25,6 +25,7 @@ import Passport from "./views/Passport.vue";
 import DocumentView from "./views/DocumentView.vue";
 import InspectionReports from "./views/InspectionReports.vue";
 import DocumentSection from "./components/DocumentSection.vue";
+import StatementsRoutes from "./views/StatementsRoutes.vue";
 
 const routes = [
     {
@@ -113,16 +114,94 @@ const routes = [
             { path: 'material-technical', component: DocumentView, name: 'center-material-technical' },
             { path: 'board-trustees', component: DocumentView, name: 'center-board-trustees' },
             {
+                path: 'inspection-reports',
+                component: InspectionReports,
+                name: 'reports',
+            },
+            {
                 path: 'inspection-reports/:uuid',
                 component: DocumentSection,
                 name: 'center-inspection-reports',
             },
-            {
-                path: 'inspection-reports',
-                component: InspectionReports,
-                name: 'center-inspection-report',
-            },
             { path: '', redirect: '/documents/charter', name: 'documents-default' },
+        ],
+    },
+    {
+        path: '/statements',
+        component: StatementsRoutes,
+        name: 'statements',
+        children: [
+            {
+                path: '2017',
+                component: InspectionReports,
+                name: 'statements2017',
+            },
+            {
+                path: '2017/:uuid',
+                component: DocumentSection,
+                name: 'statement2017',
+            },
+            {
+                path: '2018',
+                component: InspectionReports,
+                name: 'statements2018',
+            },
+            {
+                path: '2018/:uuid',
+                component: DocumentSection,
+                name: 'statement2018',
+            },
+            {
+                path: '2019',
+                component: InspectionReports,
+                name: 'statements2019',
+            },
+            {
+                path: '2019/:uuid',
+                component: DocumentSection,
+                name: 'statement2019',
+            },
+            {
+                path: '2020',
+                component: InspectionReports,
+                name: 'statements2020',
+            },
+            {
+                path: '2020/:uuid',
+                component: DocumentSection,
+                name: 'statement2020',
+            },
+            {
+                path: '2021',
+                component: InspectionReports,
+                name: 'statements2021',
+            },
+            {
+                path: '2021/:uuid',
+                component: DocumentSection,
+                name: 'statement2021',
+            },
+            {
+                path: '2022',
+                component: InspectionReports,
+                name: 'statements2022',
+            },
+            {
+                path: '2022/:uuid',
+                component: DocumentSection,
+                name: 'statement2022',
+            },
+            {
+                path: '2023',
+                component: InspectionReports,
+                name: 'statements2023',
+            },
+            {
+                path: '2023/:uuid',
+                component: DocumentSection,
+                name: 'statement2023',
+            },
+            { path: '', redirect: '/statements/2023', name: 'statements-default' },
         ],
     },
 ]

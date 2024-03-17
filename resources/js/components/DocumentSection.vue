@@ -1,6 +1,6 @@
 <script setup>
-import {useRouter} from "vue-router";
-import {ref} from "vue";
+import {onBeforeRouteLeave, useRouter} from "vue-router";
+import {onUnmounted, ref} from "vue";
 import useCommon from "../use/common.js";
 import DocumentDownloadUpload from "./DocumentDownloadUpload.vue";
 import CommonButton from "./CommonButton.vue";
@@ -13,10 +13,6 @@ const description = ref(null)
 const editMode = ref(false)
 
 uuid.value = router.currentRoute.value.params.uuid
-
-router.afterEach(() => {
-    documentsScrollUp()
-});
 
 const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid, saveDocDescriptionByUuid } = useCommon()
 documentsScrollUp()
@@ -31,7 +27,7 @@ setDocument()
 async function deleteDocument() {
     await deleteDocumentsByUuid(uuid.value)
     router.push({
-        name: 'center-inspection-report'
+        name: 'reports'
     })
 }
 
@@ -39,7 +35,6 @@ async function saveDescription() {
     await saveDocDescriptionByUuid(uuid.value, description.value)
     editMode.value = false
 }
-
 </script>
 
 <template>

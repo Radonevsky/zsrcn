@@ -37,3 +37,9 @@ Route::get('/documents/passport/{any}', function () {
 Route::get('/documents/inspection-reports/{any}', function () {
     return view('app');
 });
+Route::get('/statements/{any}', function () {
+    return view('app');
+});
+Route::get('/statements/{any}/{uuid}', function () {
+    return view('app');
+});
