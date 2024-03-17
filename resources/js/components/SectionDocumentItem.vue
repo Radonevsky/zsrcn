@@ -1,14 +1,16 @@
 <script setup>
 import ToViewIcon from "./icons/toViewIcon.vue";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
-const props = defineProps(['name', 'type', 'uuid', 'routName'])
+const props = defineProps(['name', 'type', 'uuid', 'rout'])
 const showToView = ref(false)
+const router = useRouter();
 
 </script>
 
 <template>
-    <router-link :to="`${routName}/${uuid}`">
+    <router-link :to="`${rout}/${uuid}`">
         <div
             @mouseover="showToView = true"
             @mouseleave="showToView = false"

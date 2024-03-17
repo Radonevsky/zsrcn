@@ -18,7 +18,7 @@ const links = ref([
         {
             id: 3,
             title: 'Отчетные документы',
-            href: '#',
+            href: '/statements',
         },
         {
             id: 4,

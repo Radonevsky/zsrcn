@@ -23,6 +23,13 @@ class Document extends Authenticatable
 {
     const DOCUMENT_TYPES_PLURAL = [
         'reports',
+        'statements2023',
+        'statements2022',
+        'statements2021',
+        'statements2020',
+        'statements2019',
+        'statements2018',
+        'statements2017',
     ];
 
     protected $fillable = [

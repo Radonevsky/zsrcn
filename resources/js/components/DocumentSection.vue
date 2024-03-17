@@ -14,10 +14,6 @@ const editMode = ref(false)
 
 uuid.value = router.currentRoute.value.params.uuid
 
-router.afterEach(() => {
-    documentsScrollUp()
-});
-
 const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid, saveDocDescriptionByUuid } = useCommon()
 documentsScrollUp()
 
@@ -31,7 +27,7 @@ setDocument()
 async function deleteDocument() {
     await deleteDocumentsByUuid(uuid.value)
     router.push({
-        name: 'center-inspection-report'
+        name: 'reports'
     })
 }
 
@@ -39,7 +35,6 @@ async function saveDescription() {
     await saveDocDescriptionByUuid(uuid.value, description.value)
     editMode.value = false
 }
-
 </script>
 
 <template>
