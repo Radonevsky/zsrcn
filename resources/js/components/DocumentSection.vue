@@ -1,6 +1,6 @@
 <script setup>
-import {onBeforeRouteLeave, useRouter} from "vue-router";
-import {onUnmounted, ref} from "vue";
+import {useRouter} from "vue-router";
+import {ref} from "vue";
 import useCommon from "../use/common.js";
 import DocumentDownloadUpload from "./DocumentDownloadUpload.vue";
 import CommonButton from "./CommonButton.vue";

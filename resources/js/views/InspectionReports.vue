@@ -29,7 +29,7 @@ async function setDocuments() {
 }
 
 setDocuments()
-watch(async () => router.currentRoute.value, async (to, from) => {
+watch(async () => router.currentRoute.value, async (to) => {
     to.then((route)=> {
         currentRoute.value = route.name
         setDocuments()
