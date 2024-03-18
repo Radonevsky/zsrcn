@@ -26,6 +26,7 @@ import DocumentView from "./views/DocumentView.vue";
 import InspectionReports from "./views/InspectionReports.vue";
 import DocumentSection from "./components/DocumentSection.vue";
 import StatementsRoutes from "./views/StatementsRoutes.vue";
+import PlanningRoutes from "./views/PlanningRoutes.vue";
 
 const routes = [
     {
@@ -204,6 +205,84 @@ const routes = [
             { path: '', redirect: '/statements/2023', name: 'statements-default' },
         ],
     },
+    {
+        path: '/planning',
+        component: PlanningRoutes,
+        name: 'planning',
+        children: [
+            {
+                path: '2017',
+                component: InspectionReports,
+                name: 'plannings2017',
+            },
+            {
+                path: '2017/:uuid',
+                component: DocumentSection,
+                name: 'planning2017',
+            },
+            {
+                path: '2018',
+                component: InspectionReports,
+                name: 'plannings2018',
+            },
+            {
+                path: '2018/:uuid',
+                component: DocumentSection,
+                name: 'planning2018',
+            },
+            {
+                path: '2019',
+                component: InspectionReports,
+                name: 'plannings2019',
+            },
+            {
+                path: '2019/:uuid',
+                component: DocumentSection,
+                name: 'planning2019',
+            },
+            {
+                path: '2020',
+                component: InspectionReports,
+                name: 'plannings2020',
+            },
+            {
+                path: '2020/:uuid',
+                component: DocumentSection,
+                name: 'planning2020',
+            },
+            {
+                path: '2021',
+                component: InspectionReports,
+                name: 'plannings2021',
+            },
+            {
+                path: '2021/:uuid',
+                component: DocumentSection,
+                name: 'planning2021',
+            },
+            {
+                path: '2022',
+                component: InspectionReports,
+                name: 'plannings2022',
+            },
+            {
+                path: '2022/:uuid',
+                component: DocumentSection,
+                name: 'planning2022',
+            },
+            {
+                path: '2023',
+                component: InspectionReports,
+                name: 'plannings2023',
+            },
+            {
+                path: '2023/:uuid',
+                component: DocumentSection,
+                name: 'planning2023',
+            },
+            {path: '', redirect: '/planning/2023', name: 'planning-default'},
+        ],
+    }
 ]
 
 const router = createRouter({

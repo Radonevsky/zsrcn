@@ -30,6 +30,13 @@ class Document extends Authenticatable
         'statements2019',
         'statements2018',
         'statements2017',
+        'plannings2023',
+        'plannings2022',
+        'plannings2021',
+        'plannings2020',
+        'plannings2019',
+        'plannings2018',
+        'plannings2017',
     ];
 
     protected $fillable = [
