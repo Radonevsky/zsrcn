@@ -43,3 +43,9 @@ Route::get('/statements/{any}', function () {
 Route::get('/statements/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/planning/{any}', function () {
+    return view('app');
+});
+Route::get('/planning/{any}/{uuid}', function () {
+    return view('app');
+});
