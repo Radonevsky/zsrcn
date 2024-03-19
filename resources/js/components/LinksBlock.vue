@@ -28,12 +28,12 @@ const links = ref([
         {
             id: 5,
             title: 'Служба сопровождения замещающих семей',
-            href: '#',
+            href: '/support-foster',
         },
         {
             id: 6,
             title: 'Обращения граждан',
-            href: '#',
+            href: '/citizen-appeals',
         },
     ],
     [

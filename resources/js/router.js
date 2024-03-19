@@ -27,6 +27,11 @@ import InspectionReports from "./views/InspectionReports.vue";
 import DocumentSection from "./components/DocumentSection.vue";
 import StatementsRoutes from "./views/StatementsRoutes.vue";
 import PlanningRoutes from "./views/PlanningRoutes.vue";
+import SupportFosterRoutes from "./views/SupportFosterRoutes.vue";
+import CitizenAppealsRoutes from "./views/CitizenAppealsRoutes.vue";
+import CitizenAppealsSchedule from "./views/CitizenAppealsSchedule.vue";
+import CitizenAppealsLegalBasis from "./views/CitizenAppealsLegalBasis.vue";
+import CitizenAppealsRules from "./views/CitizenAppealsRules.vue";
 
 const routes = [
     {
@@ -282,7 +287,75 @@ const routes = [
             },
             {path: '', redirect: '/planning/2023', name: 'planning-default'},
         ],
-    }
+    },
+    {
+        path: '/support-foster',
+        component: SupportFosterRoutes,
+        name: 'support-foster',
+        children: [
+            {
+                path: 'foster-common',
+                component: InspectionReports,
+                name: 'foster-common-docs',
+            },
+            {
+                path: 'foster-common/:uuid',
+                component: DocumentSection,
+                name: 'foster-common-doc',
+            },
+            {
+                path: 'foster-school',
+                component: InspectionReports,
+                name: 'foster-school-docs',
+            },
+            {
+                path: 'foster-school/:uuid',
+                component: DocumentSection,
+                name: 'foster-school-doc',
+            },
+            {
+                path: 'foster-club',
+                component: InspectionReports,
+                name: 'foster-club-docs',
+            },
+            {
+                path: 'foster-club/:uuid',
+                component: DocumentSection,
+                name: 'foster-club-doc',
+            },
+            {
+                path: 'foster-service',
+                component: InspectionReports,
+                name: 'foster-service-docs',
+            },
+            {
+                path: 'foster-service/:uuid',
+                component: DocumentSection,
+                name: 'foster-service-doc',
+            },
+            {path: '', redirect: '/support-foster/foster-common', name: 'support-foster-default'},
+        ],
+    },
+    {
+        path: '/citizen-appeals',
+        component: CitizenAppealsRoutes,
+        name: 'citizen-appeals',
+        children: [
+            { path: '', component: CitizenAppealsSchedule, name: 'citizen-schedule' },
+            {
+                path: 'analysis',
+                component: InspectionReports,
+                name: 'citizen-appeals-analysis-docs',
+            },
+            {
+                path: 'analysis/:uuid',
+                component: DocumentSection,
+                name: 'citizen-appeals-analysis-doc',
+            },
+            { path: 'legal-basis', component: CitizenAppealsLegalBasis, name: 'citizen-appeals-basis' },
+            { path: 'rules', component: CitizenAppealsRules, name: 'citizen-appeals-rules' },
+        ],
+    },
 ]
 
 const router = createRouter({

@@ -37,6 +37,11 @@ class Document extends Authenticatable
         'plannings2019',
         'plannings2018',
         'plannings2017',
+        'foster-common-docs',
+        'foster-school-docs',
+        'foster-club-docs',
+        'foster-service-docs',
+        'citizen-appeals-analysis-docs',
     ];
 
     protected $fillable = [

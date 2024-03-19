@@ -49,3 +49,15 @@ Route::get('/planning/{any}', function () {
 Route::get('/planning/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/support-foster/{any}', function () {
+    return view('app');
+});
+Route::get('/support-foster/{any}/{uuid}', function () {
+    return view('app');
+});
+Route::get('/citizen-appeals/{any}', function () {
+    return view('app');
+});
+Route::get('/citizen-appeals/{any}/{uuid}', function () {
+    return view('app');
+});
