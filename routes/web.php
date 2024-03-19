@@ -55,3 +55,9 @@ Route::get('/support-foster/{any}', function () {
 Route::get('/support-foster/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/citizen-appeals/{any}', function () {
+    return view('app');
+});
+Route::get('/citizen-appeals/{any}/{uuid}', function () {
+    return view('app');
+});

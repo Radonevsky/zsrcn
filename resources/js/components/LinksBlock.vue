@@ -33,7 +33,7 @@ const links = ref([
         {
             id: 6,
             title: 'Обращения граждан',
-            href: '#',
+            href: '/citizen-appeals',
         },
     ],
     [

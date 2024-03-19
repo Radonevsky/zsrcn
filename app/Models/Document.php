@@ -41,6 +41,7 @@ class Document extends Authenticatable
         'foster-school-docs',
         'foster-club-docs',
         'foster-service-docs',
+        'citizen-appeals-analysis-docs',
     ];
 
     protected $fillable = [

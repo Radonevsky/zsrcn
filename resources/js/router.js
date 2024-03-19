@@ -28,6 +28,10 @@ import DocumentSection from "./components/DocumentSection.vue";
 import StatementsRoutes from "./views/StatementsRoutes.vue";
 import PlanningRoutes from "./views/PlanningRoutes.vue";
 import SupportFosterRoutes from "./views/SupportFosterRoutes.vue";
+import CitizenAppealsRoutes from "./views/CitizenAppealsRoutes.vue";
+import CitizenAppealsSchedule from "./views/CitizenAppealsSchedule.vue";
+import CitizenAppealsLegalBasis from "./views/CitizenAppealsLegalBasis.vue";
+import CitizenAppealsRules from "./views/CitizenAppealsRules.vue";
 
 const routes = [
     {
@@ -331,7 +335,27 @@ const routes = [
             },
             {path: '', redirect: '/support-foster/foster-common', name: 'support-foster-default'},
         ],
-    }
+    },
+    {
+        path: '/citizen-appeals',
+        component: CitizenAppealsRoutes,
+        name: 'citizen-appeals',
+        children: [
+            { path: '', component: CitizenAppealsSchedule, name: 'citizen-schedule' },
+            {
+                path: 'analysis',
+                component: InspectionReports,
+                name: 'citizen-appeals-analysis-docs',
+            },
+            {
+                path: 'analysis/:uuid',
+                component: DocumentSection,
+                name: 'citizen-appeals-analysis-doc',
+            },
+            { path: 'legal-basis', component: CitizenAppealsLegalBasis, name: 'citizen-appeals-basis' },
+            { path: 'rules', component: CitizenAppealsRules, name: 'citizen-appeals-rules' },
+        ],
+    },
 ]
 
 const router = createRouter({
