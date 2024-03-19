@@ -27,6 +27,7 @@ import InspectionReports from "./views/InspectionReports.vue";
 import DocumentSection from "./components/DocumentSection.vue";
 import StatementsRoutes from "./views/StatementsRoutes.vue";
 import PlanningRoutes from "./views/PlanningRoutes.vue";
+import SupportFosterRoutes from "./views/SupportFosterRoutes.vue";
 
 const routes = [
     {
@@ -281,6 +282,54 @@ const routes = [
                 name: 'planning2023',
             },
             {path: '', redirect: '/planning/2023', name: 'planning-default'},
+        ],
+    },
+    {
+        path: '/support-foster',
+        component: SupportFosterRoutes,
+        name: 'support-foster',
+        children: [
+            {
+                path: 'foster-common',
+                component: InspectionReports,
+                name: 'foster-common-docs',
+            },
+            {
+                path: 'foster-common/:uuid',
+                component: DocumentSection,
+                name: 'foster-common-doc',
+            },
+            {
+                path: 'foster-school',
+                component: InspectionReports,
+                name: 'foster-school-docs',
+            },
+            {
+                path: 'foster-school/:uuid',
+                component: DocumentSection,
+                name: 'foster-school-doc',
+            },
+            {
+                path: 'foster-club',
+                component: InspectionReports,
+                name: 'foster-club-docs',
+            },
+            {
+                path: 'foster-club/:uuid',
+                component: DocumentSection,
+                name: 'foster-club-doc',
+            },
+            {
+                path: 'foster-service',
+                component: InspectionReports,
+                name: 'foster-service-docs',
+            },
+            {
+                path: 'foster-service/:uuid',
+                component: DocumentSection,
+                name: 'foster-service-doc',
+            },
+            {path: '', redirect: '/support-foster/foster-common', name: 'support-foster-default'},
         ],
     }
 ]

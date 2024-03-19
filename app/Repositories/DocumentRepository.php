@@ -14,7 +14,7 @@ class DocumentRepository
     public function storeDocument($data, $type, $description = null): string
     {
         try {
-            $type = $this->kebabToSnake($type);
+            $typeKebab = $this->kebabToSnake($type);
             $originalName = $data->getClientOriginalName();
             $docName = md5(Carbon::now() . '_' . $originalName)
                 . '.' . $data->getClientOriginalExtension();
@@ -25,7 +25,7 @@ class DocumentRepository
                 $document->type = $type;
             } else {
                 $document = Document::query()
-                    ->firstOrNew(['type' => $type,]);
+                    ->firstOrNew(['type' => $typeKebab,]);
             }
 
             if (!is_null($description)) {
