@@ -61,3 +61,10 @@ Route::get('/citizen-appeals/{any}', function () {
 Route::get('/citizen-appeals/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/methodical/{any}', function () {
+    return view('app');
+});
+Route::get('/methodical/{any}/{uuid}', function () {
+    return view('app');
+});
+

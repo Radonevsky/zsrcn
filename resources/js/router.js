@@ -32,6 +32,8 @@ import CitizenAppealsRoutes from "./views/CitizenAppealsRoutes.vue";
 import CitizenAppealsSchedule from "./views/CitizenAppealsSchedule.vue";
 import CitizenAppealsLegalBasis from "./views/CitizenAppealsLegalBasis.vue";
 import CitizenAppealsRules from "./views/CitizenAppealsRules.vue";
+import MethodicalRoutes from "./views/MethodicalRoutes.vue";
+import SocialTechnologies from "./views/SocialTechnologies.vue";
 
 const routes = [
     {
@@ -354,6 +356,19 @@ const routes = [
             },
             { path: 'legal-basis', component: CitizenAppealsLegalBasis, name: 'citizen-appeals-basis' },
             { path: 'rules', component: CitizenAppealsRules, name: 'citizen-appeals-rules' },
+        ],
+    },
+    {
+        path: '/methodical',
+        component: MethodicalRoutes,
+        name: 'methodical',
+        children: [
+            { path: 'programm', component: InspectionReports, name: 'methodical-programm-summer-docs' },
+            { path: 'programm/:uuid', component: DocumentSection, name: 'methodical-programm-summer-doc' },
+            { path: 'social-technologies', component: SocialTechnologies, name: 'methodical-social-technologies' },
+            { path: 'work', component: InspectionReports, name: 'methodical-work-docs' },
+            { path: 'work/:uuid', component: DocumentSection, name: 'methodical-work-doc' },
+            {path: '', redirect: '/methodical/programm', name: 'support-foster-default'},
         ],
     },
 ]
