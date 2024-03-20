@@ -79,4 +79,7 @@ Route::get('/quality-assessment/{any}', function () {
 Route::get('/quality-assessment/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/towards-children', function () {
+    return view('app');
+});
 

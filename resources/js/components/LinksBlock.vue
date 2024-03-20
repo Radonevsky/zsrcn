@@ -55,7 +55,7 @@ const links = ref([
         {
             id: 10,
             title: 'Органы власти субъектов РФ — навстречу детям',
-            href: '#',
+            href: '/towards-children',
         },
         {
             id: 11,
