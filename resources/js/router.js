@@ -37,6 +37,7 @@ import SocialTechnologies from "./views/SocialTechnologies.vue";
 import AntiCorruptionRoutes from "./views/AntiCorruptionRoutes.vue";
 import AntiCorruptionDays from "./views/AntiCorruptionDays.vue";
 import QualityAssessmentRoutes from "./views/QualityAssessmentRoutes.vue";
+import TowardsChildren from "./views/TowardsChildren.vue";
 
 const routes = [
     {
@@ -465,6 +466,11 @@ const routes = [
             {path: '', redirect: '/quality-assessment/results-2021', name: 'quality-assessment-default'},
         ],
     },
+    {
+        path: '/towards-children',
+        component: TowardsChildren,
+        name: 'towards-children',
+    }
 ]
 
 const router = createRouter({
