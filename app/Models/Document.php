@@ -46,6 +46,12 @@ class Document extends Authenticatable
         'methodical-work-docs',
         'anti-corruption-booklets-docs',
         'anti-corruption-memo-docs',
+        'nok-report-docs',
+        'workplace-improvements-docs',
+        'workplace-quality-docs',
+        'results-2021-docs',
+        'plan-2021-docs',
+        'quality-assessment',
     ];
 
     protected $fillable = [

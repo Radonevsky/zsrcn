@@ -73,4 +73,10 @@ Route::get('/anti-corruption/{any}', function () {
 Route::get('/anti-corruption/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/quality-assessment/{any}', function () {
+    return view('app');
+});
+Route::get('/quality-assessment/{any}/{uuid}', function () {
+    return view('app');
+});
 

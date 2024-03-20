@@ -50,7 +50,7 @@ const links = ref([
         {
             id: 9,
             title: 'Независимая оценка качества условий оказания услуг',
-            href: '#',
+            href: '/quality-assessment',
         },
         {
             id: 10,
