@@ -45,7 +45,7 @@ const links = ref([
         {
             id: 8,
             title: 'Противодействие коррупции',
-            href: '#',
+            href: '/anti-corruption',
         },
         {
             id: 9,

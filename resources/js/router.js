@@ -34,6 +34,8 @@ import CitizenAppealsLegalBasis from "./views/CitizenAppealsLegalBasis.vue";
 import CitizenAppealsRules from "./views/CitizenAppealsRules.vue";
 import MethodicalRoutes from "./views/MethodicalRoutes.vue";
 import SocialTechnologies from "./views/SocialTechnologies.vue";
+import AntiCorruptionRoutes from "./views/AntiCorruptionRoutes.vue";
+import AntiCorruptionDays from "./views/AntiCorruptionDays.vue";
 
 const routes = [
     {
@@ -369,6 +371,39 @@ const routes = [
             { path: 'work', component: InspectionReports, name: 'methodical-work-docs' },
             { path: 'work/:uuid', component: DocumentSection, name: 'methodical-work-doc' },
             {path: '', redirect: '/methodical/programm', name: 'support-foster-default'},
+        ],
+    },
+    {
+        path: '/anti-corruption',
+        component: AntiCorruptionRoutes,
+        name: 'anti-corruption',
+        children: [
+            {
+                path: 'memo',
+                component: InspectionReports,
+                name: 'anti-corruption-memo-docs',
+            },
+            {
+                path: 'memo/:uuid',
+                component: DocumentSection,
+                name: 'anti-corruption-memo-doc',
+            },
+            {
+                path: 'day',
+                component: AntiCorruptionDays,
+                name: 'anti-corruption-days',
+            },
+            {
+                path: 'booklets',
+                component: InspectionReports,
+                name: 'anti-corruption-booklets-docs',
+            },
+            {
+                path: 'booklets/:uuid',
+                component: DocumentSection,
+                name: 'anti-corruption-booklets-doc',
+            },
+            {path: '', redirect: '/anti-corruption/memo', name: 'support-foster-default'},
         ],
     },
 ]
