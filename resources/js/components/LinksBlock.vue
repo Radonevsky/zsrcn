@@ -40,7 +40,7 @@ const links = ref([
         {
             id: 7,
             title: 'Методическая работа',
-            href: '#',
+            href: '/methodical',
         },
         {
             id: 8,
