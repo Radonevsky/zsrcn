@@ -44,6 +44,8 @@ class Document extends Authenticatable
         'citizen-appeals-analysis-docs',
         'methodical-programm-summer-docs',
         'methodical-work-docs',
+        'anti-corruption-booklets-docs',
+        'anti-corruption-memo-docs',
     ];
 
     protected $fillable = [

@@ -67,4 +67,10 @@ Route::get('/methodical/{any}', function () {
 Route::get('/methodical/{any}/{uuid}', function () {
     return view('app');
 });
+Route::get('/anti-corruption/{any}', function () {
+    return view('app');
+});
+Route::get('/anti-corruption/{any}/{uuid}', function () {
+    return view('app');
+});
 
