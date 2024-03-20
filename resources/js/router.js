@@ -36,6 +36,7 @@ import MethodicalRoutes from "./views/MethodicalRoutes.vue";
 import SocialTechnologies from "./views/SocialTechnologies.vue";
 import AntiCorruptionRoutes from "./views/AntiCorruptionRoutes.vue";
 import AntiCorruptionDays from "./views/AntiCorruptionDays.vue";
+import QualityAssessmentRoutes from "./views/QualityAssessmentRoutes.vue";
 
 const routes = [
     {
@@ -370,7 +371,7 @@ const routes = [
             { path: 'social-technologies', component: SocialTechnologies, name: 'methodical-social-technologies' },
             { path: 'work', component: InspectionReports, name: 'methodical-work-docs' },
             { path: 'work/:uuid', component: DocumentSection, name: 'methodical-work-doc' },
-            {path: '', redirect: '/methodical/programm', name: 'support-foster-default'},
+            {path: '', redirect: '/methodical/programm', name: 'methodical-default'},
         ],
     },
     {
@@ -403,7 +404,65 @@ const routes = [
                 component: DocumentSection,
                 name: 'anti-corruption-booklets-doc',
             },
-            {path: '', redirect: '/anti-corruption/memo', name: 'support-foster-default'},
+            {path: '', redirect: '/anti-corruption/memo', name: 'anti-corruption-default'},
+        ],
+    },
+    {
+        path: '/quality-assessment',
+        component: QualityAssessmentRoutes,
+        name: 'quality-assessment',
+        children: [
+            {
+                path: 'results-2021',
+                component: InspectionReports,
+                name: 'results-2021-docs',
+            },
+            {
+                path: 'results-2021/:uuid',
+                component: DocumentSection,
+                name: 'results-2021-doc',
+            },
+            {
+                path: 'plan-2021',
+                component: InspectionReports,
+                name: 'plan-2021-docs',
+            },
+            {
+                path: 'plan-2021/:uuid',
+                component: DocumentSection,
+                name: 'plan-2021-doc',
+            },
+            {
+                path: 'workplace-quality',
+                component: InspectionReports,
+                name: 'workplace-quality-docs',
+            },
+            {
+                path: 'workplace-quality/:uuid',
+                component: DocumentSection,
+                name: 'workplace-quality-doc',
+            },
+            {
+                path: 'workplace-improvements',
+                component: InspectionReports,
+                name: 'workplace-improvements-docs',
+            },
+            {
+                path: 'workplace-improvements/:uuid',
+                component: DocumentSection,
+                name: 'workplace-improvements-doc',
+            },
+            {
+                path: 'nok-report',
+                component: InspectionReports,
+                name: 'nok-report-docs',
+            },
+            {
+                path: 'nok-report/:uuid',
+                component: DocumentSection,
+                name: 'nok-report-doc',
+            },
+            {path: '', redirect: '/quality-assessment/results-2021', name: 'quality-assessment-default'},
         ],
     },
 ]
