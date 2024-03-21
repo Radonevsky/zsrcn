@@ -38,6 +38,7 @@ import AntiCorruptionRoutes from "./views/AntiCorruptionRoutes.vue";
 import AntiCorruptionDays from "./views/AntiCorruptionDays.vue";
 import QualityAssessmentRoutes from "./views/QualityAssessmentRoutes.vue";
 import TowardsChildren from "./views/TowardsChildren.vue";
+import InformationSecurity from "./views/InformationSecurity.vue";
 
 const routes = [
     {
@@ -470,6 +471,11 @@ const routes = [
         path: '/towards-children',
         component: TowardsChildren,
         name: 'towards-children',
+    },
+    {
+        path: '/information-security',
+        component: InformationSecurity,
+        name: 'information-security',
     }
 ]
 

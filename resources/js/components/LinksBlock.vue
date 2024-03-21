@@ -60,12 +60,13 @@ const links = ref([
         {
             id: 11,
             title: '#СЕТЕВИЧОК',
-            href: '#',
+            href: 'https://xn--b1afankxqj2c.xn--p1ai/index.php',
+            externalLink: true,
         },
         {
             id: 12,
             title: 'Информационная безопасность',
-            href: '#',
+            href: '/information-security',
         },
     ],
 
@@ -80,7 +81,8 @@ const links = ref([
                 <ul class='flex flex-col gap-[35px] font-roboto300 pl-[20px] text-[20px] leading-[23px] text-link-dark-blue
                     before:bg-link-dark-blue'>
                     <li v-for='link in column' :key='link.id' class='main-link hover:underline hover:underline-offset-4'>
-                        <router-link :to='link.href'>{{ link.title }}</router-link>
+                        <a v-if="link.externalLink" :href="link.href" target="_blank">{{ link.title }}</a>
+                        <router-link v-else :to='link.href'>{{ link.title }}</router-link>
                     </li>
                 </ul>
             </div>
