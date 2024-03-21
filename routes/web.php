@@ -82,4 +82,7 @@ Route::get('/quality-assessment/{any}/{uuid}', function () {
 Route::get('/towards-children', function () {
     return view('app');
 });
+Route::get('/information-security', function () {
+    return view('app');
+});
 
