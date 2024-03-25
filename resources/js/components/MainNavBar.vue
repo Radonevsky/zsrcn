@@ -36,7 +36,7 @@ const tabs = [
     {
         title: 'Контакты',
         bg: 'bg-violet',
-        link: '/',
+        link: '/contacts',
         name: 'contacts',
     },
 ]
