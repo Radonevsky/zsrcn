@@ -39,6 +39,7 @@ import AntiCorruptionDays from "./views/AntiCorruptionDays.vue";
 import QualityAssessmentRoutes from "./views/QualityAssessmentRoutes.vue";
 import TowardsChildren from "./views/TowardsChildren.vue";
 import InformationSecurity from "./views/InformationSecurity.vue";
+import HeyParents from "./views/HeyParents.vue";
 
 const routes = [
     {
@@ -476,7 +477,12 @@ const routes = [
         path: '/information-security',
         component: InformationSecurity,
         name: 'information-security',
-    }
+    },
+    {
+        path: '/hey-parents',
+        component: HeyParents,
+        name: 'information-security',
+    },
 ]
 
 const router = createRouter({

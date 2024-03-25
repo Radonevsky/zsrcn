@@ -85,4 +85,7 @@ Route::get('/towards-children', function () {
 Route::get('/information-security', function () {
     return view('app');
 });
+Route::get('/hey-parents', function () {
+    return view('app');
+});
 

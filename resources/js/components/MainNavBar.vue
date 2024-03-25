@@ -23,7 +23,7 @@ const tabs = [
     {
         title: 'Ау, Родители',
         bg: 'bg-green',
-        link: '/',
+        link: '/hey-parents',
         name: 'parents',
     },
     {
