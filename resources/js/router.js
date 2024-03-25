@@ -481,7 +481,7 @@ const routes = [
     {
         path: '/hey-parents',
         component: HeyParents,
-        name: 'information-security',
+        name: 'hey-parents',
     },
 ]
 
