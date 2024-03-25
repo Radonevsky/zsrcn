@@ -88,4 +88,6 @@ Route::get('/information-security', function () {
 Route::get('/hey-parents', function () {
     return view('app');
 });
-
+Route::get('/contacts', function () {
+    return view('app');
+});

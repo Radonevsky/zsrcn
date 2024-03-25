@@ -40,6 +40,7 @@ import QualityAssessmentRoutes from "./views/QualityAssessmentRoutes.vue";
 import TowardsChildren from "./views/TowardsChildren.vue";
 import InformationSecurity from "./views/InformationSecurity.vue";
 import HeyParents from "./views/HeyParents.vue";
+import Contacts from "./views/Contacts.vue";
 
 const routes = [
     {
@@ -482,6 +483,11 @@ const routes = [
         path: '/hey-parents',
         component: HeyParents,
         name: 'hey-parents',
+    },
+    {
+        path: '/contacts',
+        component: Contacts,
+        name: 'contacts',
     },
 ]
 
