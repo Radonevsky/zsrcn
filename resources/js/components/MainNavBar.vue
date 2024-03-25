@@ -27,10 +27,11 @@ const tabs = [
         name: 'parents',
     },
     {
-        title: 'Усыновление.ру',
+        title: 'Усыновите.ру',
         bg: 'bg-light-blue',
-        link: '/',
+        link: 'https://www.usynovite.ru/',
         name: 'adoption',
+        externalLink: true,
     },
     {
         title: 'Контакты',
@@ -43,7 +44,7 @@ const tabs = [
 
 <template>
     <div class='flex justify-end gap-[10px] overflow-hidden'>
-        <MainMenuTab v-for='tab in tabs' :to='tab.link' :background='tab.bg' :name='tab.name'>
+        <MainMenuTab v-for='tab in tabs' :to='tab.link' :background='tab.bg' :name='tab.name' :external-link="tab.externalLink">
             {{ tab.title.toUpperCase() }}
         </MainMenuTab>
     </div>
