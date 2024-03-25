@@ -7,6 +7,7 @@ import PlusIcon from "../components/icons/plusIcon.vue";
 import SaveButton from "../components/SaveButton.vue";
 import GalleryPhoto from "../components/GalleryPhoto.vue";
 import ImageViewModal from "../components/ImageViewModal.vue";
+import PageTitle from "../components/PageTitle.vue";
 
 const {
     dropzoneElement,
@@ -45,6 +46,9 @@ function openPhoto(photo) {
 </script>
 
 <template>
+    <router-link to='/gallery' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
+        <PageTitle title='Галерея' bg-class='bg-yellow' :router-link='true'/>
+    </router-link>
     <div class='py-[30px]'>
         <ContentContainer>
             <button
