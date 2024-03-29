@@ -12,9 +12,11 @@ import MainNavBar from "./MainNavBar.vue";
         <ContentContainer>
             <div class='pt-10 flex justify-between'>
                 <div class='w-[604px]'>
-                    <h1 class='text-[30px] text-tblue font-roboto500 leading-[35px]'>
-                        Государственное бюджетное учреждение социального обслуживания “Заиграевский реабилитационный центр для несовершеннолетних”
-                    </h1>
+                    <router-link to="/">
+                        <h1 class='text-[30px] text-tblue font-roboto500 leading-[35px] hover:underline'>
+                            Государственное бюджетное учреждение социального обслуживания “Заиграевский реабилитационный центр для несовершеннолетних”
+                        </h1>
+                    </router-link>
                 </div>
                 <Contacts/>
             </div>
