@@ -91,3 +91,6 @@ Route::get('/hey-parents', function () {
 Route::get('/contacts', function () {
     return view('app');
 });
+Route::get('/social-add', function () {
+    return view('app');
+});
