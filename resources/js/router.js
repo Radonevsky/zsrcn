@@ -41,6 +41,7 @@ import TowardsChildren from "./views/TowardsChildren.vue";
 import InformationSecurity from "./views/InformationSecurity.vue";
 import HeyParents from "./views/HeyParents.vue";
 import Contacts from "./views/Contacts.vue";
+import SocialAddView from "./views/SocialAddView.vue";
 
 const routes = [
     {
@@ -488,6 +489,11 @@ const routes = [
         path: '/contacts',
         component: Contacts,
         name: 'contacts',
+    },
+    {
+        path: '/social-add',
+        component: SocialAddView,
+        name: 'social-add',
     },
 ]
 
