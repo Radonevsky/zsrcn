@@ -5,6 +5,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
 import useArticles from "../use/articles.js";
 import ArticleCard from "../components/ArticleCard.vue";
+import AddButton from "./AddButton.vue";
 
 const {articles, setArticles, newArticleMode} = useArticles()
 
@@ -23,15 +24,12 @@ function refreshArticles() {
         <PageTitle title='Наши новости' bgClass='bg-orange'/>
         <div class='pb-[60px]' :class='isAdmin && !newArticleMode ? "pt-[25px] " : "pt-[77px] "'>
             <ContentContainer>
-                <button
+                <add-button
                     v-if='isAdmin && !newArticleMode'
-                    class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'
-                    @click='newArticleMode = true'>
-                    <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
-                        Добавить новость
-                    </span>
-                    <plusIcon></plusIcon>
-                </button>
+                    @click='newArticleMode = true'
+                    class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'>
+                    Добавить новость
+                </add-button>
                 <div class='flex flex-col gap-[60px]'>
                     <ArticleCard
                         v-if='isAdmin && newArticleMode'

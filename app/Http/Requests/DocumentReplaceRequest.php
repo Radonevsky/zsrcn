@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class DocumentStoreRequest extends FormRequest
+class DocumentReplaceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class DocumentStoreRequest extends FormRequest
     {
         return [
             'document' => ['required', 'mimes:docx,doc,pdf'],
-            'description' => ['nullable', 'string', 'max:3000']
         ];
     }
 

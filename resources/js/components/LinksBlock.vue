@@ -18,54 +18,55 @@ const links = ref([
         {
             id: 3,
             title: 'Отчетные документы',
-            href: '#',
+            href: '/statements',
         },
         {
             id: 4,
             title: 'Планирование финансово-хозяйственной деятельности',
-            href: '#',
+            href: '/planning',
         },
         {
             id: 5,
             title: 'Служба сопровождения замещающих семей',
-            href: '#',
+            href: '/support-foster',
         },
         {
             id: 6,
             title: 'Обращения граждан',
-            href: '#',
+            href: '/citizen-appeals',
         },
     ],
     [
         {
             id: 7,
             title: 'Методическая работа',
-            href: '#',
+            href: '/methodical',
         },
         {
             id: 8,
             title: 'Противодействие коррупции',
-            href: '#',
+            href: '/anti-corruption',
         },
         {
             id: 9,
             title: 'Независимая оценка качества условий оказания услуг',
-            href: '#',
+            href: '/quality-assessment',
         },
         {
             id: 10,
             title: 'Органы власти субъектов РФ — навстречу детям',
-            href: '#',
+            href: '/towards-children',
         },
         {
             id: 11,
             title: '#СЕТЕВИЧОК',
-            href: '#',
+            href: 'https://xn--b1afankxqj2c.xn--p1ai/index.php',
+            externalLink: true,
         },
         {
             id: 12,
             title: 'Информационная безопасность',
-            href: '#',
+            href: '/information-security',
         },
     ],
 
@@ -80,7 +81,8 @@ const links = ref([
                 <ul class='flex flex-col gap-[35px] font-roboto300 pl-[20px] text-[20px] leading-[23px] text-link-dark-blue
                     before:bg-link-dark-blue'>
                     <li v-for='link in column' :key='link.id' class='main-link hover:underline hover:underline-offset-4'>
-                        <router-link :to='link.href'>{{ link.title }}</router-link>
+                        <a v-if="link.externalLink" :href="link.href" target="_blank">{{ link.title }}</a>
+                        <router-link v-else :to='link.href'>{{ link.title }}</router-link>
                     </li>
                 </ul>
             </div>

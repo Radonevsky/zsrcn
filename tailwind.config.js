@@ -33,6 +33,7 @@ export default {
             'line-dark-blue': '#2B438F',
             tdarkblue: '#183284',
             'link-dark-blue': '#203065',
+            'blue-border': 'rgba(32,48,101,0.46)',
 
         },
         fontFamily: {

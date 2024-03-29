@@ -3,17 +3,22 @@
 import DownloadDocButton from "./DownloadDocButton.vue";
 import CommonButton from "./CommonButton.vue";
 import useCommon from "../use/common.js";
-import {ref} from "vue";
+import {defineEmits, ref} from "vue";
 
 const props = defineProps({
     name: String,
     type: String,
+    uuid: String,
 })
+
+const emit = defineEmits(['updateDoc'])
 
 const {
     isAdmin,
     uploadDocument,
     downloadDocument,
+    replaceDocument,
+    downloadByUuid,
 } = useCommon()
 const uploadMode = ref(false)
 const documentToUpload = ref(null)
@@ -25,14 +30,23 @@ function docAttachmentChange(e) {
 }
 
 async function triggerUploadDocument() {
-    await uploadDocument(documentToUpload.value, props.type)
+    if (props.uuid) {
+        await replaceDocument(documentToUpload.value, props.uuid)
+    } else {
+        await uploadDocument(documentToUpload.value, props.type)
+    }
+    emit('updateDoc')
     documentToUpload.value = null
     uploadMode.value = false
     isHideDownloadAnotherBtn.value = false
 }
 
 async function triggerDownloadDocument() {
-    downloadDocument(props.name, props.type)
+    if (props.uuid) {
+        downloadByUuid(props.uuid)
+    } else {
+        downloadDocument(props.name, props.type)
+    }
 }
 
 </script>

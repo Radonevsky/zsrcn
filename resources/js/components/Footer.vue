@@ -1,16 +1,19 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
+
 </script>
 
 <template>
 <div class='bg-purpl-blue py-[60px] text-white'>
     <ContentContainer>
         <div class='flex gap-[30px]'>
-            <h2 class='font-roboto500 text-[30px] leading-[35px] max-w-[604px]'>
-                Государственное бюджетное учреждение социального обслуживания
-                “Заиграевский реабилитационный центр для несовершеннолетних”
-            </h2>
+            <router-link to="/">
+                <h2 class='font-roboto500 text-[30px] leading-[35px] max-w-[604px] hover:underline'>
+                    Государственное бюджетное учреждение социального обслуживания
+                    “Заиграевский реабилитационный центр для несовершеннолетних”
+                </h2>
+            </router-link>
             <div class='font-roboto400 text-[20px] flex gap-[26px] justify-between w-[100%]'>
                 <div class='max-w-[291px]'>
                     <h5 class='uppercase'>
