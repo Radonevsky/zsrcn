@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\File;
-class PhotoStoreRequest extends FormRequest
+class AlbumStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class PhotoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photos' => ['required', 'array'],
-            'photos.*' => ['required', File::image()],
-            'album_id' => ['required', 'exists:albums,id'],
+            'photos' => ['array'],
+            'photos.*' => [File::image()],
+            'name' => ['required', 'string'],
         ];
     }
 }

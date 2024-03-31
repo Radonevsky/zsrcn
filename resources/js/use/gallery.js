@@ -33,6 +33,16 @@ async function fetchPhotos(page) {
     return response.data.photos
 }
 
+async function fetchAlbums(page, partly) {
+    const response = await axios.get(`/api/albums?page=${page}&partly=${partly ? 1 : 0}`)
+    return response.data.albums
+}
+
+async function fetchAlbumOtherPhotos(albumId) {
+    const response = await axios.get(`/api/albums/${albumId}`)
+    return response.data.images
+}
+
 async function setPhotos(page) {
     const partionedPhotos = await fetchPhotos(page)
 
@@ -60,8 +70,6 @@ async function setPhotoToViewer(direction) {
     }
 }
 
-setPhotos(currentPage.value)
-
 async function storePhotos() {
     let data = new FormData()
     const imgArray = dropzone.value.getAcceptedFiles()
@@ -77,6 +85,22 @@ async function storePhotos() {
     photos.value.unshift(...uploadedPhotos.data.photos)
 }
 
+async function storeAlbum(name) {
+    let data = new FormData()
+    data.append('name', name)
+    const imgArray = dropzone.value.getAcceptedFiles()
+
+    imgArray.forEach(img => {
+        data.append('photos[]', img)
+        dropzone.value.removeFile(img)
+    })
+
+    const uploadedAlbum = await axios.post('/api/albums', data)
+
+    storePhotoButtonShow.value = false
+    photos.value.unshift(...uploadedAlbum.data.photos)
+}
+
 export default function useGallery() {
     return {
         dropzoneElement,
@@ -86,9 +110,11 @@ export default function useGallery() {
         currentPage,
         currentPhotoIndex,
         currentPhotoUrl,
-        setPhotos,
         initializeDropzone,
         storePhotos,
         setPhotoToViewer,
+        storeAlbum,
+        fetchAlbums,
+        fetchAlbumOtherPhotos,
     }
 }
