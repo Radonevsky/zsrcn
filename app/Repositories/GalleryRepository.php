@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Image;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryRepository
@@ -27,11 +26,11 @@ class GalleryRepository
         return $photos;
     }
 
-    public function storePhotos($data)
+    public function storePhotos(array $photos, int $albumId = null)
     {
         $createdImages = [];
 
-        foreach ($data['photos'] as $image) {
+        foreach ($photos as $image) {
             $imgName = md5(Carbon::now() . '_' . $image->getClientOriginalName())
                 . '.' . $image->getClientOriginalExtension();
             $prevName = 'prev_' . $imgName;
@@ -47,6 +46,7 @@ class GalleryRepository
                 'path' => $path,
                 'url' => url('/storage/' . $path),
                 'preview_url' => $preview,
+                'album_id' => $albumId,
             ]);
         }
 

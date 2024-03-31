@@ -5,26 +5,26 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 import ShowMoreButton from "../components/ShowMoreButton.vue";
 import PlusIcon from "../components/icons/plusIcon.vue";
 import SaveButton from "../components/SaveButton.vue";
-import GalleryPhoto from "../components/GalleryPhoto.vue";
-import ImageViewModal from "../components/ImageViewModal.vue";
 import PageTitle from "../components/PageTitle.vue";
+import CommonInput from "../components/CommonInput.vue";
+import PhotoAlbum from "../components/PhotoAlbum.vue";
 
 const {
     dropzoneElement,
     storePhotoButtonShow,
-    photos,
-    currentPage,
-    currentPhotoIndex,
-    currentPhotoUrl,
     initializeDropzone,
-    storePhotos,
-    setPhotos,
-    setPhotoToViewer,
+    fetchAlbums,
+    storeAlbum,
+    fetchAlbumOtherPhotos,
 } = useGallery()
 
 const dropzoneMode = ref(false)
 const isAdmin = ref(true)
-const viewMode = ref(false)
+
+const createAlbumMode = ref(false)
+const albumName = ref('')
+const albums = ref([])
+const currentAlbumsPage = ref(0)
 
 onMounted(() => {
     if (isAdmin) {
@@ -32,17 +32,31 @@ onMounted(() => {
     }
 })
 
-function savePhotos() {
+function saveAlbum() {
     dropzoneMode.value = false
-    storePhotos()
+    storeAlbum(albumName.value)
 }
 
-function openPhoto(photo) {
-    currentPhotoUrl.value = photo.url
-    currentPhotoIndex.value = photos.value.indexOf(photo)
-    viewMode.value = true
+async function setAlbums() {
+    const partionedAlbums = await fetchAlbums(currentAlbumsPage.value, true)
+
+    if (partionedAlbums.length > 0) {
+        albums.value.push(...partionedAlbums)
+        currentAlbumsPage.value++
+        return true
+    }
+
+    return false
 }
 
+setAlbums()
+
+async function getAlbumOtherPhotos(e) {
+    const otherImages = await fetchAlbumOtherPhotos(e)
+    let tergetAlbum = albums.value.find(album => album.id === e)
+    tergetAlbum.images.push(...otherImages)
+    tergetAlbum.partly = false
+}
 </script>
 
 <template>
@@ -52,50 +66,49 @@ function openPhoto(photo) {
     <div class='py-[30px]'>
         <ContentContainer>
             <button
-                v-if='isAdmin && !dropzoneMode'
+                v-if='isAdmin && !createAlbumMode'
                 class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'
-                @click='dropzoneMode = true'>
+                @click='createAlbumMode = true'>
                     <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
-                        Загрузить фотографии
+                        Создать альбом
                     </span>
                 <plusIcon></plusIcon>
             </button>
             <button
-                v-if='isAdmin && dropzoneMode'
+                v-if='isAdmin && createAlbumMode'
                 class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'
-                @click='dropzoneMode = false'>
+                @click='createAlbumMode = false'>
                     <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
-                        Скрыть область загрузки
+                        Отменить создание
                     </span>
             </button>
-            <div
-                v-show='dropzoneMode'
-                ref='dropzoneElement'
-                class='min-h-[100px] mb-[30px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer
-                       text-center bg-light-bg text-tblue flex gap-6 justify-items-center flex-wrap  justify-center'>
+            <div v-show='createAlbumMode' class="text-center mx-auto">
+                <common-input
+                    v-model="albumName"
+                    placeholder="Название альбома">
+                </common-input>
+                <div
+                    ref='dropzoneElement'
+                    class='mt-[20px] min-h-[100px] mb-[30px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer
+                       text-center bg-light-bg text-tblue flex gap-6 justify-items-center flex-wrap justify-center'>
+                </div>
+                <SaveButton
+                    v-if='storePhotoButtonShow && albumName.length'
+                    @click=saveAlbum
+                    text='Создать альбом'
+                    class='mx-auto my-9'/>
             </div>
-            <SaveButton
-                v-if='storePhotoButtonShow'
-                @click=savePhotos
-                text='Сохранить'
-                class='mx-auto my-9'/>
+            <div v-for="album in albums">
+                <photo-album
+                    @load-full-album="getAlbumOtherPhotos"
+                    :id="album.id"
+                    :partly="album.partly"
+                    :name="album.name"
+                    :images="album.images">
+                </photo-album>
 
-            <div class='flex flex-wrap justify-start align-top -mx-[15px]'>
-                <GalleryPhoto
-                    v-for='photo in photos'
-                    @click='openPhoto(photo)'
-                    :prev-url='photo.preview_url'/>
             </div>
-
-            <ShowMoreButton @click='setPhotos(currentPage)' text='показать еще' class='mx-auto mt-[60px]'/>
-
-            <ImageViewModal
-                v-if='viewMode'
-                :url='currentPhotoUrl'
-                @close='viewMode = false'
-                @next-photo='setPhotoToViewer(1)'
-                @prev-photo='setPhotoToViewer(-1)'/>
-
+            <ShowMoreButton @click='setAlbums(currentAlbumsPage)' text='Еще альбомы' class='mx-auto mt-[60px]'/>
         </ContentContainer>
     </div>
 </template>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Album\AlbumController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Gallery\GalleryController;
 use Illuminate\Http\Request;
@@ -31,6 +32,13 @@ Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
     Route::get('/', [GalleryController::class, 'index'])->name('photo_index');
     Route::post('/', [GalleryController::class, 'store'])->name('photo_store');
     Route::delete('/{id}', [GalleryController::class, 'remove'])->name('photo_remove');
+});
+
+Route::group(['prefix' => 'albums', 'namespace' => 'Album'], function() {
+    Route::get('/', [AlbumController::class, 'index'])->name('album_index');
+    Route::get('/{id}', [AlbumController::class, 'getOtherPhotos'])->name('album_other_photos');
+    Route::post('/', [AlbumController::class, 'store'])->name('album_store');
+    Route::delete('/{id}', [AlbumController::class, 'remove'])->name('album_remove');
 });
 
 Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
