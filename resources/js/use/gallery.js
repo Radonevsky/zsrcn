@@ -101,6 +101,21 @@ async function storeAlbum(name) {
     photos.value.unshift(...uploadedAlbum.data.photos)
 }
 
+async function removeAlbum(id) {
+    const confirmed = confirm('Удалить альбом?')
+    if (confirmed) {
+        try {
+            const res = await axios.delete(`/api/albums/${id}`);
+            return true
+        } catch (error) {
+            alert('Ошибка при удалении альбома:', error);
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
 export default function useGallery() {
     return {
         dropzoneElement,
@@ -116,5 +131,6 @@ export default function useGallery() {
         storeAlbum,
         fetchAlbums,
         fetchAlbumOtherPhotos,
+        removeAlbum,
     }
 }

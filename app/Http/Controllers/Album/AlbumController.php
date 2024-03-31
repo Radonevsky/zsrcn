@@ -35,7 +35,7 @@ class AlbumController extends Controller
         $ar->removeAlbum($request->id);
 
         return response()->json([
-            'message' => 'Фотография удалена',
+            'message' => 'Альбом удален успешно',
         ]);
     }
 

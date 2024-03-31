@@ -16,6 +16,7 @@ const {
     fetchAlbums,
     storeAlbum,
     fetchAlbumOtherPhotos,
+    removeAlbum,
 } = useGallery()
 
 const dropzoneMode = ref(false)
@@ -56,6 +57,14 @@ async function getAlbumOtherPhotos(e) {
     let tergetAlbum = albums.value.find(album => album.id === e)
     tergetAlbum.images.push(...otherImages)
     tergetAlbum.partly = false
+}
+
+async function deleteAlbum(e) {
+    const res = await removeAlbum(e)
+    if (res) {
+        albums.value = albums.value.filter(album => album.id !== e)
+        alert('Альбом удален')
+    }
 }
 </script>
 
@@ -101,6 +110,7 @@ async function getAlbumOtherPhotos(e) {
             <div v-for="album in albums">
                 <photo-album
                     @load-full-album="getAlbumOtherPhotos"
+                    @delete="deleteAlbum"
                     :id="album.id"
                     :partly="album.partly"
                     :name="album.name"

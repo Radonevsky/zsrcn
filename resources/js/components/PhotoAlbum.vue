@@ -18,8 +18,9 @@ const props = defineProps({
     images: Array,
     partly: Boolean,
 })
-const emits = defineEmits(['loadFullAlbum'])
+const emits = defineEmits(['loadFullAlbum', 'delete'])
 const viewMode = ref(false)
+const isAdmin = ref(true)
 function openPhoto(photo) {
     currentPhotoUrl.value = photo.url
     currentPhotoIndex.value = props.images.indexOf(photo)
@@ -29,9 +30,15 @@ function openPhoto(photo) {
 
 <template>
     <div class="mt-[28px]">
-        <p class="text-[25px] font-roboto700 text-tblue text-center">
-            {{ props.name }}
-        </p>
+        <div class="text-[25px] font-roboto700 text-tblue text-center">
+            <span>{{ props.name }}</span>
+            <button
+                v-if="isAdmin"
+                @click="emits('delete', props.id)"
+                class='ml-[10px] bg-pink p-[2px] text-[16px] rounded hover:cursor-pointer'>
+                Удалить альбом
+            </button>
+        </div>
         <div class='flex flex-wrap justify-start align-top -mx-[15px] mt-[20px]'>
             <GalleryPhoto
                 v-for='photo in props.images'
