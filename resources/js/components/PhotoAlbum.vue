@@ -20,7 +20,7 @@ const props = defineProps({
     partly: Boolean,
     addPhotoMode: Boolean,
 })
-const emits = defineEmits(['loadFullAlbum', 'delete', 'addPhotoOn'])
+const emits = defineEmits(['loadFullAlbum', 'delete', 'addPhotoOn', 'deletePhotoFromAlbum'])
 const viewMode = ref(false)
 const isAdmin = ref(true)
 
@@ -28,6 +28,10 @@ function openPhoto(photo) {
     currentPhotoUrl.value = photo.url
     currentPhotoIndex.value = props.images.indexOf(photo)
     viewMode.value = true
+}
+
+function deletePhoto(e) {
+    emits('deletePhotoFromAlbum', {photoId: e, albumId: props.id})
 }
 </script>
 
@@ -56,6 +60,8 @@ function openPhoto(photo) {
             <GalleryPhoto
                 v-for='photo in props.images'
                 @click='openPhoto(photo)'
+                @delete-photo="deletePhoto"
+                :id="photo.id"
                 :prev-url='photo.preview_url'/>
         </div>
         <ImageViewModal

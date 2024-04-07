@@ -55,6 +55,6 @@ class GalleryRepository
 
     public function removePhoto($id)
     {
-        Image::query()->where('article_id', $id)->delete();
+        Image::query()->where('id', $id)->delete();
     }
 }

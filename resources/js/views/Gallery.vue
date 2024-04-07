@@ -18,6 +18,7 @@ const {
     fetchAlbumOtherPhotos,
     removeAlbum,
     storePhotosToAlbum,
+    removePhoto,
 } = useGallery()
 
 const dropzoneMode = ref(false)
@@ -119,6 +120,13 @@ async function savePhotos(albumId) {
         getAlbumOtherPhotos(albumId)
     }
 }
+async function deletePhotoFromAlbum(e) {
+    const targetAlbum = albums.value.find(album => album.id === e.albumId)
+    const res = await removePhoto(e.photoId)
+    if (res) {
+        targetAlbum.images = targetAlbum.images.filter(img => img.id !== e.photoId)
+    }
+}
 </script>
 
 <template>
@@ -186,6 +194,7 @@ async function savePhotos(albumId) {
                     @load-full-album="getAlbumOtherPhotos"
                     @delete="deleteAlbum"
                     @add-photo-on="addPhotoModeByAlbumId"
+                    @delete-photo-from-album="deletePhotoFromAlbum"
                     :id="album.id"
                     :partly="album.partly"
                     :name="album.name"
