@@ -38,6 +38,7 @@ Route::group(['prefix' => 'albums', 'namespace' => 'Album'], function() {
     Route::get('/', [AlbumController::class, 'index'])->name('album_index');
     Route::get('/{id}', [AlbumController::class, 'getOtherPhotos'])->name('album_other_photos');
     Route::post('/', [AlbumController::class, 'store'])->name('album_store');
+    Route::post('/{albumId}', [AlbumController::class, 'storePhotosToAlbum'])->name('add_photos');
     Route::delete('/{id}', [AlbumController::class, 'remove'])->name('album_remove');
 });
 

@@ -38,8 +38,8 @@ async function fetchAlbums(page, partly) {
     return response.data.albums
 }
 
-async function fetchAlbumOtherPhotos(albumId) {
-    const response = await axios.get(`/api/albums/${albumId}`)
+async function fetchAlbumOtherPhotos(albumId, offset) {
+    const response = await axios.get(`/api/albums/${albumId}?offset=${offset}`)
     return response.data.images
 }
 
@@ -70,19 +70,25 @@ async function setPhotoToViewer(direction) {
     }
 }
 
-async function storePhotos() {
-    let data = new FormData()
-    const imgArray = dropzone.value.getAcceptedFiles()
+async function storePhotosToAlbum(albumId) {
+    try {
+        let data = new FormData()
+        const imgArray = dropzone.value.getAcceptedFiles()
 
-    imgArray.forEach(img => {
-        data.append('photos[]', img)
-        dropzone.value.removeFile(img)
-    })
+        imgArray.forEach(img => {
+            data.append('photos[]', img)
+            dropzone.value.removeFile(img)
+        })
 
-    const uploadedPhotos = await axios.post('/api/photos', data)
+        await axios.post(`/api/albums/${albumId}`, data)
 
-    storePhotoButtonShow.value = false
-    photos.value.unshift(...uploadedPhotos.data.photos)
+        storePhotoButtonShow.value = false
+
+        return true
+    } catch (error) {
+        alert('Ошибка при сохранении фото:', error);
+        return false
+    }
 }
 
 async function storeAlbum(name) {
@@ -95,10 +101,9 @@ async function storeAlbum(name) {
         dropzone.value.removeFile(img)
     })
 
-    const uploadedAlbum = await axios.post('/api/albums', data)
+    await axios.post('/api/albums', data)
 
     storePhotoButtonShow.value = false
-    photos.value.unshift(...uploadedAlbum.data.photos)
 }
 
 async function removeAlbum(id) {
@@ -126,11 +131,11 @@ export default function useGallery() {
         currentPhotoIndex,
         currentPhotoUrl,
         initializeDropzone,
-        storePhotos,
         setPhotoToViewer,
         storeAlbum,
         fetchAlbums,
         fetchAlbumOtherPhotos,
         removeAlbum,
+        storePhotosToAlbum,
     }
 }
