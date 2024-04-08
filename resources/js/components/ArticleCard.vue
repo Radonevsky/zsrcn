@@ -138,7 +138,7 @@ function save() {
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
             </textarea>
-            <p v-if='!create && !editMode' class='font-roboto500 text-[15px] leading-[18px]'>
+            <p v-if='!create && !editMode' class='font-roboto500 text-[15px] leading-[18px]' style="white-space: pre-line;">
                 {{ props.content }}
             </p>
         </div>
