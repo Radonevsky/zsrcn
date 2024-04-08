@@ -20,7 +20,8 @@ const lamps = ref([
         id: 3,
         text: 'Министерство соцзащиты РБ',
         shifted: true,
-        href: '#',
+        href: 'https://egov-buryatia.ru/minsoc/',
+        externalLink: true,
     },
     {
         id: 4,
@@ -41,6 +42,7 @@ const lamps = ref([
                 :id='lamp.id'
                 :shifted='lamp.shifted'
                 :active='true'
+                :external="lamp.externalLink"
                 :href='lamp.href'>
                 <template v-slot:title>{{ lamp.text }}</template>
             </Lamp>
