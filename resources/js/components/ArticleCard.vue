@@ -4,18 +4,13 @@ import TimesIcon from "./icons/timesIcon.vue";
 import useArticles from "../use/articles.js";
 
 const {
-    textareaCreateElement,
     dropzoneElement,
-    newArticleTitle,
-    newArticleText,
-    textareaMaxHeight,
     updateArticle,
-    storeArticle,
-    deleteArticle,
     initializeDropzone,
+    dropzone,
 } = useArticles()
 
-const emit = defineEmits(['articleCreated', 'articleUpdated'])
+const emit = defineEmits(['saveArticle', 'articleUpdated', 'delete'])
 
 const props = defineProps({
     id: Number,
@@ -31,12 +26,28 @@ const props = defineProps({
 
 const editMode = ref(false)
 const textareaEditElement = ref('')
+const textareaCreateElement = ref(null)
+const textareaMaxHeight = ref(237)
+const newArticleTitle = ref('')
 const editArticleTitle = ref('')
+const newArticleText = ref('')
 const editArticleText = ref('')
 
 onMounted(() => {
     if (props.create) {
         initializeDropzone()
+    }
+})
+
+watch(newArticleText, ()=> {
+    if (newArticleText.value && parseInt(textareaCreateElement.value.scrollHeight) > textareaMaxHeight.value) {
+        textareaCreateElement.value.style.height = `${textareaCreateElement.value.scrollHeight}px`
+    }
+})
+
+watch(textareaCreateElement, ()=> {
+    if (textareaCreateElement.value) {
+        textareaCreateElement.value.style.height = `${textareaMaxHeight.value}px`
     }
 })
 
@@ -55,10 +66,17 @@ watch(editArticleText, ()=> {
 })
 
 async function store() {
-    await storeArticle()
+    if (!dropzone.value.getAcceptedFiles().length) {
+        alert('Выберите фотографию')
+        return
+    }
+    if (!newArticleTitle.value.length || !newArticleText.value.length) {
+        alert('Укажите заголовок и содержимое новости')
+        return
+    }
+    emit('saveArticle', {title: newArticleTitle.value, text: newArticleText.value})
     newArticleTitle.value = ''
     newArticleText.value = ''
-    emit('articleCreated')
 }
 
 async function update() {
@@ -68,9 +86,7 @@ async function update() {
     }
     await updateArticle(props.id, data)
     editMode.value = false
-    editArticleTitle.value = ''
-    editArticleText.value = ''
-    emit('articleUpdated')
+    emit('articleUpdated', props.id, data)
 }
 
 function save() {
@@ -98,7 +114,7 @@ function save() {
         <button
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>
             <timesIcon
-                @click='deleteArticle(props.id)'/>
+                @click='emit("delete", props.id)'/>
         </button>
         <button
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleRepository
 {
-    public function getArticleList()
+    private const COUNT_ARTICLES = 3;
+    public function getArticleList($page)
     {
         $articles = Article::query()
             ->join('images as i', 'i.article_id', 'articles.id')
@@ -23,8 +24,11 @@ class ArticleRepository
                 'articles.id',
                 'articles.id',
             )
+            ->skip($page * self::COUNT_ARTICLES)
+            ->limit(self::COUNT_ARTICLES)
             ->orderByDesc('articles.created_at')
             ->get();
+
         return $articles;
     }
 
