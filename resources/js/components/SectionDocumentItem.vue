@@ -14,8 +14,8 @@ const router = useRouter();
         <div
             @mouseover="showToView = true"
             @mouseleave="showToView = false"
-            class="flex justify-between items-center hover:bg-light-blue hover:cursor-pointer rounded-[5px] h-[32px]  px-[16px] text-link-dark-blue">
-            <div class="font-roboto500 text-[20px]">
+            class="flex justify-between items-center hover:bg-light-blue hover:cursor-pointer rounded-[5px] min-h-[32px] px-[16px] text-link-dark-blue">
+            <div class="font-roboto500 text-[20px] max-w-[600px] break-all">
                 {{ name }}
             </div>
             <div class="flex" v-show="showToView">
