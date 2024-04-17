@@ -52,6 +52,7 @@ class Document extends Authenticatable
         'results-2021-docs',
         'plan-2021-docs',
         'quality-assessment',
+        'social-assessment-docs',
     ];
 
     protected $fillable = [
