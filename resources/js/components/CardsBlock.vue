@@ -2,6 +2,7 @@
 import ContentContainer from "../layouts/ContentContainer.vue";
 import HomeCard from "./HomeCard.vue";
 import useCommon from "../use/common.js";
+import {onMounted, onUnmounted, ref} from "vue";
 
 const { getImgUrl } = useCommon()
 
@@ -33,16 +34,37 @@ const cards = [
     },
 ]
 
+const y = ref(0)
+const cardsBlock = ref(null)
+const isBlockActive = ref(false)
+const viewportHeight = window.innerHeight
+
 function getImageUrl(path) {
     return getImgUrl(path)
+}
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll)
+})
+onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll)
+})
+
+const handleScroll = () => {
+    y.value = window.scrollY
+    if (y.value >= cardsBlock.value.offsetTop - viewportHeight + 50) {
+        isBlockActive.value = true
+    }
 }
 </script>
 
 <template>
 <div class='bg-white'>
     <content-container>
-        <div class='flex gap-[34px] py-[60px]'>
+        <div class='flex gap-[34px] py-[60px]' ref='cardsBlock'>
             <HomeCard
+                class="feedback feedback-left"
+                :class='{ "feedback-active": isBlockActive}'
                 :bgColorClass='cards[0].bgColorClass'
                 :vertical='cards[0].vertical'>
                 <template v-slot:photo>
@@ -53,6 +75,8 @@ function getImageUrl(path) {
             </HomeCard>
             <div class='flex flex-col gap-[30px]'>
                 <HomeCard
+                    class="feedback feedback-right-top"
+                    :class='{ "feedback-active": isBlockActive}'
                     :bgColorClass='cards[1].bgColorClass'
                     :vertical='cards[1].vertical'>
                     <template v-slot:photo>
@@ -62,6 +86,8 @@ function getImageUrl(path) {
                     <template v-slot:text><p v-html='cards[1].text'></p></template>
                 </HomeCard>
                 <HomeCard
+                    class="feedback feedback-right-bottom"
+                    :class='{ "feedback-active": isBlockActive}'
                     :bgColorClass='cards[2].bgColorClass'
                     :vertical='cards[2].vertical'>
                     <template v-slot:photo>
