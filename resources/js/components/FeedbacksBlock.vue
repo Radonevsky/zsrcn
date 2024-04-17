@@ -91,23 +91,6 @@ const handleScroll = () => {
 
         </div>
     </div>
-<!--    <div class='flex flex-col gap-[50px]'>-->
-<!--        -->
-<!--        <div-->
-<!--            v-for='(row, idx) in feedbacks'-->
-<!--            :key='idx'-->
-<!--            class='flex gap-[50px]'>-->
-<!--            <feedback-->
-<!--                v-for='feedback in row'-->
-<!--                :key='feedback.id'-->
-<!--                :width='feedback.width'-->
-<!--                :height='feedback.height'-->
-<!--                :bgPath='feedback.bgPath'>-->
-<!--                <template v-slot:text>{{ feedback.text }}</template>-->
-<!--                <template v-slot:name>{{ feedback.name }}</template>-->
-<!--            </feedback>-->
-<!--        </div>-->
-<!--    </div>-->
 </template>
 
 <style scoped>

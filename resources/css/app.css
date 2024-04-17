@@ -79,8 +79,19 @@
     .feedback-right {
         left: 100%;
     }
+    .feedback-right-top {
+        left: 150%;
+        bottom: 150%
+    }
+    .feedback-right-bottom {
+        left: 150%;
+        top: 150%
+    }
     .feedback-active {
         left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
     }
 
     .main-link {
