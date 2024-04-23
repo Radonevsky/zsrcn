@@ -105,7 +105,6 @@ function addPhotoModeByAlbumId(albumId) {
 }
 
 function addPhotoModeOff() {
-    console.log('scrolling to:',  dropzoneForAlbum.value.positionY)
     window.scroll(0, dropzoneForAlbum.value.positionY)
     dropzoneForAlbum.value = null
     addPhotoToAlbumMode.value = false

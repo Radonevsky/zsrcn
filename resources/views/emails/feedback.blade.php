@@ -1,0 +1,24 @@
+<div>От:</div>
+<div>
+    {{$feedbackData['name']}}
+</div>
+<div>
+    {{$feedbackData['lastname']}}
+</div>
+<div>
+    {{$feedbackData['email']}}
+</div>
+<div>
+    {{$feedbackData['tel']}}
+</div>
+<div>
+    {{$feedbackData['otherContacts']}}
+</div>
+Тема обращения:
+<div>
+    {{$feedbackData['subject']}}
+</div>
+Обращение:
+<div>
+    {{$feedbackData['text']}}
+</div>
