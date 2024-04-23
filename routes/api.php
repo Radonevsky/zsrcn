@@ -3,6 +3,7 @@
 use App\Http\Controllers\Album\AlbumController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Gallery\GalleryController;
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Article\ArticleController;
@@ -52,3 +53,5 @@ Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
     Route::post('/uuid/{uuid}', [DocumentController::class, 'replaceDocumentByUuid'])->name('replace_document');
     Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
 });
+
+Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
