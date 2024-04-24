@@ -1,17 +1,10 @@
 <script setup>
 
 import GalleryPhoto from "./GalleryPhoto.vue";
-import useGallery from "../use/gallery.js";
 import {ref} from "vue";
 import ImageViewModal from "./ImageViewModal.vue";
 import CommonButton from "./CommonButton.vue";
 import PlusIcon from "./icons/plusIcon.vue";
-
-const {
-    currentPhotoUrl,
-    currentPhotoIndex,
-    setPhotoToViewer,
-} = useGallery()
 
 const props = defineProps({
     name: String,
@@ -23,6 +16,8 @@ const props = defineProps({
 const emits = defineEmits(['loadFullAlbum', 'delete', 'addPhotoOn', 'deletePhotoFromAlbum'])
 const viewMode = ref(false)
 const isAdmin = ref(true)
+const currentPhotoIndex = ref(null)
+const currentPhotoUrl = ref(null)
 
 function openPhoto(photo) {
     currentPhotoUrl.value = photo.url
@@ -32,6 +27,14 @@ function openPhoto(photo) {
 
 function deletePhoto(e) {
     emits('deletePhotoFromAlbum', {photoId: e, albumId: props.id})
+}
+
+async function setPhotoToViewer(direction) {
+    const nextPhotoIndex = currentPhotoIndex.value + direction
+    if (!!props.images[nextPhotoIndex]) {
+        currentPhotoUrl.value = props.images[nextPhotoIndex].url
+        currentPhotoIndex.value += direction
+    }
 }
 </script>
 
