@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Album\AlbumController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Gallery\GalleryController;
 use App\Http\Controllers\MailController;
@@ -17,10 +18,6 @@ use App\Http\Controllers\Article\ArticleController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
     Route::get('/', [ArticleController::class, 'index'])->name('article_index');
@@ -55,3 +52,18 @@ Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/refresh', [AuthController::class, 'refresh'])->name('refresh');
+    Route::post('/me', [AuthController::class, 'me'])->name('me');
+
+    Route::group(['middleware' => 'auth:api'], function() {
+
+    });
+});
