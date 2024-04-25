@@ -42,6 +42,7 @@ import InformationSecurity from "./views/InformationSecurity.vue";
 import HeyParents from "./views/HeyParents.vue";
 import Contacts from "./views/Contacts.vue";
 import SocialAddView from "./views/SocialAddView.vue";
+import Login from "./views/Login.vue";
 
 const routes = [
     {
@@ -496,6 +497,11 @@ const routes = [
         component: SocialAddView,
         name: 'social-add',
     },
+    {
+        path: '/login',
+        component: Login,
+        name: 'login',
+    }
 ]
 
 const router = createRouter({
