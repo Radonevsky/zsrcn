@@ -94,3 +94,7 @@ Route::get('/contacts', function () {
 Route::get('/social-add', function () {
     return view('app');
 });
+
+Route::get('/login', function () {
+    return view('app');
+});
