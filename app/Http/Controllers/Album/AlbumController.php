@@ -13,7 +13,7 @@ class AlbumController extends Controller
 {
     public function index(Request $request, AlbumRepository $ar)
     {
-        $albums = $ar->getAlbums($request->page, $request->partly);
+        $albums = $ar->getAlbums($request->page);
 
         return response()->json([
             'albums' => $albums,
