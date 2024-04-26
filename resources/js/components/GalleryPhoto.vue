@@ -1,5 +1,4 @@
 <script setup>
-import {ref} from "vue";
 import useCommon from "../use/common.js";
 
 const props = defineProps({

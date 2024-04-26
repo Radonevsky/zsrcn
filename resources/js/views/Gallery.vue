@@ -216,19 +216,4 @@ async function deletePhotoFromAlbum(e) {
 .dz-image img {
     margin: 0 auto;
 }
-
-.dz-success-mark,
-.dz-error-mark {
-    display: none;
-}
-
-.dz-preview {
-    width: 200px;
-    overflow: hidden;
-}
-
-.dz-filename {
-    max-width: 100%;
-}
-
 </style>

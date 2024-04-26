@@ -23,7 +23,7 @@ async function checkAdmin() {
 
 async function logout() {
     try {
-        const res = await adminApi.post('/api/auth/logout')
+        await adminApi.post('/api/auth/logout')
         isAdmin.value = false
         alert("Вы вышли из режима администратора")
     } catch (error){

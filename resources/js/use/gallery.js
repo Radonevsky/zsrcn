@@ -1,4 +1,4 @@
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {Dropzone} from "dropzone";
 import axios from "axios";
 
@@ -16,20 +16,15 @@ function initializeDropzone() {
         addRemoveLinks: true,
         dictRemoveFile: 'Удалить',
     })
-    dropzone.value.on('addedfile', file => {
+    dropzone.value.on('addedfile', () => {
         storePhotoButtonShow.value = true
     })
 
-    dropzone.value.on('removedfile', file => {
+    dropzone.value.on('removedfile', () => {
         if (dropzone.value.getAcceptedFiles().length <= 0) {
             storePhotoButtonShow.value = false
         }
     })
-}
-
-async function fetchPhotos(page) {
-    const response = await axios.get(`/api/photos?page=${page}`)
-    return response.data.photos
 }
 
 async function fetchAlbums(page, partly) {
@@ -84,7 +79,7 @@ async function removeAlbum(id) {
     const confirmed = confirm('Удалить альбом?')
     if (confirmed) {
         try {
-            const res = await axios.delete(`/api/albums/${id}`);
+            await axios.delete(`/api/albums/${id}`);
             return true
         } catch (error) {
             alert('Ошибка при удалении альбома:', error);
@@ -99,7 +94,7 @@ async function removePhoto(id) {
     const confirmed = confirm('Удалить фото?')
     if (confirmed) {
         try {
-            const res = await axios.delete(`/api/photos/${id}`);
+            await axios.delete(`/api/photos/${id}`);
             return true
         } catch (error) {
             alert('Ошибка при удалении фото:', error);

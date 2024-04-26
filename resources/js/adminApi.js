@@ -13,12 +13,12 @@ adminApi.interceptors.request.use(config => {
     }
 
     return config
-}, error => {
+}, () => {
 
 })
 
 //Response
-adminApi.interceptors.response.use(config => {}, error => {
+adminApi.interceptors.response.use(() => {}, error => {
     console.log(error)
     if (error.response.status === 401) {
         router.push({name: 'login'})
