@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import useCommon from "../use/common.js";
 
 const props = defineProps({
     id: Number,
@@ -7,7 +8,7 @@ const props = defineProps({
     prevUrl: String,
     originalUrl: String,
 })
-const isAdmin = ref(true);
+const {isAdmin} = useCommon()
 const emits = defineEmits(['deletePhoto'])
 </script>
 

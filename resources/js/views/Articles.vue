@@ -8,10 +8,11 @@ import ArticleCard from "../components/ArticleCard.vue";
 import AddButton from "./AddButton.vue";
 import {ref, watch} from "vue";
 import axios from "axios";
+import useCommon from "../use/common.js";
 
 const {fetchArticles, coloredBg, storeArticle, dropzone} = useArticles()
+const {isAdmin} = useCommon()
 
-const isAdmin = true
 const textareaMaxHeight = ref(237)
 const currentArticlesPage = ref(0)
 const articles = ref([])

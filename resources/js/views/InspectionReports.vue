@@ -20,6 +20,7 @@ routeHref.value = router.currentRoute.value.href
 const {
     documentsScrollUp,
     fetchDocumentsByType,
+    isAdmin,
 } = useCommon()
 documentsScrollUp()
 
@@ -40,9 +41,9 @@ watch(async () => router.currentRoute.value, async (to) => {
 
 <template>
     <ContentContainer>
-        <add-button @click="addSectionMode = true">Добавить документ</add-button>
+        <add-button v-if="isAdmin" @click="addSectionMode = true">Добавить документ</add-button>
         <add-section-document
-            v-if="addSectionMode"
+            v-if="addSectionMode && isAdmin"
             @uploaded="setDocuments"
             :type="currentRoute">
         </add-section-document>

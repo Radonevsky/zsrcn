@@ -14,7 +14,7 @@ const editMode = ref(false)
 
 uuid.value = router.currentRoute.value.params.uuid
 
-const { documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid, saveDocDescriptionByUuid } = useCommon()
+const { isAdmin, documentsScrollUp, fetchDocumentsByUuid, deleteDocumentsByUuid, saveDocDescriptionByUuid } = useCommon()
 documentsScrollUp()
 
 async function setDocument() {
@@ -40,6 +40,7 @@ async function saveDescription() {
 <template>
     <div v-if="loaded">
         <common-button
+            v-if="isAdmin"
             text="Удалить страницу и документ" @click="deleteDocument"></common-button>
         <document-download-upload
             :name="document.name"
@@ -47,16 +48,17 @@ async function saveDescription() {
             @update-doc="setDocument"
             :uuid="document.uuid"></document-download-upload>
         <common-button
+            v-if="isAdmin"
             text="Редактировать описание"
             @click="editMode = !editMode"
             class="mt-[16px]"></common-button>
         <textarea
-            v-if="editMode"
+            v-if="editMode && isAdmin"
             v-model="description"
             rows="5"
             class="border text-link-dark-blue font-roboto500 text-[20px] mt-[15px] p-[10px] border-blue-border rounded-[8px] w-full border"></textarea>
         <common-button
-            v-if="editMode"
+            v-if="editMode && isAdmin"
             text="Сохранить описание документа"
             @click="saveDescription"></common-button>
         <p v-if="description && !editMode"

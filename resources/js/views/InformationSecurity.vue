@@ -39,7 +39,10 @@ window.scrollTo(0, 0)
             </p>
             <p class="mb-[20px]">
                 Ознакомиться с Планом можно по ссылке:
-                <a href="https://egov-buryatia.ru/upload/iblock/379/3796048525bf68c571bb882f14b7675e.pdf">
+                <a
+                    href="https://egov-buryatia.ru/upload/iblock/379/3796048525bf68c571bb882f14b7675e.pdf"
+                    class="hover:underline"
+                    target="_blank">
                     https://egov-buryatia.ru/upload/iblock/379/3796048525bf68c571bb882f14b7675e.pdf
                 </a>
             </p>
