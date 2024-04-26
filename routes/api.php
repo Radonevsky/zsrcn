@@ -47,7 +47,7 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh'])->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->name('me');
 
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => 'jwt.auth'], function() {
         Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
             Route::put('/{id}', [ArticleController::class, 'update'])->name('article_update');
             Route::post('/', [ArticleController::class, 'store'])->name('article_store');
