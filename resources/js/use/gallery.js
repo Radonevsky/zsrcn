@@ -1,6 +1,8 @@
 import {ref} from "vue";
 import {Dropzone} from "dropzone";
 import axios from "axios";
+import adminApi from "../adminApi.js";
+import router from "../router.js";
 
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
@@ -49,7 +51,7 @@ async function storePhotosToAlbum(albumId) {
             dropzone.value.removeFile(img)
         })
 
-        await axios.post(`/api/albums/${albumId}`, data)
+        await adminApi.post(`/api/auth/albums/${albumId}`, data)
 
         storePhotoButtonShow.value = false
 
@@ -70,7 +72,7 @@ async function storeAlbum(name) {
         dropzone.value.removeFile(img)
     })
 
-    await axios.post('/api/albums', data)
+    await adminApi.post('/api/auth/albums', data)
 
     storePhotoButtonShow.value = false
 }
@@ -79,7 +81,7 @@ async function removeAlbum(id) {
     const confirmed = confirm('Удалить альбом?')
     if (confirmed) {
         try {
-            await axios.delete(`/api/albums/${id}`);
+            await adminApi.delete(`/api/auth/albums/${id}`);
             return true
         } catch (error) {
             alert('Ошибка при удалении альбома:', error);
@@ -94,10 +96,13 @@ async function removePhoto(id) {
     const confirmed = confirm('Удалить фото?')
     if (confirmed) {
         try {
-            await axios.delete(`/api/photos/${id}`);
+            await adminApi.delete(`/api/auth/photos/${id}`);
             return true
         } catch (error) {
             alert('Ошибка при удалении фото:', error);
+            if (error.status === 401) {
+                router.push({name: 'login'})
+            }
             return false
         }
     } else {
