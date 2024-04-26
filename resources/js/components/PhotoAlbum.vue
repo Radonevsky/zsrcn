@@ -5,6 +5,7 @@ import {ref} from "vue";
 import ImageViewModal from "./ImageViewModal.vue";
 import CommonButton from "./CommonButton.vue";
 import PlusIcon from "./icons/plusIcon.vue";
+import useCommon from "../use/common.js";
 
 const props = defineProps({
     name: String,
@@ -13,9 +14,9 @@ const props = defineProps({
     partly: Boolean,
     addPhotoMode: Boolean,
 })
+const {isAdmin} = useCommon()
 const emits = defineEmits(['loadFullAlbum', 'delete', 'addPhotoOn', 'deletePhotoFromAlbum'])
 const viewMode = ref(false)
-const isAdmin = ref(true)
 const currentPhotoIndex = ref(null)
 const currentPhotoUrl = ref(null)
 

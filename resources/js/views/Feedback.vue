@@ -2,6 +2,8 @@
 
 import PageTitle from "../components/PageTitle.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
+
+window.scrollTo(0, 0)
 </script>
 
 <template>

@@ -8,6 +8,7 @@ import SaveButton from "../components/SaveButton.vue";
 import PageTitle from "../components/PageTitle.vue";
 import CommonInput from "../components/CommonInput.vue";
 import PhotoAlbum from "../components/PhotoAlbum.vue";
+import useCommon from "../use/common.js";
 
 const {
     dropzoneElement,
@@ -21,9 +22,9 @@ const {
     removePhoto,
 } = useGallery()
 
-const dropzoneMode = ref(false)
-const isAdmin = ref(true)
+const {isAdmin} = useCommon()
 
+const dropzoneMode = ref(false)
 const createAlbumMode = ref(false)
 const albumName = ref('')
 const albums = ref([])
@@ -151,31 +152,31 @@ async function deletePhotoFromAlbum(e) {
                         Отменить создание
                     </span>
             </button>
-            <div v-show='createAlbumMode' class="text-center mx-auto">
+            <div v-show='createAlbumMode && isAdmin' class="text-center mx-auto">
                 <common-input
                     v-model="albumName"
                     class="text-center"
                     placeholder="Название альбома">
                 </common-input>
             </div>
-            <div v-if='addPhotoToAlbumMode' class="text-center mx-auto">
+            <div v-if='addPhotoToAlbumMode  && isAdmin' class="text-center mx-auto">
                 <span class='font-roboto700 leading-[23px] text-tblue-light uppercase'>
                     Добавление фото в альбом {{ dropzoneForAlbum.name }}
                 </span>
             </div>
             <div
-                v-show='createAlbumMode || addPhotoToAlbumMode'
+                v-show='(createAlbumMode || addPhotoToAlbumMode) && isAdmin'
                 ref='dropzoneElement'
                 class='mt-[20px] min-h-[100px] mb-[30px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer
                    text-center bg-light-bg text-tblue flex gap-6 justify-items-center flex-wrap justify-center'>
             </div>
             <SaveButton
-                v-if='createAlbumMode && storePhotoButtonShow && albumName.length'
+                v-if='createAlbumMode && storePhotoButtonShow && albumName.length && isAdmin'
                 @click=saveAlbum
                 text='Создать альбом'
                 class='mx-auto my-9'/>
             <SaveButton
-                v-if='addPhotoToAlbumMode && storePhotoButtonShow'
+                v-if='addPhotoToAlbumMode && storePhotoButtonShow && isAdmin'
                 @click='savePhotos(dropzoneForAlbum.id)'
                 text='Сохранить'
                 class='mx-auto my-9'/>
@@ -215,19 +216,4 @@ async function deletePhotoFromAlbum(e) {
 .dz-image img {
     margin: 0 auto;
 }
-
-.dz-success-mark,
-.dz-error-mark {
-    display: none;
-}
-
-.dz-preview {
-    width: 200px;
-    overflow: hidden;
-}
-
-.dz-filename {
-    max-width: 100%;
-}
-
 </style>

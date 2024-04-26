@@ -1,7 +1,35 @@
 import {ref} from "vue";
 import axios from "axios";
+import adminApi from "../adminApi.js";
 
-const isAdmin = ref(true)
+const isAdmin = ref(false)
+
+async function checkAdmin() {
+    try {
+        const res = await axios.post('api/auth/me', {}, {
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        if (res.status === 200) {
+            isAdmin.value = true
+        }
+    } catch (error){
+        if (error.response.status === 401) {
+            isAdmin.value = false
+        }
+    }
+}
+
+async function logout() {
+    try {
+        await adminApi.post('/api/auth/logout')
+        isAdmin.value = false
+        alert("Вы вышли из режима администратора")
+    } catch (error){
+        alert("Ошибка")
+    }
+}
 
 function getImgUrl(url) {
     return new URL(`${url}`, import.meta.url)
@@ -135,6 +163,8 @@ export default function useCommon() {
         deleteDocumentsByUuid,
         saveDocDescriptionByUuid,
         sendFeedback,
+        checkAdmin,
+        logout,
         isAdmin,
     }
 }
