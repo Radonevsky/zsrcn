@@ -21,34 +21,18 @@ use App\Http\Controllers\Article\ArticleController;
 
 Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
     Route::get('/', [ArticleController::class, 'index'])->name('article_index');
-    Route::put('/{id}', [ArticleController::class, 'update'])->name('article_update');
-    Route::post('/', [ArticleController::class, 'store'])->name('article_store');
-    Route::delete('/{id}', [ArticleController::class, 'remove'])->name('article_remove');
-});
-
-Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
-    Route::get('/', [GalleryController::class, 'index'])->name('photo_index');
-    Route::post('/', [GalleryController::class, 'store'])->name('photo_store');
-    Route::delete('/{id}', [GalleryController::class, 'remove'])->name('photo_remove');
 });
 
 Route::group(['prefix' => 'albums', 'namespace' => 'Album'], function() {
     Route::get('/', [AlbumController::class, 'index'])->name('album_index');
     Route::get('/{id}', [AlbumController::class, 'getOtherPhotos'])->name('album_other_photos');
-    Route::post('/', [AlbumController::class, 'store'])->name('album_store');
-    Route::post('/{albumId}', [AlbumController::class, 'storePhotosToAlbum'])->name('add_photos');
-    Route::delete('/{id}', [AlbumController::class, 'remove'])->name('album_remove');
 });
 
 Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
     Route::get('/{type}', [DocumentController::class, 'index'])->name('document_index');
     Route::get('/scope/{type}', [DocumentController::class, 'getDocuments'])->name('document_types');
     Route::get('/uuid/{uuid}', [DocumentController::class, 'getDocumentByUuid'])->name('get_document');
-    Route::delete('/uuid/{uuid}', [DocumentController::class, 'removeDocumentByUuid'])->name('del_document');
-    Route::patch('/description/{uuid}', [DocumentController::class, 'updateDocumentDescription'])->name('update_description_document');
     Route::get('/download/{uuid}', [DocumentController::class, 'getDocumentDownloadByUuid'])->name('get_document_uuid');
-    Route::post('/uuid/{uuid}', [DocumentController::class, 'replaceDocumentByUuid'])->name('replace_document');
-    Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
@@ -64,6 +48,24 @@ Route::group([
     Route::post('/me', [AuthController::class, 'me'])->name('me');
 
     Route::group(['middleware' => 'auth:api'], function() {
-
+        Route::group(['prefix' => 'articles', 'namespace' => 'Post'], function() {
+            Route::put('/{id}', [ArticleController::class, 'update'])->name('article_update');
+            Route::post('/', [ArticleController::class, 'store'])->name('article_store');
+            Route::delete('/{id}', [ArticleController::class, 'remove'])->name('article_remove');
+        });
+        Route::group(['prefix' => 'photos', 'namespace' => 'Photo'], function() {
+            Route::delete('/{id}', [GalleryController::class, 'remove'])->name('photo_remove');
+        });
+        Route::group(['prefix' => 'albums', 'namespace' => 'Album'], function() {
+            Route::post('/', [AlbumController::class, 'store'])->name('album_store');
+            Route::post('/{albumId}', [AlbumController::class, 'storePhotosToAlbum'])->name('add_photos');
+            Route::delete('/{id}', [AlbumController::class, 'remove'])->name('album_remove');
+        });
+        Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
+            Route::delete('/uuid/{uuid}', [DocumentController::class, 'removeDocumentByUuid'])->name('del_document');
+            Route::patch('/description/{uuid}', [DocumentController::class, 'updateDocumentDescription'])->name('update_description_document');
+            Route::post('/uuid/{uuid}', [DocumentController::class, 'replaceDocumentByUuid'])->name('replace_document');
+            Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
+        });
     });
 });

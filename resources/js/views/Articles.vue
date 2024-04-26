@@ -8,6 +8,7 @@ import AddButton from "./AddButton.vue";
 import {ref, watch} from "vue";
 import axios from "axios";
 import useCommon from "../use/common.js";
+import adminApi from "../adminApi.js";
 
 const {fetchArticles, coloredBg, storeArticle, dropzone} = useArticles()
 const {isAdmin} = useCommon()
@@ -49,7 +50,7 @@ async function deleteArticle(id) {
     const confirmed = confirm('Удалить новость?')
     if (confirmed) {
         try {
-            await axios.delete(`/api/articles/${id}`)
+            await adminApi.delete(`/api/auth/articles/${id}`)
             articles.value = articles.value.filter(item => item.id !== id)
             alert('Удалено')
         } catch (error) {

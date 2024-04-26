@@ -42,7 +42,7 @@ async function uploadDocument(doc, type, description = null) {
         formData.append('description', description)
     }
 
-    return axios.post(`/api/documents/${type}`, formData)
+    return adminApi.post(`/api/auth/documents/${type}`, formData)
         .then(response => {
             alert(response.data.message)
         })
@@ -53,7 +53,7 @@ async function replaceDocument(doc, uuid) {
     const formData = new FormData()
     formData.append('document', doc)
 
-    return axios.post(`/api/documents/uuid/${uuid}`, formData)
+    return adminApi.post(`/api/auth/documents/uuid/${uuid}`, formData)
         .then(response => {
             alert(response.data.message)
         })
@@ -127,7 +127,7 @@ async function fetchDocumentsByUuid(uuid) {
 }
 
 async function deleteDocumentsByUuid(uuid) {
-    await axios.delete(`/api/documents/uuid/${uuid}`)
+    await adminApi.delete(`/api/auth/documents/uuid/${uuid}`)
         .then(response => {
             alert(response.data.message)
         })
@@ -135,7 +135,7 @@ async function deleteDocumentsByUuid(uuid) {
 }
 
 async function saveDocDescriptionByUuid(uuid, description) {
-    await axios.patch(`/api/documents/description/${uuid}`, {'description': description})
+    await adminApi.patch(`/api/auth/documents/description/${uuid}`, {'description': description})
         .then(response => {
             alert(response.data.message)
         })

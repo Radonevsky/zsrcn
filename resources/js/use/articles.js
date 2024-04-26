@@ -1,6 +1,7 @@
 import {ref, watch} from "vue";
 import {Dropzone} from "dropzone";
 import axios from "axios";
+import adminApi from "../adminApi.js";
 
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
@@ -28,7 +29,7 @@ function coloredBg(article) {
 
 
 async function updateArticle(id, data) {
-    return axios.put(`/api/articles/${id}`, data)
+    return adminApi.put(`/api/auth/articles/${id}`, data)
 }
 
 function initializeDropzone() {
@@ -40,7 +41,7 @@ function initializeDropzone() {
 }
 
 async function storeArticle(data) {
-    return axios.post('/api/articles', data)
+    return adminApi.post('/api/auth/articles', data)
 }
 
 
