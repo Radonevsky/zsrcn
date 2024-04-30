@@ -89,5 +89,9 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 750px) {
+    div {
+        font-size: 16px;
+    }
+}
 </style>

@@ -59,5 +59,9 @@ window.scrollTo(0, 0)
 </template>
 
 <style scoped>
-
+div {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
 </style>

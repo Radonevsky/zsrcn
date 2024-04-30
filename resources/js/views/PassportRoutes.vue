@@ -27,7 +27,7 @@ const tabs = ref([
 
 <template>
     <div class="w-full">
-        <div class='pb-[60px] text-link-dark-blue text-[20px] gap-[10px] w-full font-roboto700 flex justify-between'>
+        <div class='pb-[60px] text-link-dark-blue text-[20px] gap-[10px] w-full font-roboto700 flex justify-between tabs'>
             <router-link v-for="tab in tabs"
                          :to='tab.link'
                          class='text-center hover:underline underline-offset-8'
@@ -42,5 +42,9 @@ const tabs = ref([
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 750px) {
+    .tabs {
+        font-size: 16px;
+    }
+}
 </style>

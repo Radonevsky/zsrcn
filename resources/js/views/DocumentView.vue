@@ -1460,5 +1460,14 @@ documentsScrollUp()
 </template>
 
 <style scoped>
-
+h3, h4 {
+    @media only screen and (max-width: 750px) {
+        font-size: 16px;
+    }
+}
+p {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
 </style>

@@ -39,4 +39,10 @@ table, th, td {
 th {
     text-align: center;
 }
+
+div {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
 </style>

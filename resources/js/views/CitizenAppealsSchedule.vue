@@ -148,4 +148,15 @@ table, th, td {
 th {
     text-align: center;
 }
+
+h2, h4 {
+    @media only screen and (max-width: 750px) {
+        font-size: 16px;
+    }
+}
+table {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
 </style>

@@ -24,13 +24,13 @@ const handleScroll = () => {
 </script>
 
 <template>
-    <div class="bg-bluebg bg-[url('../images/bgReviews.png')] py-[60px]" ref='feedbacksBlock'>
+    <div class="bg-bluebg bg-[url('../images/bgReviews.png')] py-[60px] lamps-block-container" ref='feedbacksBlock'>
         <div class="max-w-[804px] mx-auto flex flex-col gap-[50px]">
-            <div class='flex gap-[50px]'>
-                <div class="feedback feedback-left
+            <div class='flex gap-[50px] lamps-block'>
+                <div class="feedback feedback-left top-left
                             bg-[url('../images/bgReview1.png')] w-[440px] h-[211px] pt-[54px] flex justify-center"
                      :class='{ "feedback-active": isFeedbackActive}'>
-                    <div class='max-w-[340px] text-[15px] text-tdarkblue flex flex-col gap-[15px]'>
+                    <div class='max-w-[340px] text-[15px] text-tdarkblue flex flex-col gap-[15px] top-left-text'>
                         <Feedback>
                             <template v-slot:text>
                                 Мне нравится в центре. Хорошие дети, вкусно кормят. На прогулке хорошо играем.
@@ -57,7 +57,7 @@ const handleScroll = () => {
                     </div>
                 </div>
             </div>
-            <div class='flex gap-[50px]'>
+            <div class='flex gap-[50px] lamps-block'>
                 <div class="feedback feedback-left delay-100
                             bg-[url('../images/bgReview3.png')] w-[352px] h-[283px] pt-[108px] flex justify-center"
                      :class='{ "feedback-active": isFeedbackActive}'>
@@ -94,5 +94,24 @@ const handleScroll = () => {
 </template>
 
 <style scoped>
+.lamps-block {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.lamps-block-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
+@media only screen and (max-width: 490px) {
+    .top-left {
+        width: 257px;
+        height: 269px;
+        background-image: url("../../images/bgReviewSmall.png");
+    }
+    .top-left-text {
+        width: 207px;
+        height: 269px;
+    }
+}
 </style>

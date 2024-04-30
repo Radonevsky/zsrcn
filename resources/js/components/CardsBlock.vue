@@ -61,26 +61,26 @@ const handleScroll = () => {
 <template>
 <div class='bg-white'>
     <content-container>
-        <div class='flex gap-[34px] py-[60px]' ref='cardsBlock'>
+        <div class='flex gap-[34px] py-[60px] justify-center feedbacks-container' ref='cardsBlock'>
             <HomeCard
                 class="feedback feedback-left"
                 :class='{ "feedback-active": isBlockActive}'
                 :bgColorClass='cards[0].bgColorClass'
                 :vertical='cards[0].vertical'>
                 <template v-slot:photo>
-                    <img :src='getImageUrl(cards[0].imgPath)' alt='child' class='w-[397px] h-[387px]'>
+                    <img :src='getImageUrl(cards[0].imgPath)' alt='child' class='max-h-[388px]'>
                 </template>
                 <template v-slot:title>{{ cards[0].title }}</template>
                 <template v-slot:text><p v-html='cards[0].text'></p></template>
             </HomeCard>
-            <div class='flex flex-col gap-[30px]'>
+            <div class='flex flex-col gap-[30px] w-auto'>
                 <HomeCard
                     class="feedback feedback-right-top"
                     :class='{ "feedback-active": isBlockActive}'
                     :bgColorClass='cards[1].bgColorClass'
                     :vertical='cards[1].vertical'>
                     <template v-slot:photo>
-                        <img :src='getImageUrl(cards[1].imgPath)' alt='child' class='w-[300px] h-[250px]'>
+                        <img :src='getImageUrl(cards[1].imgPath)' alt='child' class="min-w-[180px]">
                     </template>
                     <template v-slot:title>{{ cards[1].title }}</template>
                     <template v-slot:text><p v-html='cards[1].text'></p></template>
@@ -91,7 +91,7 @@ const handleScroll = () => {
                     :bgColorClass='cards[2].bgColorClass'
                     :vertical='cards[2].vertical'>
                     <template v-slot:photo>
-                        <img :src='getImageUrl(cards[2].imgPath)' alt='child' class='w-[300px] h-[250px]'>
+                        <img :src='getImageUrl(cards[2].imgPath)' alt='child' class="min-w-[180px]">
                     </template>
                     <template v-slot:title>{{ cards[2].title }}</template>
                     <template v-slot:text><p v-html='cards[2].text'></p></template>
@@ -103,5 +103,10 @@ const handleScroll = () => {
 </template>
 
 <style scoped>
+.feedbacks-container {
+    @media only screen and (max-width: 952px) {
+        flex-direction: column;
+    }
+}
 
 </style>

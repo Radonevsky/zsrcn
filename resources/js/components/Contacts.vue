@@ -24,7 +24,7 @@ function handleClick(href) {
 
 <template>
 <div class='w-93'>
-    <div class='max-h-[19px] flex gap-[20px] items-center'>
+    <div class='max-h-[19px] flex gap-[20px] items-center contacts-container'>
         <a
             v-for='item in contacts'
             :href="item.href"
@@ -38,5 +38,9 @@ function handleClick(href) {
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 550px) {
+    .contacts-container {
+        flex-direction: column;
+    }
+}
 </style>
