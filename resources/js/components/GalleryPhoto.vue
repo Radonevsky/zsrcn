@@ -12,7 +12,7 @@ const emits = defineEmits(['deletePhoto'])
 </script>
 
 <template>
-<div class='w-[25%] mb-[32px] px-[15px] relative'>
+<div class='w-[25%] mb-[32px] px-[15px] relative photo-container'>
     <img :src='props.prevUrl' alt='Фотография' class='w-full h-auto cursor-pointer'>
     <button
         v-if="isAdmin"
@@ -24,5 +24,9 @@ const emits = defineEmits(['deletePhoto'])
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 750px) {
+    .photo-container {
+        min-width: 250px;
+    }
+}
 </style>

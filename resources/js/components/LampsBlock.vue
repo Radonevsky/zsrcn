@@ -33,9 +33,9 @@ const lamps = ref([
 </script>
 
 <template>
-<div class='bg-bluergba overflow-hidden pb-[60px]' ref='lampsBlock'>
+<div class='bg-bluergba overflow-hidden pb-[60px] lamps-block-container' ref='lampsBlock'>
     <content-container>
-        <div class='flex justify-between'>
+        <div class='flex justify-between lamps-block'>
             <Lamp
                 v-for='lamp in lamps'
                 :key='lamp.id'
@@ -52,5 +52,14 @@ const lamps = ref([
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 950px) {
+    .lamps-block {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+    .lamps-block-container {
+        padding: 10px 5px;
+    }
+}
 </style>

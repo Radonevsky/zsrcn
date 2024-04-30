@@ -5,16 +5,16 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 </script>
 
 <template>
-<div class='bg-purpl-blue py-[60px] text-white'>
+<div class='bg-purpl-blue py-[60px] text-white footer-container'>
     <ContentContainer>
-        <div class='flex gap-[30px]'>
+        <div class='flex gap-[30px] footer-content-container'>
             <router-link to="/">
                 <h2 class='font-roboto500 text-[30px] leading-[35px] max-w-[604px] hover:underline'>
                     Государственное бюджетное учреждение социального обслуживания
                     “Заиграевский реабилитационный центр для несовершеннолетних”
                 </h2>
             </router-link>
-            <div class='font-roboto400 text-[20px] flex gap-[26px] justify-between w-[100%]'>
+            <div class='font-roboto400 text-[20px] flex gap-[26px] justify-center w-[100%] contacts-container'>
                 <div class='max-w-[291px]'>
                     <h5 class='uppercase'>
                         Контакты:
@@ -50,5 +50,24 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 850px) {
+    h2 {
+        font-size: 20px;
+    }
+    .footer-content-container {
+        flex-wrap: wrap;
+    }
+    .footer-container {
+        padding-top: 20px;
+    }
+    .contacts-container {
+        font-size: 18px;
+        justify-content: space-between;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .contacts-container {
+        flex-wrap: wrap;
+    }
+}
 </style>

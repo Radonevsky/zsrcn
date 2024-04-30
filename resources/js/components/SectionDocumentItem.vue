@@ -15,7 +15,7 @@ const router = useRouter();
             @mouseover="showToView = true"
             @mouseleave="showToView = false"
             class="flex justify-between items-center hover:bg-light-blue hover:cursor-pointer rounded-[5px] min-h-[32px] px-[16px] text-link-dark-blue">
-            <div class="font-roboto500 text-[20px] max-w-[600px] break-all">
+            <div class="font-roboto500 text-[20px] max-w-[600px] break-all name">
                 {{ name }}
             </div>
             <div class="flex" v-show="showToView">
@@ -26,5 +26,10 @@ const router = useRouter();
 </template>
 
 <style scoped>
+@media only screen and (max-width: 750px) {
+    .name {
+        font-size: 16px;
+    }
+}
 
 </style>

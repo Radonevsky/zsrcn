@@ -42,6 +42,7 @@ window.scrollTo(0, 0)
                 <a
                     href="https://egov-buryatia.ru/upload/iblock/379/3796048525bf68c571bb882f14b7675e.pdf"
                     class="hover:underline"
+                    style="word-break: break-word"
                     target="_blank">
                     https://egov-buryatia.ru/upload/iblock/379/3796048525bf68c571bb882f14b7675e.pdf
                 </a>
@@ -51,5 +52,9 @@ window.scrollTo(0, 0)
 </template>
 
 <style scoped>
-
+div {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
 </style>

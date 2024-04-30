@@ -98,5 +98,19 @@ window.scrollTo(0, 0)
 </template>
 
 <style scoped>
-
+div {
+    @media only screen and (max-width: 750px) {
+        font-size: 14px;
+    }
+}
+iframe {
+    @media only screen and (max-width: 610px) {
+        width: 360px;
+        height: 215px
+    }
+    @media only screen and (max-width: 410px) {
+        width: 260px;
+        height: 200px
+    }
+}
 </style>

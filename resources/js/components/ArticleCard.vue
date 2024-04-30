@@ -111,7 +111,7 @@ function save() {
     </div>
     <img v-if='!create'
         :src="props.img_url"
-        alt='photo' class='max-w-[340px] max-h-[350px]'>
+        alt='photo' class='max-w-[340px] max-h-[350px] w-full'>
     <div class='flex flex-col gap-[40px] text-white grow'>
         <button
             v-if='isAdmin'
@@ -130,15 +130,15 @@ function save() {
             v-model='newArticleTitle'
             type='text'
             class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
-                focus:border-orange focus:bg-bluebg text-[30px] font-roboto700 max-w-[465px]'>
+                focus:border-orange focus:bg-bluebg text-[24px] font-roboto700 max-w-[465px]'>
         <input
             v-if='editMode && isAdmin'
             v-model='editArticleTitle'
             type='text'
             class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
-                focus:border-orange focus:bg-bluebg text-[30px] font-roboto700 max-w-[465px]'>
+                focus:border-orange focus:bg-bluebg text-[24px] font-roboto700 max-w-[465px]'>
         <h6 v-if='!create && !editMode'
-            class='font-roboto700 text-[30px] leading-[35px]'>
+            class='font-roboto700 text-[24px] leading-[35px]'>
             {{ props.title }}
         </h6>
         <div class='overflow-auto custom-scrollbar h-[252px]'>
@@ -147,7 +147,7 @@ function save() {
                 v-model='newArticleText'
                 ref='textareaCreateElement'
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
-                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
+                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[18px] font-roboto500 w-full resize-none'>
 
             </textarea>
             <textarea
@@ -155,9 +155,9 @@ function save() {
                 v-model='editArticleText'
                 ref='textareaEditElement'
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
-                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[15px] font-roboto500 w-full resize-none'>
+                    focus:shadow-around focus:border-orange focus:bg-bluebg text-[18px] font-roboto500 w-full resize-none'>
             </textarea>
-            <p v-if='!create && !editMode' class='font-roboto500 text-[15px] leading-[18px]' style="white-space: pre-line;">
+            <p v-if='!create && !editMode' class='font-roboto500 text-[18px] leading-[18px]' style="white-space: pre-line;">
                 {{ props.content }}
             </p>
         </div>
@@ -180,5 +180,19 @@ function save() {
 </template>
 
 <style scoped>
+@media only screen and (max-width: 750px) {
+    article {
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    article {
+        padding: 30px;
+        gap: 20px;
+    }
+}
 
 </style>

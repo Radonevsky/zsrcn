@@ -6,7 +6,7 @@ const isAdmin = ref(false)
 
 async function checkAdmin() {
     try {
-        const res = await axios.post('api/auth/me', {}, {
+        const res = await axios.post('/api/auth/me', {}, {
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('access_token')}`
             }
@@ -113,6 +113,12 @@ function processDownload(response) {
 }
 
 function documentsScrollUp() {
+    if (window.innerWidth <= 550) {
+        window.scrollTo(0, 900)
+
+        return
+    }
+
     window.scrollTo(0, 420)
 }
 

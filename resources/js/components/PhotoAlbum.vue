@@ -60,7 +60,7 @@ async function setPhotoToViewer(direction) {
             <plusIcon></plusIcon>
         </button>
         <slot></slot>
-        <div class='flex flex-wrap justify-start align-top -mx-[15px] mt-[20px]'>
+        <div class='flex flex-wrap justify-start align-top -mx-[15px] mt-[20px] photos'>
             <GalleryPhoto
                 v-for='photo in props.images'
                 @click='openPhoto(photo)'
@@ -72,6 +72,7 @@ async function setPhotoToViewer(direction) {
             v-if='viewMode'
             :url='currentPhotoUrl'
             @close='viewMode = false'
+            class="z-50"
             @next-photo='setPhotoToViewer(1)'
             @prev-photo='setPhotoToViewer(-1)'/>
         <common-button
@@ -83,5 +84,9 @@ async function setPhotoToViewer(direction) {
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 750px) {
+    .photos {
+        justify-content: center;
+    }
+}
 </style>

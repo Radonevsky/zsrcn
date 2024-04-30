@@ -1,5 +1,5 @@
 <script setup>
-import SocialAdd from "../components/SocialAdd.vue";
+import SocialAdd from "../components/SocialAd.vue";
 import WelcomeBlock from "../components/WelcomeBlock.vue";
 import CardsBlock from "../components/CardsBlock.vue";
 import LampsBlock from "../components/LampsBlock.vue";
