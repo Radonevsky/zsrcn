@@ -3,7 +3,7 @@ import axios from "axios";
 import adminApi from "../adminApi.js";
 
 const isAdmin = ref(false)
-const isImpairedVision = ref(true)
+const isImpairedVision = ref(false)
 
 async function checkAdmin() {
     try {
