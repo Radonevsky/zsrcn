@@ -2,6 +2,10 @@
 
 import PageTitle from "../components/PageTitle.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -9,7 +13,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
         <PageTitle title='Ау, родители!' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+        <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color: black' : ''">
             <p class='mt-[20px]'>
                 В данном разделе пока нет материалов
             </p>

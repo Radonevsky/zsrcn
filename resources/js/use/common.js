@@ -3,6 +3,7 @@ import axios from "axios";
 import adminApi from "../adminApi.js";
 
 const isAdmin = ref(false)
+const isImpairedVision = ref(true)
 
 async function checkAdmin() {
     try {
@@ -171,6 +172,7 @@ export default function useCommon() {
         sendFeedback,
         checkAdmin,
         logout,
+        isImpairedVision,
         isAdmin,
     }
 }

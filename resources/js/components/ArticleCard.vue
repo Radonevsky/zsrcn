@@ -98,12 +98,16 @@ function save() {
         update()
     }
 }
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
 <article
     class='flex gap-[65px] h-[490px] max-w-[1028px] pt-[50px] pb-[80px] px-[50px] rounded-[30px] self-center w-full relative '
-    :class='create || editMode ? "bg-bggray" : props.bgClass'>
+    :class='create || editMode ? "bg-bggray" : props.bgClass'
+    :style="isImpairedVision ? 'background: white; border: 2px solid #000;' : ''">
     <div
         v-if='create && isAdmin'
         ref='dropzoneElement'
@@ -112,7 +116,9 @@ function save() {
     <img v-if='!create'
         :src="props.img_url"
         alt='photo' class='max-w-[340px] max-h-[350px] w-full'>
-    <div class='flex flex-col gap-[40px] text-white grow'>
+    <div
+        class='flex flex-col gap-[40px] text-white grow'
+        :style="isImpairedVision ? 'color: #000;' : ''">
         <button
             v-if='isAdmin'
             class='absolute top-[50px] right-[50px] hover:cursor-pointer hover:scale-[1.2] transition-all active:scale-[1]'>

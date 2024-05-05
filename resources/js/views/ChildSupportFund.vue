@@ -2,6 +2,11 @@
 
 import PageTitle from "../components/PageTitle.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -11,7 +16,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
             bg-class='bg-purpl-blue'
             text-color-class='text-white'/>
         <ContentContainer>
-            <div class='py-[60px] text-link-dark-blue text-[20px]'>
+            <div class='py-[60px] text-link-dark-blue text-[20px]' :style="isImpairedVision ? 'color: black' : ''">
                 <h2 class='font-roboto700'>Информационные материалы фонда поддержки детей, находящихся в трудной жизненной ситуации</h2>
                 <a
                     class='mt-[30px] block cursor-pointer hover:underline'

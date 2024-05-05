@@ -1,11 +1,16 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
-
+import useCommon from "../use/common.js";
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
-<div class='bg-purpl-blue py-[60px] text-white footer-container'>
+<div
+    class='bg-purpl-blue py-[60px] text-white footer-container'
+    :style="isImpairedVision ? 'color: black; background-color: #fff; border-bottom: 2px solid #000; border-top: 2px solid #000' : ''">
     <ContentContainer>
         <div class='flex gap-[30px] footer-content-container'>
             <router-link to="/">

@@ -6,7 +6,7 @@ import CommonButton from "./components/CommonButton.vue";
 import ScrollUpButton from "./components/ScrollUpButton.vue";
 import {onMounted, onUnmounted, ref} from "vue";
 
-const {checkAdmin, logout, isAdmin} = useCommon()
+const {checkAdmin, logout, isAdmin, isImpairedVision} = useCommon()
 const isShowScrollUpButton = ref(false)
 
 checkAdmin()
@@ -41,6 +41,8 @@ const handleScroll = () => {
 const scrollUp = () => {
     window.scrollTo(0, 0)
 }
+
+
 </script>
 
 <template>

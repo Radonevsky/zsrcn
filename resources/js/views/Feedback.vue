@@ -2,15 +2,20 @@
 
 import PageTitle from "../components/PageTitle.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
 
 window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <div>
         <PageTitle title='Обратная связь' bg-class='bg-purpl-blue' text-color-class='text-white'/>
         <ContentContainer>
-            <div class='py-[60px] text-link-dark-blue text-[20px] font-roboto700 flex justify-between'>
+            <div class='py-[60px] text-link-dark-blue text-[20px] font-roboto700 flex justify-between'
+                 :style="isImpairedVision ? 'color: black;':''">
                 <router-link
                     to='faq'
                     active-class='underline underline-offset-8'>

@@ -3,6 +3,7 @@
 import ContentContainer from "../layouts/ContentContainer.vue";
 import {ref} from "vue";
 import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
+import useCommon from "../use/common.js";
 
 const centerInfoItems = ref([
     {
@@ -110,16 +111,18 @@ const documents = ref([
         type: 'personal-program',
     },
 ])
-
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+        <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
             <p>Формы социального обслуживания, виды социальных услуг</p>
 
             <div>
-            <table class="table-auto mt-[20px]">
+            <table class="table-auto mt-[20px] socials-table">
                 <thead>
                 <tr class='bg-light-bg'>
                     <th>Наименование государственной услуги</th>
@@ -177,7 +180,7 @@ const documents = ref([
             </div>
 
             <p class='mt-[40px]'>Учреждение работает в круглосуточном режиме.</p>
-            <table class="table-auto">
+            <table class="table-auto socials-time">
                 <tbody>
                 <tr v-for='item in centerInfoItems'>
                     <td>
@@ -212,6 +215,21 @@ const documents = ref([
 </template>
 
 <style scoped>
+@media only screen and (max-width: 500px) {
+    .socials-table {
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 415px) {
+    .socials-table {
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 415px) {
+    .socials-time {
+        font-size: 12px;
+    }
+}
 table {
     text-align: center;
     width: 100%;

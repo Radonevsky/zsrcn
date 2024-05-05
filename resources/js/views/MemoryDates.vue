@@ -2,13 +2,18 @@
 
 import PageTitle from "../components/PageTitle.vue";
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <div>
         <PageTitle title='Памятные даты' bg-class='bg-purpl-blue' text-color-class='text-white'/>
         <ContentContainer>
-            <div class='py-[60px] text-link-dark-blue text-[20px]'>
+            <div class='py-[60px] text-link-dark-blue text-[20px]' :style="isImpairedVision ? 'color: black' : ''">
                 <h2 class='font-roboto700'>Проект "Памятные даты военной истории Отечества"</h2>
                 <p class='mt-[30px]'>Проект «Памятные даты военной истории Отечества» осуществляется в рамках исполнения рекомендаций РОК «Победа».</p>
                 <p class='mt-[30px]'>Информационные материалы размещены на федеральном портале ИСТОРИЯ.РФ</p>

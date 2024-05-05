@@ -2,6 +2,7 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import {ref} from "vue";
+import useCommon from "../use/common.js";
 
 const links = ref([
     [
@@ -71,15 +72,18 @@ const links = ref([
     ],
 
 ])
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
-<div class='bg-light-purple py-[60px] links-container'>
+<div class='bg-light-purple py-[60px] links-container' :class="isImpairedVision ? 'bg-white border-[2px]' : ''">
     <ContentContainer>
         <div class='flex justify-between gap-[10px] links-column-container'>
             <div v-for='column in links'>
                 <ul class='flex flex-col gap-[35px] font-roboto300 pl-[20px] text-[20px] leading-[23px] text-link-dark-blue links-column
-                    before:bg-link-dark-blue'>
+                    before:bg-link-dark-blue' :style="isImpairedVision ? 'color: black; font-weight: 700' : ''">
                     <li v-for='link in column' :key='link.id' class='main-link hover:underline hover:underline-offset-4'>
                         <a v-if="link.externalLink" :href="link.href" target="_blank">{{ link.title }}</a>
                         <router-link v-else :to='link.href'>{{ link.title }}</router-link>

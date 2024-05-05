@@ -2,6 +2,7 @@
 import VkIcon from "./icons/vkIcon.vue";
 import MailIcon from "./icons/mailIcon.vue";
 import PhoneIcon from "./icons/phoneIcon.vue";
+import useCommon from "../use/common.js";
 const contacts = [
     {
         icon: VkIcon,
@@ -20,6 +21,10 @@ const contacts = [
 function handleClick(href) {
     window.location.href = href
 }
+
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -31,7 +36,7 @@ function handleClick(href) {
             target="_blank"
             @click="handleClick(item.href)"
             class='hover:scale-[1.25] cursor-pointer transition-all ease-out'>
-            <component :is="item.icon"></component>
+            <component :is="item.icon" :color="isImpairedVision ? '#000' : '#6070A3'"></component>
         </a>
     </div>
 </div>

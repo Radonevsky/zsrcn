@@ -87,6 +87,9 @@ watch(newArticleText, ()=> {
         textareaCreateElement.value.style.height = `${textareaCreateElement.value.scrollHeight}px`
     }
 })
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>

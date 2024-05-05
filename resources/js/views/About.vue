@@ -2,8 +2,12 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PageTitle from "../components/PageTitle.vue";
+import useCommon from "../use/common.js";
 
 window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -11,7 +15,8 @@ window.scrollTo(0, 0)
         <PageTitle title='О центре' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='pt-[30px] pb-[60px] text-link-dark-blue text-[20px] font-roboto700 flex justify-between'>
+        <div class='pt-[30px] pb-[60px] text-link-dark-blue text-[20px] font-roboto700 flex gap-[10px] justify-between tabs'
+             :style="isImpairedVision ? 'color:black':''">
             <router-link
                 to='structure'
                 class='text-center hover:underline underline-offset-8'
@@ -62,5 +67,9 @@ window.scrollTo(0, 0)
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 870px) {
+    .tabs {
+        flex-direction: column;
+    }
+}
 </style>

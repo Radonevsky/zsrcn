@@ -1435,14 +1435,14 @@ function articleMatch(path) {
     currentArticle.value = articles.value.find(item => item.name === path.name)
 }
 
-const { documentsScrollUp } = useCommon()
+const { documentsScrollUp, isImpairedVision } = useCommon()
 documentsScrollUp()
 
 </script>
 
 <template>
     <ContentContainer>
-        <div v-if="currentArticle" class="text-[20px] font-roboto400 text-link-dark-blue">
+        <div v-if="currentArticle" class="text-[20px] font-roboto400 text-link-dark-blue" :style="isImpairedVision ? 'color:black':''">
             <h3 v-if="currentArticle.title" class="font-roboto700 max-w-[900px] text-center m-auto">
                 {{ currentArticle.title }}
             </h3>

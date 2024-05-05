@@ -2,6 +2,7 @@
 import ContentContainer from "../layouts/ContentContainer.vue";
 import Lamp from "./Lamp.vue";
 import { ref } from "vue";
+import useCommon from "../use/common.js";
 
 const lamps = ref([
     {
@@ -30,10 +31,15 @@ const lamps = ref([
         href: '/feedback',
     },
 ])
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
-<div class='bg-bluergba overflow-hidden pb-[60px] lamps-block-container' ref='lampsBlock'>
+<div
+    class='bg-bluergba overflow-hidden pb-[60px] lamps-block-container'
+    ref='lampsBlock' :class="isImpairedVision ? 'bg-white border-[2px]' : ''">
     <content-container>
         <div class='flex justify-between lamps-block'>
             <Lamp

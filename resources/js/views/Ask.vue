@@ -61,6 +61,7 @@ const feedbackData = ref({
 })
 const {
     sendFeedback,
+    isImpairedVision,
 } = useCommon()
 
 const isValidEmail = (email) => {
@@ -109,7 +110,7 @@ async function sendForm() {
 </script>
 
 <template>
-    <div class='text-link-dark-blue text-[20px] pb-[40px]'>
+    <div class='text-link-dark-blue text-[20px] pb-[40px]' :style="isImpairedVision ? 'color: black':''">
         Здесь вы можете задать вопрос сотрудникам ГБУСО “Заиграевский реабилитационный центр для несовершеннолетних” или же оставить свой отзыв.
         Пожалуйста, заполните необходимые поля формы обратной связи и нажмите «Отправить»
         <div class='text-[18px] flex flex-col max-w-[604px]'>
@@ -121,12 +122,14 @@ async function sendForm() {
                     :maxlength="feedbackData[idx].maxlength"
                     class='mt-[25px] py-[16px] px-[50px] w-full border outline-none rounded focus:border-2 focus:border-bluebg'
                     :class="item.valid ? 'border-light-border' : 'border-pink'"
+                    :style="isImpairedVision ? 'border: 1px solid #000':''"
                     :placeholder='item.label'>
                 <textarea
                     v-else
                     v-model="feedbackData[idx].value"
                     class='mt-[25px] py-[16px] px-[50px] w-full min-h-[200px] border outline-none resize-none rounded focus:border-2 focus:border-bluebg'
                     :class="item.valid ? 'border-light-border' : 'border-pink'"
+                    :style="isImpairedVision ? 'border: 1px solid #000':''"
                     :placeholder='feedbackData[idx].label'
                     :maxlength="feedbackData[idx].maxlength">
                 </textarea>
