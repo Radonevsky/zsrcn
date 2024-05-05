@@ -1,4 +1,6 @@
 <script setup>
+import useCommon from "../use/common.js";
+
 const props = defineProps({
     vertical: Boolean,
     bgColorClass: String,
@@ -10,14 +12,18 @@ function getCardClass() {
         : `gap-[25px] flex-row max-w-[709px] h-[350px]`
     return cardClass
 }
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
 <div
     class='p-[50px] flex card'
-    :class='getCardClass()'>
+    :class='getCardClass()'
+    :style="isImpairedVision ? 'background: white; border: 2px solid #000; margin: -2px;' : ''">
     <div class="photo"><slot name='photo'></slot></div>
-    <div class='text-white text' :class='props.vertical ? "" : "max-w-[280px]"'>
+    <div class='text-white text' :class='props.vertical ? "" : "max-w-[280px]"' :style="isImpairedVision ? 'color: #000' : ''">
         <h3 class='font-roboto700 text-[25px] leading-[30px]' :class='props.vertical ? "text-center" : ""'>
             <slot name='title'></slot>
         </h3>

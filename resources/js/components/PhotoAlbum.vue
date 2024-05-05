@@ -37,11 +37,14 @@ async function setPhotoToViewer(direction) {
         currentPhotoIndex.value += direction
     }
 }
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <div class="mt-[28px]">
-        <div class="text-[25px] font-roboto700 text-tblue text-center">
+        <div class="text-[25px] font-roboto700 text-tblue text-center" :style="isImpairedVision ? 'color: black' : ''">
             <span>{{ props.name }}</span>
             <button
                 v-if="isAdmin"

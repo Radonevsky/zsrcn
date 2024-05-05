@@ -1,10 +1,15 @@
 <script setup>
+import useCommon from "../use/common.js";
 
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
-<div class='bg-purpl-blue'>
-    <div class='w-full content-center text-white pt-[60px] pb-[74px] px-[20px]'>
+<div class='bg-purpl-blue' :class="isImpairedVision ? 'bg-white border-2' : ''">
+    <div class='w-full content-center text-white pt-[60px] pb-[74px] px-[20px]'
+         :style="isImpairedVision ? 'color: black' : ''">
         <div class="max-w-[1026px] mx-auto">
             <h2 class='text-[35px] font-roboto700 text-center leading-[35px]'>
                 Уважаемые гости

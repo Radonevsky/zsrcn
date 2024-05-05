@@ -15,6 +15,9 @@ function getImageUrl(path) {
 }
 
 let light = ref(false)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -29,8 +32,11 @@ let light = ref(false)
                     "top-0" : !props.shifted && props.active,
                     "-top-[5px]" : props.shifted && light,
                     "-top-[56px]" : props.shifted && !light && props.active,
-                }'>
-                <div class="lamp-img__container">
+                    "hover:text-black": isImpairedVision,
+                    "hover:underline": isImpairedVision,
+                }'
+                  :style="isImpairedVision ? 'top: 0;' : ''">
+                <div class="lamp-img__container" :class="isImpairedVision ? 'hidden' : ''">
                     <img
                         class='mx-auto h-[291px] lamp-img'
                         :src='light
@@ -39,7 +45,8 @@ let light = ref(false)
                         alt='lamp'>
                 </div>
                 <p class='text-center font-roboto700 text-[25px] leading-[29px] mt-[50px] lamp-text'
-                   :class='light ? "text-dark-yellow" : "text-white"'>
+                   :class='light ? "text-dark-yellow" : "text-white"'
+                   :style="isImpairedVision ? 'color: black;' : ''">
                     <slot name='title'></slot>
                 </p>
             </div>
@@ -54,8 +61,11 @@ let light = ref(false)
                     "top-0" : !props.shifted && props.active,
                     "-top-[5px]" : props.shifted && light,
                     "-top-[56px]" : props.shifted && !light && props.active,
-                }'>
-                <div class="lamp-img__container">
+                    "hover:text-black": isImpairedVision,
+                    "hover:underline": isImpairedVision,
+                }'
+                  :style="isImpairedVision ? 'top: 0;' : ''">
+                <div class="lamp-img__container"  :class="isImpairedVision ? 'hidden' : ''">
                     <img
                     class='mx-auto h-[291px] lamp-img'
                     :src='light
@@ -64,7 +74,8 @@ let light = ref(false)
                     alt='lamp'>
                 </div>
                 <p class='text-center font-roboto700 text-[25px] leading-[29px] mt-[50px] lamp-text'
-                   :class='light ? "text-dark-yellow" : "text-white"'>
+                   :class='light ? "text-dark-yellow" : "text-white"'
+                   :style="isImpairedVision ? 'color: black;' : ''">
                     <slot name='title'></slot>
                 </p>
             </div>

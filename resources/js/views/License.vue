@@ -2,6 +2,7 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import {ref} from "vue";
+import useCommon from "../use/common.js";
 
 const licenseImages = ref([
     {
@@ -17,11 +18,14 @@ const licenseImages = ref([
         fileName: '/licensePage3.jpeg',
     },
 ])
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <ContentContainer>
-        <div class="text-[20px] font-roboto400 text-link-dark-blue">
+        <div class="text-[20px] font-roboto400 text-link-dark-blue" :style="isImpairedVision ? 'color:black':''">
             <p>Информация о лицензии</p>
             <p class='mt-[20px]'>
                 Настоящая лицензия предоставлена: Государственное бюджетное учреждение социального обслуживания

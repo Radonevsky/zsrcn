@@ -2,8 +2,12 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PageTitle from "../components/PageTitle.vue";
+import useCommon from "../use/common.js";
 
 window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -11,7 +15,7 @@ window.scrollTo(0, 0)
         <PageTitle title='Органы власти субъектов РФ-навстречу детям' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 mb-[60px] text-link-dark-blue'>
+        <div class='text-[20px] font-roboto400 mb-[60px] text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
             <h2 class='font-roboto700 max-w-[900px] mt-[20px]'>
                 Органы власти навстречу детям
             </h2>
@@ -21,7 +25,7 @@ window.scrollTo(0, 0)
                 Собранию 1 декабря 2016 года, ОИА «Новости России» и редакция журнала «Экономическая политика России» формируют
                 Всероссийскую интернет-площадку для расширения взаимодействия органов исполнительной власти субъектов РФ с подрастающим
                 поколением в регионах России «ОРГАНЫ ВЛАСТИ СУБЪЕКТОВ РФ - НАВСТРЕЧУ ДЕТЯМ!»
-                <a href="http://www.kremlinrus.ru/news/165/65721/" target="_blank" class="underline text-purpl-blue"> http://www.kremlinrus.ru/news/165/65721/</a>
+                <a href="http://www.kremlinrus.ru/news/165/65721/" target="_blank" class="underline text-purpl-blue" :style="isImpairedVision ? 'color:black':''"> http://www.kremlinrus.ru/news/165/65721/</a>
             </p>
             <p class='mt-[20px]'>
                 Целями данного бесплатного ресурса являются:
@@ -42,13 +46,13 @@ window.scrollTo(0, 0)
                 с использованием разнообразных каналов связи: средств массовой информации, социальных сетей и современных технологических
                 разработок. В свою очередь, сами дети из регионов России могут написать о запланированных или уже реализуемых отраслевых
                 проектах, связанных с развитием собственного региона и страны в целом. Упрощенная форма регистрации находится здесь
-                <a href="http://www.kremlinrus.ru/news/165/#reg" target="_blank" class="underline text-purpl-blue"> http://www.kremlinrus.ru/news/165/#reg</a>
+                <a href="http://www.kremlinrus.ru/news/165/#reg" target="_blank" class="underline text-purpl-blue" :style="isImpairedVision ? 'color:black':''"> http://www.kremlinrus.ru/news/165/#reg</a>
             </p>
             <p class='mt-[20px]'>
                 Региональные организации, учреждения и предприятия имеют бесплатную возможность рассказать ребятам о профильных направлениях
                 деятельности и тем самым подсказать молодому поколению какую профессию и в какой отрасли выбрать. С примерами размещения
                 информации органами исполнительной власти субъектов РФ можно ознакомиться в разделе о «России и регионах»
-                <a href="http://www.kremlinrus.ru/news/165/" target="_blank" class="underline text-purpl-blue">http://www.kremlinrus.ru/news/165/</a>
+                <a href="http://www.kremlinrus.ru/news/165/" target="_blank" class="underline text-purpl-blue" :style="isImpairedVision ? 'color:black':''">http://www.kremlinrus.ru/news/165/</a>
                 В итоге подобного информационного обмена отраслевых органов исполнительной власти
                 субъектов РФ, подростков и их родителей должно сложиться сообщество одинаково стратегически мыслящих людей системы
                 государственного управления - взрослых и детей, которое будет из поколения в поколение отстаивать и защищать национальные

@@ -1,11 +1,15 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
 <ContentContainer>
-    <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+    <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:#000':''">
         <p>Структура центра</p>
         <p class='mt-[20px]'>В центре функционируют:</p>
         <p class='mt-[20px]'>1.Приёмно-карантинное отделение</p>
@@ -14,33 +18,33 @@ import ContentContainer from "../layouts/ContentContainer.vue";
         <p class='mt-[20px]'>3.Отделение службы сопровождения замещающих семей, создано в 2009 года. В рамках работы службы функционирует</p>
         <p>Школа приёмных родителей и Клуб замещающих родителей «Тепло домашнего очага»</p>
     </div>
-    <div class='text-[20px] font-roboto700 text-link-dark-blue max-w-[863px] text-center mx-auto mt-[45px]'>
+    <div class='text-[20px] font-roboto700 text-link-dark-blue max-w-[863px] text-center mx-auto mt-[45px]' :style="isImpairedVision ? 'color:#000':''">
         Структура ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»
     </div>
     <div class='text-[30px] mt-[55px] font-roboto700 '>
         <div class="tree">
             <div class='tree__item--head flex justify-center'>
-                <div class="tree__item tree__item--bottom-center">Директор</div>
+                <div class="tree__item tree__item--bottom-center" :class="isImpairedVision ? 'for_impaired':''">Директор</div>
             </div>
 
-            <div class="tree__item tree__item--top-right">
+            <div class="tree__item tree__item--top-right" :class="isImpairedVision ? 'for_impaired':''">
                 Заведующий отделением
             </div>
-            <div class="tree__item tree__item--top-center">
+            <div class="tree__item tree__item--top-center" :class="isImpairedVision ? 'for_impaired':''">
                 Начальник хозяйственного отдела
             </div>
-            <div class="tree__item tree__item--top-left">
+            <div class="tree__item tree__item--top-left" :class="isImpairedVision ? 'for_impaired':''">
                 Административно- управленческий персонал
             </div>
-            <div class="tree__item tree__item--top-center ">
+            <div class="tree__item tree__item--top-center" :class="isImpairedVision ? 'for_impaired':''">
                 Отделение временного содержания детей сирот и детей, оставшихся без попечения родителей, а так же, детей оказавшихся в трудной жизненной ситуациию
             </div>
-            <div class="tree__item tree__item--top-center max-h-[178px]">
+            <div class="tree__item tree__item--top-center max-h-[178px]" :class="isImpairedVision ? 'for_impaired':''">
                 Персонал хозяйственного отдела
             </div>
             <div class="tree__item tree__item--empty">
             </div>
-            <div class="tree__item tree__item--top-center">
+            <div class="tree__item tree__item--top-center" :class="isImpairedVision ? 'for_impaired':''">
                 Полустационарное отделение
             </div>
             <div class="tree__item tree__item--empty">
@@ -48,11 +52,29 @@ import ContentContainer from "../layouts/ContentContainer.vue";
             <div class="tree__item tree__item--empty">
             </div>
         </div>
+        <img v-if="isImpairedVision" src="../../images/centerStructure.png" alt="Структура центра" class="w-full hidden">
+        <img v-if="!isImpairedVision" src="../../images/centerStructure1.png" alt="Структура центра" class="w-full hidden">
     </div>
 </ContentContainer>
 </template>
 
 <style scoped>
+@media only screen and (max-width: 1000px) {
+    .tree__item {
+        font-size: 20px;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .tree__item {
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .tree__item {
+        font-size: 10px;
+    }
+}
+
 .tree {
     --vertical-gap: 50px;
     --horizontal-gap: 20px;
@@ -81,6 +103,8 @@ import ContentContainer from "../layouts/ContentContainer.vue";
     text-align: center;
     border-radius: 10px;
 }
+
+
 
 .tree__item:first-child {
     margin-top: 0;
@@ -154,5 +178,23 @@ import ContentContainer from "../layouts/ContentContainer.vue";
     left: calc(50% - 1px);
     width: 3px;
     height: calc(var(--vertical-gap) / 2);
+}
+
+.for_impaired {
+    background-color: #fff;
+    border: 2px solid #000;
+    color: #000;
+}
+
+.for_impaired::before, .for_impaired::after {
+    background-color: #000;
+}
+@media only screen and (max-width: 450px) {
+    img {
+        display: block;
+    }
+    .tree {
+        display: none;
+    }
 }
 </style>

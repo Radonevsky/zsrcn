@@ -1,11 +1,15 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+        <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
             <p>Опыт работы за последние 5 лет</p>
             <p class='mt-[20px]'>
                 Реабилитацию прошли:
@@ -26,7 +30,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                 2021г. - 235 несовершеннолетних
             </p>
 
-            <table class="table-auto mt-[20px]">
+            <table class="table-auto mt-[20px] experience-table">
                 <thead>
                 <tr class='bg-light-bg'>
                     <th>Жизнеустройство детей, находящихся на воспитании в ЗСРЦН</th>
@@ -39,7 +43,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Возвращено в родные семьи</td>
+                    <td class="first-column">Возвращено в родные семьи</td>
                     <td>118</td>
                     <td>116</td>
                     <td>168</td>
@@ -47,7 +51,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                     <td>153</td>
                 </tr>
                 <tr>
-                    <td>Семейное жизнеустройство (СВГ, приемная семья, опека, попечительство, усыновление)</td>
+                    <td class="first-column">Семейное жизнеустройство (СВГ, приемная семья, опека, попечительство, усыновление)</td>
                     <td>7</td>
                     <td>9</td>
                     <td>23</td>
@@ -55,7 +59,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                     <td>25</td>
                 </tr>
                 <tr>
-                    <td>Направлено в образовательные учреждения для детей – сирот и детей, оставшихся без попечения родителей)</td>
+                    <td class="first-column">Направлено в образовательные учреждения для детей – сирот и детей, оставшихся без попечения родителей)</td>
                     <td>9</td>
                     <td>
 
@@ -65,7 +69,7 @@ import ContentContainer from "../layouts/ContentContainer.vue";
                     <td>39</td>
                 </tr>
                 <tr>
-                    <td>Другие формы жизнеустройства (определены на учебу в ПУ, направлены на лечение, самовольно покинули учреждение, переданы в СРЦН)</td>
+                    <td class="first-column">Другие формы жизнеустройства (определены на учебу в ПУ, направлены на лечение, самовольно покинули учреждение, переданы в СРЦН)</td>
                     <td>17</td>
                     <td>6</td>
                     <td>6</td>
@@ -91,6 +95,19 @@ import ContentContainer from "../layouts/ContentContainer.vue";
 </template>
 
 <style scoped>
+@media only screen and (max-width: 870px) {
+    .experience-table {
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .experience-table {
+        font-size: 12px;
+    }
+    .experience-table th{
+        word-break: break-word;
+    }
+}
 table {
     text-align: center;
     width: 100%;

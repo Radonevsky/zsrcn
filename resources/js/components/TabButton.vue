@@ -1,9 +1,14 @@
 <script setup>
 
+import useCommon from "../use/common.js";
+
 const props = defineProps([
     'link',
     'specPadding',
 ])
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -11,7 +16,7 @@ const props = defineProps([
         <router-link :to="link">
             <button
                 class='bg-violet w-full max-w-[392px] leading-[23px] px-[5px] py-[20px] btn rounded-[10px] text-link-dark-blue hover:bg-btngreen'
-                :class="props.specPadding ? specPadding : ''">
+                :class="props.specPadding ? specPadding : ''" :style="isImpairedVision ? 'color:#000; background-color:white; border: 1px solid #000;':''">
                 <slot></slot>
             </button>
         </router-link>

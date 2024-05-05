@@ -2,7 +2,11 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PageTitle from "../components/PageTitle.vue";
+import useCommon from "../use/common.js";
 window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -10,7 +14,7 @@ window.scrollTo(0, 0)
         <PageTitle title='Информационная безопасность' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 text-link-dark-blue'>
+        <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
             <h2 class='font-roboto700 my-[20px]'>
                 Что такое цифровая грамотность?
             </h2>
@@ -24,7 +28,7 @@ window.scrollTo(0, 0)
             </p>
             <p class="mb-[20px]">
                 Ответ можно получить на лучшем ресурсе для детей — сайте
-                <a href="https://xn--b1afankxqj2c.xn--p1ai/index.php" target="_blank" class="underline text-purpl-blue">
+                <a href="https://xn--b1afankxqj2c.xn--p1ai/index.php" target="_blank" class="underline text-purpl-blue" :style="isImpairedVision ? 'color:black':''">
                     «Сетевичок»
                 </a>
             </p>

@@ -35,6 +35,9 @@ async function saveDescription() {
     await saveDocDescriptionByUuid(uuid.value, description.value)
     editMode.value = false
 }
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -62,7 +65,7 @@ async function saveDescription() {
             text="Сохранить описание документа"
             @click="saveDescription"></common-button>
         <p v-if="description && !editMode"
-           class="text-link-dark-blue font-roboto500 text-[20px] mt-[20px]">
+           class="text-link-dark-blue font-roboto500 text-[20px] mt-[20px]" :style="isImpairedVision ? 'color:black':''">
             {{ description }}
         </p>
     </div>

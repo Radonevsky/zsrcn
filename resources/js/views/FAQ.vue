@@ -1,12 +1,16 @@
 <script setup>
 
 import ContentContainer from "../layouts/ContentContainer.vue";
+import useCommon from "../use/common.js";
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
     <div>
         <ContentContainer>
-            <div class='pb-[40px] text-link-dark-blue text-[20px]'>
+            <div class='pb-[40px] text-link-dark-blue text-[20px]' :style="isImpairedVision ? 'color: black':''">
                 <p>Куда я могу обратится, что бы принять ребенка в семью?</p>
                 <p>Где получить информацию по восстановлению в родительских правах?</p>
                 <p class='mt-[30px]'>По этим вопросам Вам необходимо обратится в органы опеки и попечительства по месту жительства.</p>

@@ -2,7 +2,11 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PageTitle from "../components/PageTitle.vue";
+import useCommon from "../use/common.js";
 window.scrollTo(0, 0)
+const {
+    isImpairedVision,
+} = useCommon()
 </script>
 
 <template>
@@ -10,7 +14,7 @@ window.scrollTo(0, 0)
         <PageTitle title='Контакты' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
-        <div class='text-[20px] font-roboto400 text-link-dark-blue p-'>
+        <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color: black':''">
             <h2 class='font-roboto700 max-w-[900px] mt-[20px]'>
                 Государственное бюджетное учреждение социального обслуживания <br>
                 Заиграевский социально-реабилитационный центр для несовершеннолетних
