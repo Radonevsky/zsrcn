@@ -34,7 +34,7 @@ class DocumentRepository
 
             $document->name = $originalName;
             $document->path = $path;
-            $document->url = url('/storage/' . $path);
+            $document->url = '/storage/' . $path;
             $document->uuid = Str::uuid();
             $document->save();
 
@@ -58,7 +58,7 @@ class DocumentRepository
 
             $document->name = $originalName;
             $document->path = $path;
-            $document->url = url('/storage/' . $path);
+            $document->url = '/storage/' . $path;
             $document->save();
 
             return $document->url;

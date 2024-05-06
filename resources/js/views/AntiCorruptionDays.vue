@@ -4,11 +4,11 @@ import {ref} from "vue";
 const antiCorruptionImages = ref([
     {
         id: 1,
-        fileName: '/antiCorruption1.png',
+        fileName: '../../antiCorruption1.png',
     },
     {
         id: 2,
-        fileName: '/antiCorruption2.png',
+        fileName: '../../antiCorruption2.png',
     },
 ])
 import ContentContainer from "../layouts/ContentContainer.vue";
