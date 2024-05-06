@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import useCommon from "../use/common.js";
+import lampOn from "../../images/lampOn.png"
+import lampOff from "../../images/lampOff.png"
 
 const { getImgUrl } = useCommon()
 const props = defineProps({
@@ -39,9 +41,7 @@ const {
                 <div class="lamp-img__container" :class="isImpairedVision ? 'hidden' : ''">
                     <img
                         class='mx-auto h-[291px] lamp-img'
-                        :src='light
-                    ? getImageUrl("../../images/lampOn.png")
-                    : getImageUrl("../../images/lampOff.png")'
+                        :src='light ? lampOn : lampOff'
                         alt='lamp'>
                 </div>
                 <p class='text-center font-roboto700 text-[25px] leading-[29px] mt-[50px] lamp-text'
@@ -68,9 +68,7 @@ const {
                 <div class="lamp-img__container"  :class="isImpairedVision ? 'hidden' : ''">
                     <img
                     class='mx-auto h-[291px] lamp-img'
-                    :src='light
-                    ? getImageUrl("../../images/lampOn.png")
-                    : getImageUrl("../../images/lampOff.png")'
+                    :src='light ? lampOn : lampOff'
                     alt='lamp'>
                 </div>
                 <p class='text-center font-roboto700 text-[25px] leading-[29px] mt-[50px] lamp-text'
