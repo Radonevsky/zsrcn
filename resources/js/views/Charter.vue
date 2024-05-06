@@ -16,14 +16,13 @@ router.afterEach((to) => {
 });
 
 </script>
-
 <template>
     <ContentContainer>
         <div v-if="routerName === 'center-charter-doc'">
             <document-download-upload name="Устав" type="charter"></document-download-upload>
         </div>
         <div v-if="routerName === 'center-ogrn'">
-            <img src="/ogrn.png" alt="ОГРН">
+            <img src="../../../public/ogrn.png" alt="ОГРН">
         </div>
         <div v-if="routerName === 'center-charter-changes'">
             <document-download-upload name="Изменения в уставе" type="charter_changes"></document-download-upload>

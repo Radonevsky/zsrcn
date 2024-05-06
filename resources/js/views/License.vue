@@ -7,15 +7,15 @@ import useCommon from "../use/common.js";
 const licenseImages = ref([
     {
         id: 1,
-        fileName: '/licensePage1.png',
+        fileName: '../../licensePage1.png',
     },
     {
         id: 2,
-        fileName: '/licensePage2.jpeg',
+        fileName: '../../licensePage2.jpeg',
     },
     {
         id: 3,
-        fileName: '/licensePage3.jpeg',
+        fileName: '../../licensePage3.jpeg',
     },
 ])
 const {

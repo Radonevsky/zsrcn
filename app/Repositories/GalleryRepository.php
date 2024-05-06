@@ -40,11 +40,11 @@ class GalleryRepository
             \Intervention\Image\Facades\Image::make($image)->fit(340, 360)
                 ->save(storage_path('app/public/images/' . $prevName));
 
-            $preview = url('/storage/images/' . $prevName);
+            $preview = '/storage/images/' . $prevName;
 
             $createdImages[] = Image::query()->create([
                 'path' => $path,
-                'url' => url('/storage/' . $path),
+                'url' => '/storage/' . $path,
                 'preview_url' => $preview,
                 'album_id' => $albumId,
             ]);

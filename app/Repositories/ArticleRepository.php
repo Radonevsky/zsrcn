@@ -29,6 +29,13 @@ class ArticleRepository
             ->orderByDesc('articles.created_at')
             ->get();
 
+        $articles->transform(function ($item) {
+            $item->url = config('url') . '/' . $item->url;
+            $item->preview_url = config('url') . '/' . $item->preview_url;
+
+            return $item;
+        });
+
         return $articles;
     }
 
@@ -54,7 +61,7 @@ class ArticleRepository
             $img = Image::query()->create([
                 'path' => $path,
                 'url' => url('/storage/' . $path),
-                'preview_url' => url('/storage/images/' . $prevName),
+                'preview_url' => '/storage/images/' . $prevName,
                 'article_id' => $article->id,
             ]);
 
