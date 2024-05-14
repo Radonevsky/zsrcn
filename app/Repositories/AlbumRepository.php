@@ -27,10 +27,6 @@ class AlbumRepository
         $albums->each(function ($album) {
             $album->images = $album->images->splice(Album::TAKE_PHOTO_COUNT);
             $album->partly = true;
-            $album->images->each(function ($item) {
-                $item->url = config('url') . '/' . $item->url;
-                $item->preview_url = config('url') . '/' . $item->preview_url;
-            });
         });
 
         return $albums;
@@ -42,13 +38,7 @@ class AlbumRepository
             ->where('album_id', $id)
             ->limit(100)
             ->offset($offset)
-            ->get()
-            ->transform(function ($item) {
-                $item->url = config('url') . '/' . $item->url;
-                $item->preview_url = config('url') . '/' . $item->preview_url;
-
-                return $item;
-            });
+            ->get();
 
         return $images;
     }
