@@ -16,7 +16,7 @@ const {
 
 <template>
 <div :class='props.bgClass'
-     class='h-[118px] flex justify-center items-center'
+     class='h-[118px] flex justify-center items-center px-[10px]'
      :style="isImpairedVision ? 'background: #fff; border-bottom: 2px solid #000;' : ''">
     <h4 :class='props.textColorClass' class='font-roboto700 text-[30px]' :style="isImpairedVision ? ' color: black;' : ''">
         {{ props.title }}
@@ -25,5 +25,9 @@ const {
 </template>
 
 <style scoped>
-
+@media only screen and (max-width: 750px) {
+    h4 {
+        font-size: 22px;
+    }
+}
 </style>
