@@ -114,12 +114,6 @@ function processDownload(response) {
 }
 
 function documentsScrollUp() {
-    if (window.innerWidth <= 550) {
-        window.scrollTo(0, 900)
-
-        return
-    }
-
     window.scrollTo(0, 420)
 }
 
