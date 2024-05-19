@@ -12,3 +12,7 @@ const app = createApp({
 })
 app.use(router)
 app.mount('#app')
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title || 'ЗСРЦН';
+    next();
+});

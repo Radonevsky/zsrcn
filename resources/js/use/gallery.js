@@ -3,6 +3,7 @@ import {Dropzone} from "dropzone";
 import axios from "axios";
 import adminApi from "../adminApi.js";
 import router from "../router.js";
+import imageCompression from 'browser-image-compression';
 
 const dropzoneElement = ref(null)
 const dropzone = ref(null)
@@ -46,10 +47,11 @@ async function storePhotosToAlbum(albumId) {
         let data = new FormData()
         const imgArray = dropzone.value.getAcceptedFiles()
 
-        imgArray.forEach(img => {
-            data.append('photos[]', img)
-            dropzone.value.removeFile(img)
-        })
+        for (const img of imgArray) {
+            const compressedImg = await compressImage(img);
+            data.append('photos[]', compressedImg);
+            dropzone.value.removeFile(img);
+        }
 
         await adminApi.post(`/api/auth/albums/${albumId}`, data)
 
@@ -67,14 +69,34 @@ async function storeAlbum(name) {
     data.append('name', name)
     const imgArray = dropzone.value.getAcceptedFiles()
 
-    imgArray.forEach(img => {
-        data.append('photos[]', img)
-        dropzone.value.removeFile(img)
-    })
+    for (const img of imgArray) {
+        const compressedImg = await compressImage(img);
+        data.append('photos[]', compressedImg);
+        dropzone.value.removeFile(img);
+    }
 
     await adminApi.post('/api/auth/albums', data)
 
     storePhotoButtonShow.value = false
+}
+
+async function compressImage(file) {
+    const options = {
+        maxSizeMB: 1,
+        useWebWorker: true,
+        initialQuality: 1,
+    };
+    try {
+        const blob = await imageCompression(file, options);
+        const compressedFile = new File([blob], file.name, {
+            type: file.type,
+            lastModified: Date.now()
+        });
+        return compressedFile;
+    } catch (error) {
+        console.error('Ошибка сжатия изображения:', error);
+        throw error;
+    }
 }
 
 async function removeAlbum(id) {
@@ -124,5 +146,6 @@ export default function useGallery() {
         removeAlbum,
         storePhotosToAlbum,
         removePhoto,
+        compressImage,
     }
 }

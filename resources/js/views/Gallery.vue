@@ -32,6 +32,7 @@ const currentAlbumsPage = ref(0)
 const dropzoneIsBusy = ref(false)
 const addPhotoToAlbumMode = ref(false)
 const dropzoneForAlbum = ref(null)
+const preloader = ref(false)
 
 onMounted(() => {
     if (isAdmin) {
@@ -55,12 +56,14 @@ function createAlbumModeOff() {
 
 async function saveAlbum() {
     dropzoneMode.value = false
+    preloader.value = true
     await storeAlbum(albumName.value)
     dropzoneIsBusy.value = false
     createAlbumMode.value = false
     albums.value = []
     currentAlbumsPage.value = 0
     await setAlbums()
+    preloader.value = false
 }
 
 async function setAlbums() {
@@ -85,12 +88,14 @@ async function getAlbumOtherPhotos(e) {
 }
 
 async function deleteAlbum(e) {
+    preloader.value = true
     const res = await removeAlbum(e)
     if (res) {
         albums.value = []
         currentAlbumsPage.value = 0
         await setAlbums()
     }
+    preloader.value = false
 }
 
 function addPhotoModeByAlbumId(albumId) {
@@ -114,11 +119,13 @@ function addPhotoModeOff() {
 }
 
 async function savePhotos(albumId) {
+    preloader.value = true
     const stored = await storePhotosToAlbum(albumId)
     if (stored) {
         addPhotoModeOff()
         getAlbumOtherPhotos(albumId)
     }
+    preloader.value = false
 }
 async function deletePhotoFromAlbum(e) {
     const targetAlbum = albums.value.find(album => album.id === e.albumId)
@@ -169,6 +176,9 @@ async function deletePhotoFromAlbum(e) {
                 ref='dropzoneElement'
                 class='mt-[20px] min-h-[100px] mb-[30px] pt-3 border-light-orange border-2 border-dashed hover:cursor-pointer
                    text-center bg-light-bg text-tblue flex gap-6 justify-items-center flex-wrap justify-center'>
+            </div>
+            <div v-if="preloader" class="w-[100px] mx-auto">
+                <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
             </div>
             <SaveButton
                 v-if='createAlbumMode && storePhotoButtonShow && albumName.length && isAdmin'

@@ -48,27 +48,32 @@ const routes = [
     {
         path: '/',
         component: Home,
-        name: 'home'
+        name: 'home',
+        meta: { title: 'Главная' }
     },
     {
         path: '/news',
         component: News,
-        name: 'news'
+        name: 'news',
+        meta: { title: 'Новости' }
     },
     {
         path: '/gallery',
         component: Gallery,
-        name: 'gallery'
+        name: 'gallery',
+        meta: { title: 'Галерея' }
     },
     {
         path: '/memory-dates',
         component: MemoryDates,
-        name: 'memory-dates'
+        name: 'memory-dates',
+        meta: { title: 'Памятные даты' }
     },
     {
         path: '/child-support-fund',
         component: ChildSupportFund,
-        name: 'child-support-fund'
+        name: 'child-support-fund',
+        meta: { title: 'Информационные материалы фонда поддержки детей' }
     },
     {
         path: '/feedback',
@@ -80,6 +85,7 @@ const routes = [
             { path: 'ask', component: Ask, name: 'ask' },
             { path: '', redirect: '/feedback/faq', name: 'feedback-default' },
         ],
+        meta: { title: 'Обратная связь' }
     },
     {
         path: '/about',
@@ -96,6 +102,7 @@ const routes = [
             { path: 'description', component: AboutDescription, name: 'about-description' },
             { path: '', redirect: '/about/description', name: 'about-default' },
         ],
+        meta: { title: 'О нас' }
     },
     {
         path: '/documents',
@@ -144,6 +151,7 @@ const routes = [
             },
             { path: '', redirect: '/documents/charter', name: 'documents-default' },
         ],
+        meta: { title: 'Документы' }
     },
     {
         path: '/statements',
@@ -222,6 +230,7 @@ const routes = [
             },
             { path: '', redirect: '/statements/2023', name: 'statements-default' },
         ],
+        meta: { title: 'Отчетные документы' }
     },
     {
         path: '/planning',
@@ -300,6 +309,7 @@ const routes = [
             },
             {path: '', redirect: '/planning/2023', name: 'planning-default'},
         ],
+        meta: { title: 'Планирование финансово-хозяйственной деятельности' }
     },
     {
         path: '/support-foster',
@@ -348,6 +358,7 @@ const routes = [
             },
             {path: '', redirect: '/support-foster/foster-common', name: 'support-foster-default'},
         ],
+        meta: { title: 'Служба сопровождения замещающих семей' }
     },
     {
         path: '/citizen-appeals',
@@ -368,6 +379,7 @@ const routes = [
             { path: 'legal-basis', component: CitizenAppealsLegalBasis, name: 'citizen-appeals-basis' },
             { path: 'rules', component: CitizenAppealsRules, name: 'citizen-appeals-rules' },
         ],
+        meta: { title: 'Обращения граждан' }
     },
     {
         path: '/methodical',
@@ -381,6 +393,7 @@ const routes = [
             { path: 'work/:uuid', component: DocumentSection, name: 'methodical-work-doc' },
             {path: '', redirect: '/methodical/programm', name: 'methodical-default'},
         ],
+        meta: { title: 'Методическая работа' }
     },
     {
         path: '/anti-corruption',
@@ -414,6 +427,7 @@ const routes = [
             },
             {path: '', redirect: '/anti-corruption/memo', name: 'anti-corruption-default'},
         ],
+        meta: { title: 'Противодействие коррупции' }
     },
     {
         path: '/quality-assessment',
@@ -472,36 +486,43 @@ const routes = [
             },
             {path: '', redirect: '/quality-assessment/results-2021', name: 'quality-assessment-default'},
         ],
+        meta: { title: 'Независимая оценка качества условий оказания услуг' }
     },
     {
         path: '/towards-children',
         component: TowardsChildren,
         name: 'towards-children',
+        meta: { title: 'Органы власти субъектов РФ — навстречу детям' }
     },
     {
         path: '/information-security',
         component: InformationSecurity,
         name: 'information-security',
+        meta: { title: 'Информационная безопасность' }
     },
     {
         path: '/hey-parents',
         component: HeyParents,
         name: 'hey-parents',
+        meta: { title: 'Ау, Родители' }
     },
     {
         path: '/contacts',
         component: Contacts,
         name: 'contacts',
+        meta: { title: 'Контакты' }
     },
     {
         path: '/social-add',
         component: SocialAddView,
         name: 'social-add',
+        meta: { title: 'Социальная реклама' }
     },
     {
         path: '/login',
         component: Login,
         name: 'login',
+        meta: { title: 'Вход' }
     }
 ]
 

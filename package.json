@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@vueuse/core": "^10.3.0",
+        "browser-image-compression": "^2.0.2",
         "dropzone": "^6.0.0-beta.2",
         "vue-router": "^4.2.4"
     }

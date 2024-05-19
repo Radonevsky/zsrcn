@@ -29,22 +29,29 @@ class GalleryRepository
     public function storePhotos(array $photos, int $albumId = null)
     {
         $createdImages = [];
-
         foreach ($photos as $image) {
             $imgName = md5(Carbon::now() . '_' . $image->getClientOriginalName())
                 . '.' . $image->getClientOriginalExtension();
             $prevName = 'prev_' . $imgName;
 
-            $path = Storage::disk('public')->putFileAs('/images', $image, $imgName);
+            $image = \Intervention\Image\Facades\Image::make($image);
+            $image->orientate();
+            $image->resize(1024, 1024, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $image->save(storage_path('app/public/images/' . $imgName));
 
-            \Intervention\Image\Facades\Image::make($image)->orientate()->fit(340, 360)
-                ->save(storage_path('app/public/images/' . $prevName));
+            Storage::disk('public')->put('images/' . $imgName, file_get_contents(storage_path('app/public/images/' . $imgName)));
+
+            $image->fit(340, 360)->save(storage_path('app/public/images/' . $prevName), 75);
+            Storage::disk('public')->put('images/' . $prevName, file_get_contents(storage_path('app/public/images/' . $prevName)));
 
             $preview = '/storage/images/' . $prevName;
 
             $createdImages[] = Image::query()->create([
-                'path' => $path,
-                'url' => '/storage/' . $path,
+                'path' => 'images/' . $imgName,
+                'url' => '/storage/images/' . $imgName,
                 'preview_url' => $preview,
                 'album_id' => $albumId,
             ]);
