@@ -55,7 +55,7 @@ class ArticleRepository
 
             $path = Storage::disk('public')->putFileAs('/images', $image, $imgName);
 
-            \Intervention\Image\Facades\Image::make($image)->fit(340, 360)
+            \Intervention\Image\Facades\Image::make($image)->orientate()->fit(340, 360)
                 ->save(storage_path('app/public/images/' . $prevName));
 
             $img = Image::query()->create([
