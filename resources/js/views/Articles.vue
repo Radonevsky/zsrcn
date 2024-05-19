@@ -9,9 +9,11 @@ import {ref, watch} from "vue";
 import axios from "axios";
 import useCommon from "../use/common.js";
 import adminApi from "../adminApi.js";
+import useGallery from "../use/gallery.js";
 
 const {fetchArticles, coloredBg, storeArticle, dropzone} = useArticles()
 const {isAdmin} = useCommon()
+const {compressImage} = useGallery()
 
 const textareaMaxHeight = ref(237)
 const currentArticlesPage = ref(0)
@@ -66,7 +68,8 @@ async function deleteArticle(id) {
 async function saveArticle(body) {
     const imgArray = dropzone.value.getAcceptedFiles()
     const data = new FormData()
-    data.append('image', imgArray[0])
+    const compressedImg = await compressImage(imgArray[0])
+    data.append('image', compressedImg)
     data.append('title', body.title)
     data.append('content', body.text)
     await storeArticle(data);
