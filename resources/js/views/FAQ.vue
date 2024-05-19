@@ -16,6 +16,31 @@ const {
                 <p class='mt-[30px]'>По этим вопросам Вам необходимо обратится в органы опеки и попечительства по месту жительства.</p>
                 <div class=' mt-[30px]'>
                     <h3 class='font-roboto700'>г.Улан-Удэ</h3>
+                    <div class="flex flex-col border text-center mobile">
+                        <div class='bg-light-bg border font-bold'>Советский район</div>
+                        <div class="border">
+                            <p>ул. Советская, 23</p>
+                            <p>телефоны:</p>
+                            <p>8(3012)21-43-67,</p>
+                            <p>8(3012)21-07-39</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Железнодорожный район</div>
+                        <div class="border">
+                            <p>ул. Октябрьская, 2</p>
+                            <p>телефоны:</p>
+                            <p>8(3012)44-86-28,</p>
+                            <p>8(3012)44-89-74,</p>
+                            <p>8(3012)44-67-38</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Октябрьский район</div>
+                        <div class="border">
+                            <p>ул. Павлова, 1</p>
+                            <p>телефоны:</p>
+                            <p>8(3012)41-99-75,</p>
+                            <p>8(3012)43-64-34,</p>
+                            <p>8(3012)43-67-71</p>
+                        </div>
+                    </div>
                     <table class="table-auto">
                         <thead>
                         <tr class='bg-light-bg'>
@@ -52,6 +77,117 @@ const {
                 </div>
                 <div class=' mt-[30px]'>
                     <h3 class='font-roboto700'>Районы Республики Бурятия</h3>
+                    <div class="flex flex-col border text-center mobile">
+                        <div class='bg-light-bg border font-bold'>Баргузинский</div>
+                        <div class="border">
+                            <p>с. Баргузин, ул. Дзержинского 26</p>
+                            <p>8(30131)42-814</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Баунтовский</div>
+                        <div class="border">
+                            <p>с. Багдарин, ул. Ленина, 22</p>
+                            <p>8(30153)42-167</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Бичурский</div>
+                        <div class="border">
+                            <p>с. Бичура, ул. Советская, 43</p>
+                            <p>8(30133)42-090</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Джидинский</div>
+                        <div class="border">
+                            <p>с. Петропавловка, ул. Терешковой, 8</p>
+                            <p>8(30134)42-456</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Еравнинский</div>
+                        <div class="border">
+                            <p>с. Сосново-Озерское, ул. Первомайская, 113</p>
+                            <p>8(30135)21-445</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Закаменский</div>
+                        <div class="border">
+                            <p>г. Закаменск, ул. Ленина, 17</p>
+                            <p>8(30137)46-054</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Заиграевский</div>
+                        <div class="border">
+                            <p>пгт. Заиграево, ул. Октябрьская, 4</p>
+                            <p>8(30136)41-152</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Иволгинский</div>
+                        <div class="border">
+                            <p>с. Иволгинск, ул. Ленина, 30</p>
+                            <p>8(30140) 21-227</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Кабанский</div>
+                        <div class="border">
+                            <p>с. Кабанск, ул. Кирова, 27</p>
+                            <p>8(30148)41-006</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Кижингинский</div>
+                        <div class="border">
+                            <p>ул. Коммунистическая, 12</p>
+                            <p>8(30141)32-232</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Курумканский</div>
+                        <div class="border">
+                            <p>с. Курумкан, ул. Балдакова, 13</p>
+                            <p>8(30149)41-332</p>                        </div>
+                        <div class='bg-light-bg border font-bold'>Кяхтинский</div>
+                        <div class="border">
+                            <p>г. Кяхта, ул. Ленина, 33</p>
+                            <p>8(30142)41-082</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Муйский</div>
+                        <div class="border">
+                            <p>п. Таксимо, ул. Советская, 10а</p>
+                            <p>8(30132)55-379</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Мухоршибирский</div>
+                        <div class="border">
+                            <p>с. Мухоршибирь, ул. Доржиева, 38</p>
+                            <p>8(30143)21-974</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Окинский</div>
+                        <div class="border">
+                            <p>с. Орлик, ул. Советская, д.32</p>
+                            <p>8(30150)51-244</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Прибайкальский</div>
+                        <div class="border">
+                            <p>с. Турунтаево, ул. Ленина, 67</p>
+                            <p>8(30144)41-334</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Северо-Байкальский</div>
+                        <div class="border">
+                            <p>п. Нижнеангарск, ул. Рабочая, 125</p>
+                            <p>8(30130)47-086</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Селенгинский</div>
+                        <div class="border">
+                            <p>г. Гусиноозерск, ул. Пушкина, 12</p>
+                            <p>8(30145)45-239</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Тарбагатайский</div>
+                        <div class="border">
+                            <p>с. Тарбагатай, ул. Школьная, 1</p>
+                            <p>8(30146)56-054</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Тункинский</div>
+                        <div class="border">
+                            <p>с. Кырен, ул. Ленина, 107</p>
+                            <p>8(30147)41-668</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>Хоринский</div>
+                        <div class="border">
+                            <p>с. Хоринск, ул. Первомайская, 41</p>
+                            <p>8(30148)22-170</p>
+                        </div>
+                        <div class='bg-light-bg border font-bold'>г. Северобайкальск</div>
+                        <div class="border">
+                            <p>г. Северобайкальск, пр. Ленинградский, 7</p>
+                            <p>8(30130)23-931</p>
+                        </div>
+                    </div>
                     <table class="table-auto">
                         <thead>
                         <tr class='bg-light-bg'>
@@ -188,5 +324,18 @@ table {
 
 table, th, td {
     border: 1px solid black;
+}
+
+.mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 550px) {
+    .mobile {
+        display: flex;
+    }
+    table {
+        display: none;
+    }
 }
 </style>

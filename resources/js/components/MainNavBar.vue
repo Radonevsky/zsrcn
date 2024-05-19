@@ -120,7 +120,7 @@ watch(isShowBurgerMenu, (newValue) => {
 @media only screen and (max-width: 810px) {
     .burger {
         position: static;
-        margin: 20px auto 20px 15px;
+        margin: 20px auto 20px 0;
 
     }
 }
