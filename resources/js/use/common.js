@@ -130,7 +130,6 @@ async function fetchDocumentsByUuid(uuid) {
 async function deleteDocumentsByUuid(uuid) {
     await adminApi.delete(`/api/auth/documents/uuid/${uuid}`)
         .then(response => {
-            alert(response.data.message)
         })
         .catch(error => alert(error.response.data.message))
 }
