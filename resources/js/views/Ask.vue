@@ -59,6 +59,7 @@ const feedbackData = ref({
         required: true,
     }
 })
+const preloader = ref(false)
 const {
     sendFeedback,
     isImpairedVision,
@@ -96,6 +97,7 @@ const validateForm = () => {
 }
 
 async function sendForm() {
+    preloader.value = true
     if (!validateForm()) {
         return
     }
@@ -106,6 +108,7 @@ async function sendForm() {
     }
 
     await sendFeedback(payload)
+    preloader.value = false
 }
 </script>
 
@@ -113,7 +116,10 @@ async function sendForm() {
     <div class='text-link-dark-blue text-[20px] pb-[40px]' :style="isImpairedVision ? 'color: black':''">
         Здесь вы можете задать вопрос сотрудникам ГБУСО “Заиграевский реабилитационный центр для несовершеннолетних” или же оставить свой отзыв.
         Пожалуйста, заполните необходимые поля формы обратной связи и нажмите «Отправить»
-        <div class='text-[18px] flex flex-col max-w-[604px]'>
+        <div v-if="preloader" class="w-[100px] mx-auto">
+            <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
+        </div>
+        <div class='text-[18px] flex flex-col max-w-[604px]' v-if="!preloader">
             <div v-for="(item, idx) in feedbackData" class="w-full relative">
                 <input
                     v-if="feedbackData[idx].type !== 'textarea'"
