@@ -22,11 +22,11 @@ class SendFeedbackRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50'],
-            'lastname' => ['string', 'max:50'],
+            'lastname' => ['string', 'max:50', 'nullable'],
             'email' => ['required', 'email', 'max:225'],
             'tel' => ['required', 'regex:/^\+?\d+$/', 'max:50'],
-            'otherContacts' => ['string', 'max:225'],
-            'subject' => ['string', 'max:100'],
+            'otherContacts' => ['string', 'max:225', 'nullable'],
+            'subject' => ['string', 'max:100', 'nullable'],
             'text' => ['required', 'string', 'max:3000'],
         ];
     }

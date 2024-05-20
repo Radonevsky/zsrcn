@@ -45,7 +45,7 @@ async function uploadDocument(doc, type, description = null) {
 
     return adminApi.post(`/api/auth/documents/${type}`, formData)
         .then(response => {
-            alert(response.data.message)
+            alert('Сохранено')
         })
         .catch(error => alert(error.response.data.message))
 }
@@ -56,7 +56,7 @@ async function replaceDocument(doc, uuid) {
 
     return adminApi.post(`/api/auth/documents/uuid/${uuid}`, formData)
         .then(response => {
-            alert(response.data.message)
+            alert('Сохранено')
         })
         .catch(error => alert(error.response.data.message))
 }
@@ -114,7 +114,7 @@ function processDownload(response) {
 }
 
 function documentsScrollUp() {
-    window.scrollTo(0, 420)
+    window.scrollTo(0, 220)
 }
 
 async function fetchDocumentsByType(type) {
@@ -137,8 +137,8 @@ async function deleteDocumentsByUuid(uuid) {
 
 async function saveDocDescriptionByUuid(uuid, description) {
     await adminApi.patch(`/api/auth/documents/description/${uuid}`, {'description': description})
-        .then(response => {
-            alert(response.data.message)
+        .then(() => {
+            alert('Сохранено')
         })
         .catch(error => alert(error.response.data.message))
 }

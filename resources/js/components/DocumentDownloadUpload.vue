@@ -23,6 +23,7 @@ const {
 const uploadMode = ref(false)
 const documentToUpload = ref(null)
 const isHideDownloadAnotherBtn = ref(false)
+const preloader = ref(false)
 
 function docAttachmentChange(e) {
     documentToUpload.value = e.target.files[0]
@@ -30,6 +31,7 @@ function docAttachmentChange(e) {
 }
 
 async function triggerUploadDocument() {
+    preloader.value = true
     if (props.uuid) {
         await replaceDocument(documentToUpload.value, props.uuid)
     } else {
@@ -39,6 +41,7 @@ async function triggerUploadDocument() {
     documentToUpload.value = null
     uploadMode.value = false
     isHideDownloadAnotherBtn.value = false
+    preloader.value = false
 }
 
 async function triggerDownloadDocument() {
@@ -52,7 +55,10 @@ async function triggerDownloadDocument() {
 </script>
 
 <template>
-    <div class="mt-[20px]">
+    <div v-if="preloader" class="w-[100px] mx-auto">
+        <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
+    </div>
+    <div class="mt-[20px]" v-if="!preloader">
         <div class="flex font-roboto700 items-center">
             <download-doc-button
                 @click="triggerDownloadDocument">

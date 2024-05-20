@@ -15,7 +15,7 @@ class MailController extends Controller
             $data = $request->all();
 
             $mail = new SendFeedback($data);
-            Mail::to('ivifezeso@gmail.com')->send($mail);
+            Mail::to(env('MAIL_USERNAME'))->send($mail);
             return response()->json([
                 'message' => 'Обращение отправлено, мы ответим Вам в течении пяти рабочих дней',
             ]);

@@ -22,8 +22,10 @@ const newArticleMode = ref(false)
 const newArticleTitle = ref('')
 const newArticleText = ref('')
 const textareaCreateElement = ref(null)
+const preloader = ref(false)
 
 async function setArticles() {
+    preloader.value = true
     const partionedArticles = await fetchArticles(currentArticlesPage.value)
     if (partionedArticles.length > 0) {
         partionedArticles.forEach(item => {
@@ -32,6 +34,7 @@ async function setArticles() {
         articles.value.push(...partionedArticles)
         currentArticlesPage.value++
     }
+    preloader.value = false
 }
 
 setArticles()
@@ -52,11 +55,14 @@ async function deleteArticle(id) {
     const confirmed = confirm('Удалить новость?')
     if (confirmed) {
         try {
+            preloader.value = true
             await adminApi.delete(`/api/auth/articles/${id}`)
             articles.value = articles.value.filter(item => item.id !== id)
             alert('Удалено')
+            preloader.value = false
         } catch (error) {
             alert('Ошибка при удалении новости:', error);
+            preloader.value = false
             return false
         }
     } else {
@@ -66,6 +72,7 @@ async function deleteArticle(id) {
 }
 
 async function saveArticle(body) {
+    preloader.value = true
     const imgArray = dropzone.value.getAcceptedFiles()
     const data = new FormData()
     const compressedImg = await compressImage(imgArray[0])
@@ -77,6 +84,7 @@ async function saveArticle(body) {
     currentArticlesPage.value = 0
     await setArticles()
     newArticleMode.value = false
+    preloader.value = false
 }
 
 watch(textareaCreateElement, ()=> {
@@ -100,15 +108,18 @@ const {
         <PageTitle title='Наши новости' bgClass='bg-orange'/>
         <div class='pb-[60px]' :class='isAdmin && !newArticleMode ? "pt-[25px] " : "pt-[77px] "'>
             <ContentContainer>
+                <div v-if="preloader" class="w-[100px] mx-auto">
+                    <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
+                </div>
                 <add-button
-                    v-if='isAdmin && !newArticleMode'
+                    v-if='isAdmin && !newArticleMode && !preloader'
                     @click='newArticleMode = true'
                     class='mb-[30px] flex mx-auto gap-[5px] hover:cursor-pointer'>
                     Добавить новость
                 </add-button>
                 <div class='flex flex-col gap-[60px]'>
                     <ArticleCard
-                        v-if='isAdmin && newArticleMode'
+                        v-if='isAdmin && newArticleMode && !preloader'
                         :create='true'
                         @delete="deleteArticle"
                         @saveArticle='saveArticle'/>
