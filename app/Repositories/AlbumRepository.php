@@ -26,6 +26,12 @@ class AlbumRepository
 
         $albums->each(function ($album) {
             $album->images = $album->images->splice(Album::TAKE_PHOTO_COUNT);
+            $album->images->transform(function ($item) {
+                $item->preview_url = asset($item->preview_url);
+                $item->url = asset($item->url);
+
+                return $item;
+            });
             $album->partly = true;
         });
 
@@ -38,7 +44,13 @@ class AlbumRepository
             ->where('album_id', $id)
             ->limit(100)
             ->offset($offset)
-            ->get();
+            ->get()
+            ->transform(function ($item) {
+                $item->preview_url = asset($item->preview_url);
+                $item->url = asset($item->url);
+
+                return $item;
+            });
 
         return $images;
     }

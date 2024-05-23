@@ -21,7 +21,11 @@ class GalleryRepository
             ->orderByDesc('created_at')
             ->skip((int) $page * self::COUNT_PHOTOS)
             ->limit(self::COUNT_PHOTOS)
-            ->get();
+            ->get()
+            ->transform(function ($item) {
+                $item->preview_url = asset($item->preview_url);
+                $item->url = asset($item->url);
+            });
 
         return $photos;
     }
@@ -51,8 +55,8 @@ class GalleryRepository
 
             $createdImages[] = Image::query()->create([
                 'path' => 'images/' . $imgName,
-                'url' => '/storage/images/' . $imgName,
-                'preview_url' => $preview,
+                'url' => asset('/storage/images/' . $imgName),
+                'preview_url' => asset($preview),
                 'album_id' => $albumId,
             ]);
         }
