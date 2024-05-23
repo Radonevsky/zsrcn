@@ -30,8 +30,8 @@ class ArticleRepository
             ->get();
 
         $articles->transform(function ($item) {
-            $item->url = config('url') . '/' . $item->url;
-            $item->preview_url = config('url') . '/' . $item->preview_url;
+            $item->img_prev_url = asset($item->img_prev_url);
+            $item->img_url = asset($item->img_url);
 
             return $item;
         });
