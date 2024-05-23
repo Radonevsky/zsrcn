@@ -143,7 +143,7 @@ async function sendForm() {
                 <p v-if="!feedbackData[idx].valid" class="text-pink">Корректно заполните {{feedbackData[idx].label}}</p>
             </div>
         </div>
-        <SaveButton @click="sendForm" text='Отправить' class='mt-[50px] mx-auto'></SaveButton>
+        <SaveButton v-if="!preloader" @click="sendForm" text='Отправить' class='mt-[50px] mx-auto'></SaveButton>
     </div>
 
 </template>
