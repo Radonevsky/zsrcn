@@ -119,7 +119,7 @@ async function sendForm() {
         <div v-if="preloader" class="w-[100px] mx-auto">
             <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
         </div>
-        <div class='text-[18px] flex flex-col max-w-[604px]' v-if="!preloader">
+        <div class='text-[18px] flex flex-col max-w-[604px]'>
             <div v-for="(item, idx) in feedbackData" class="w-full relative">
                 <input
                     v-if="feedbackData[idx].type !== 'textarea'"
@@ -129,7 +129,8 @@ async function sendForm() {
                     class='mt-[25px] py-[16px] px-[50px] w-full border outline-none rounded focus:border-2 focus:border-bluebg'
                     :class="item.valid ? 'border-light-border' : 'border-pink'"
                     :style="isImpairedVision ? 'border: 1px solid #000':''"
-                    :placeholder='item.label'>
+                    :placeholder='item.label'
+                    :disabled="preloader">
                 <textarea
                     v-else
                     v-model="feedbackData[idx].value"
@@ -137,13 +138,14 @@ async function sendForm() {
                     :class="item.valid ? 'border-light-border' : 'border-pink'"
                     :style="isImpairedVision ? 'border: 1px solid #000':''"
                     :placeholder='feedbackData[idx].label'
-                    :maxlength="feedbackData[idx].maxlength">
+                    :maxlength="feedbackData[idx].maxlength"
+                    :disabled="preloader">
                 </textarea>
                 <p v-if="feedbackData[idx].required" class="text-pink absolute top-5 -right-3">*</p>
                 <p v-if="!feedbackData[idx].valid" class="text-pink">Корректно заполните {{feedbackData[idx].label}}</p>
             </div>
         </div>
-        <SaveButton v-if="!preloader" @click="sendForm" text='Отправить' class='mt-[50px] mx-auto'></SaveButton>
+        <SaveButton :disabled="preloader" @click="sendForm" text='Отправить' class='mt-[50px] mx-auto'></SaveButton>
     </div>
 
 </template>
