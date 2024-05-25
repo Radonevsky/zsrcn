@@ -143,11 +143,20 @@ async function saveDocDescriptionByUuid(uuid, description) {
 }
 
 async function sendFeedback(payload) {
-    await axios.post(`/api/send-feedback`, payload)
+    return axios.post(`/api/send-feedback`, payload)
         .then(response => {
             alert(response.data.message)
+            if (response.status !== 200) {
+                return false
+            }
+
+            return true
         })
-        .catch(error => alert(error.response.data.message))
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
 }
 
 export default function useCommon() {
