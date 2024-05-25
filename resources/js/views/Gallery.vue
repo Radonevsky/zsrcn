@@ -67,13 +67,17 @@ async function saveAlbum() {
 }
 
 async function setAlbums() {
+    preloader.value = true
     const partionedAlbums = await fetchAlbums(currentAlbumsPage.value, true)
 
     if (partionedAlbums.length > 0) {
         albums.value.push(...partionedAlbums)
         currentAlbumsPage.value++
+        preloader.value = false
+
         return true
     }
+    preloader.value = false
 
     return false
 }

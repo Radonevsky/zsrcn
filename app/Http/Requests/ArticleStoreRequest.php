@@ -22,7 +22,7 @@ class ArticleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:50',
+            'title' => 'required|string|max:140',
             'content' => 'required|string',
             'image' => ['required', File::image()]
         ];
