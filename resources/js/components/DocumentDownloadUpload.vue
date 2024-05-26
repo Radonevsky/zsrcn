@@ -46,7 +46,7 @@ async function triggerUploadDocument() {
 
 async function triggerDownloadDocument() {
     if (props.uuid) {
-        downloadByUuid(props.uuid)
+        downloadByUuid(props.uuid, props.name)
     } else {
         downloadDocument(props.name, props.type)
     }
