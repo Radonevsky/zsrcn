@@ -159,26 +159,6 @@ const routes = [
         name: 'statements',
         children: [
             {
-                path: '2017',
-                component: InspectionReports,
-                name: 'statements2017',
-            },
-            {
-                path: '2017/:uuid',
-                component: DocumentSection,
-                name: 'statement2017',
-            },
-            {
-                path: '2018',
-                component: InspectionReports,
-                name: 'statements2018',
-            },
-            {
-                path: '2018/:uuid',
-                component: DocumentSection,
-                name: 'statement2018',
-            },
-            {
                 path: '2019',
                 component: InspectionReports,
                 name: 'statements2019',
@@ -228,6 +208,16 @@ const routes = [
                 component: DocumentSection,
                 name: 'statement2023',
             },
+            {
+                path: '2024',
+                component: InspectionReports,
+                name: 'statements2024',
+            },
+            {
+                path: '2024/:uuid',
+                component: DocumentSection,
+                name: 'statement2024',
+            },
             { path: '', redirect: '/statements/2023', name: 'statements-default' },
         ],
         meta: { title: 'Отчетные документы' }
@@ -237,26 +227,6 @@ const routes = [
         component: PlanningRoutes,
         name: 'planning',
         children: [
-            {
-                path: '2017',
-                component: InspectionReports,
-                name: 'plannings2017',
-            },
-            {
-                path: '2017/:uuid',
-                component: DocumentSection,
-                name: 'planning2017',
-            },
-            {
-                path: '2018',
-                component: InspectionReports,
-                name: 'plannings2018',
-            },
-            {
-                path: '2018/:uuid',
-                component: DocumentSection,
-                name: 'planning2018',
-            },
             {
                 path: '2019',
                 component: InspectionReports,
@@ -306,6 +276,16 @@ const routes = [
                 path: '2023/:uuid',
                 component: DocumentSection,
                 name: 'planning2023',
+            },
+            {
+                path: '2024',
+                component: InspectionReports,
+                name: 'plannings2024',
+            },
+            {
+                path: '2024/:uuid',
+                component: DocumentSection,
+                name: 'planning2024',
             },
             {path: '', redirect: '/planning/2023', name: 'planning-default'},
         ],

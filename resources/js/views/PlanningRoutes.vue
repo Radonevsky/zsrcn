@@ -9,6 +9,11 @@ window.scrollTo(0, 0)
 
 const tabs = ref([
     {
+        id: 6,
+        name: '2024',
+        link: '/planning/2024',
+    },
+    {
         id: 1,
         name: '2023',
         link: '/planning/2023',
@@ -32,16 +37,6 @@ const tabs = ref([
         id: 5,
         name: '2019',
         link: '/planning/2019',
-    },
-    {
-        id: 6,
-        name: '2018',
-        link: '/planning/2018',
-    },
-    {
-        id: 7,
-        name: '2017',
-        link: '/planning/2017',
     },
 ])
 </script>
