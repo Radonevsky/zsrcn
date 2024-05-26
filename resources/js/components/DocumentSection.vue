@@ -32,7 +32,7 @@ async function deleteDocument() {
     await deleteDocumentsByUuid(uuid.value)
     preloader.value = false
     router.push({
-        name: 'reports'
+        name: document.value.type
     })
 }
 
