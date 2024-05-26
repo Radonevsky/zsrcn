@@ -67,31 +67,32 @@ async function downloadDocument(name, type) {
             responseType: 'arraybuffer',
         })
 
-        processDownload(response)
+        processDownload(response, name)
     } catch (error) {
         alert('Документ не найден')
     }
 }
 
-async function downloadByUuid(uuid) {
+async function downloadByUuid(uuid, name) {
     try {
         const response = await axios.get(`/api/documents/download/${uuid}`, {
             responseType: 'arraybuffer',
         })
 
-        processDownload(response)
+        processDownload(response, name, true)
     } catch (error) {
         alert('Документ не найден')
     }
 }
 
-function processDownload(response) {
-
+function processDownload(response, name, nameHaveExtension = false) {
     const contentDisposition = response.headers['content-disposition']
     const extension = contentDisposition.split(';')[1].split('=')[1].trim().split('.').pop()
+    let fileName = name
 
-    const fileName = `${name}.${extension}`
-
+    if (!nameHaveExtension) {
+        fileName = `${name}.${extension}`
+    }
 
     if (extension === 'pdf') {
         const blob = new Blob([response.data], { type: 'application/pdf' })
