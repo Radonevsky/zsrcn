@@ -33,6 +33,11 @@ const tabs = ref([
         name: 'Отчет НОК 2021 г.',
         link: '/quality-assessment/nok-report',
     },
+    {
+        id: 6,
+        name: 'Памятки',
+        link: '/quality-assessment/memos',
+    },
 ])
 </script>
 

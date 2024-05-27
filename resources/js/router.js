@@ -464,6 +464,16 @@ const routes = [
                 component: DocumentSection,
                 name: 'nok-report-doc',
             },
+            {
+                path: 'memos',
+                component: InspectionReports,
+                name: 'memos-docs',
+            },
+            {
+                path: 'memos/:uuid',
+                component: DocumentSection,
+                name: 'memos-doc',
+            },
             {path: '', redirect: '/quality-assessment/results-2021', name: 'quality-assessment-default'},
         ],
         meta: { title: 'Независимая оценка качества условий оказания услуг' }
