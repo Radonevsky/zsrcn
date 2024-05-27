@@ -164,7 +164,7 @@ const {
                 class='bg-bggray p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] overflow-hidden
                     focus:shadow-around focus:border-orange focus:bg-bluebg text-[18px] font-roboto500 w-full resize-none'>
             </textarea>
-            <p v-if='!create && !editMode' class='font-roboto500 text-[18px] leading-[18px]' style="white-space: pre-line;">
+            <p v-if='!create && !editMode' class='font-roboto500 text-[18px] leading-[24px]' style="white-space: pre-line;">
                 {{ props.content }}
             </p>
         </div>
