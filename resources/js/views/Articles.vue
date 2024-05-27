@@ -130,6 +130,7 @@ const {
                         @delete="deleteArticle"
                         :id='item.id'
                         :title='item.title'
+                        :createdAt='item.created_date'
                         :content='item.content'
                         :img_url='item.img_prev_url'
                         :bg-class='item.bgClass'/>

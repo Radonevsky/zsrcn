@@ -22,7 +22,7 @@ class ArticleRepository
                 'i.url as img_url',
                 'i.preview_url as img_prev_url',
                 'articles.id',
-                'articles.id',
+                'articles.created_at',
             )
             ->skip($page * self::COUNT_ARTICLES)
             ->limit(self::COUNT_ARTICLES)
@@ -32,6 +32,7 @@ class ArticleRepository
         $articles->transform(function ($item) {
             $item->img_prev_url = asset($item->img_prev_url);
             $item->img_url = asset($item->img_url);
+            $item->created_date = Carbon::parse($item->created_at)->format('d.m.Y');
 
             return $item;
         });
