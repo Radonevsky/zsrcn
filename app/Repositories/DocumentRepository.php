@@ -133,7 +133,7 @@ class DocumentRepository
             Document::where('uuid', $uuid)->update(['description' => $desription]);
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
-            throw new \Exception('Документ не найден или не был загружен');
+            throw new \Exception('Ошибка');
         }
     }
 
