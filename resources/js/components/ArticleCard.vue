@@ -20,6 +20,7 @@ const props = defineProps({
     content: String,
     bgClass: String,
     img_url: String,
+    createdAt: String,
     create: {
         type: Boolean,
         default: false,
@@ -182,6 +183,9 @@ const {
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Редактировать
     </button>
+    <p class='absolute bottom-[50px] font-roboto500 text-white text-[14px]'>
+        Добавлено: {{ props.createdAt }}
+    </p>
 </article>
 </template>
 

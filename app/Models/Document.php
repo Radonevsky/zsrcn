@@ -45,6 +45,7 @@ class Document extends Authenticatable
         'anti-corruption-booklets-docs',
         'anti-corruption-memo-docs',
         'nok-report-docs',
+        'memos-docs',
         'workplace-improvements-docs',
         'workplace-quality-docs',
         'results-2021-docs',
