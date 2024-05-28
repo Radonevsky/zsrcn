@@ -1540,8 +1540,45 @@ const articles = ref([
         name: 'foster-service',
         title: 'Работа службы сопровождающих семей',
         subTitle: null,
-        content: null,
-    }
+    },
+    {
+        id: 11,
+        name: 'foster-club',
+        title: 'Работа службы сопровождающих семей',
+        subTitle: null,
+        content: '<ul>' +
+            '  <li>Цели:' +
+            '    <ul class="list-disc pl-[20px]">' +
+            '      <li>общение с приемными родителями, опекунами, попечителями;</li>' +
+            '      <li>дать возможность получать консультации квалифицированных специалистов приемным родителям, опекунам, попечителям в воспитании детей;</li>' +
+            '      <li>повышение статуса замещающих семей в обществе;</li>' +
+            '    </ul>' +
+            '  </li>' +
+            '  <li class="mt-[10px]">Направления деятельности:' +
+            '    <ul class="pl-[20px] list-disc">' +
+            '      <li>организация досуга приемных семей;</li>' +
+            '      <li>реализация совместных творческих идей;</li>' +
+            '      <li>социальная, правовая, психолого-медико-педагогическая поддержка;</li>' +
+            '      <li>социальная поддержка замещающих семей;</li>' +
+            '      <li>обеспечение условий для обмена педагогическим опытом;</li>' +
+            '      <li>содействие развитию педагогической компетентности замещающих родителей;</li>' +
+            '      <li>создание условий для неформального общения замещающих родителей и специалистов;</li>' +
+            '      <li>взаимодействие специалистов с приёмной семьёй для полноценного развития приёмного ребёнка;</li>' +
+            '    </ul>' +
+            '  </li>' +
+            '  <li class="mt-[10px]">Формы работы:' +
+            '    <ul class="list-disc pl-[20px]">' +
+            '      <li>тренинги детско-родительских отношений;</li>' +
+            '      <li>круглые столы;</li>' +
+            '      <li>консультации для родителей;</li>' +
+            '      <li>семинары;</li>' +
+            '      <li>совместные праздники;</li>' +
+            '      <li>лекции;</li>' +
+            '      <li>вечер вопросов и ответов и др.;</li>' +
+            '    </ul>' +
+            '  </li>' +
+            '</ul>',
+    },
 ])
 const router = useRouter();
 const currentRoute = ref(null)
@@ -1576,12 +1613,15 @@ documentsScrollUp()
                 v-html="currentArticle.subTitle.replace(/\n/g, '<br>')"
             ></h4>
             <p v-if="currentArticle.content" class="mt-[20px]" v-html="currentArticle.content.replace(/\n/g, '<br>')"></p>
-            <span>Работу службы сопровождающих семей вы можете посмотреть <router-link class="underline" to="/news">здесь</router-link></span>
+            <span v-if="currentArticle.name === 'foster-service'">Работу службы сопровождающих семей вы можете посмотреть <router-link class="underline" to="/news">здесь</router-link></span>
             <div v-if="currentArticle.name === 'center-material-technical'">
                 <document-download-upload name="Материально-техническое обеспечение" type="center-material-technical"></document-download-upload>
             </div>
             <div v-if="currentArticle.name === 'foster-common'">
                 <document-download-upload name="План работы службы по сопровождению замещающих семей" type="foster-common-plan"></document-download-upload>
+            </div>
+            <div v-if="currentArticle.name === 'foster-club'">
+                <document-download-upload name="Работа клуба" type="foster-club"></document-download-upload>
             </div>
         </div>
     </ContentContainer>

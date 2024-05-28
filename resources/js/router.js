@@ -315,13 +315,8 @@ const routes = [
             },
             {
                 path: 'foster-club',
-                component: InspectionReports,
-                name: 'foster-club-docs',
-            },
-            {
-                path: 'foster-club/:uuid',
-                component: DocumentSection,
-                name: 'foster-club-doc',
+                component: DocumentView,
+                name: 'foster-club',
             },
             {
                 path: 'foster-service',
