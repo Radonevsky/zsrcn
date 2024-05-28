@@ -8,6 +8,11 @@ documentsScrollUp()
 
 const tabs = ref([
     {
+        id: 5,
+        name: 'Паспорт учреждения 2024',
+        link: 'passport-2024',
+    },
+    {
         id: 1,
         name: 'Паспорт учреждения 2023',
         link: 'passport-2023',
@@ -21,6 +26,11 @@ const tabs = ref([
         id: 3,
         name: 'Паспорт учреждения 2020',
         link: 'passport-2020',
+    },
+    {
+        id: 4,
+        name: 'Паспорт учреждения 2019',
+        link: 'passport-2019',
     },
 ])
 const {
@@ -45,9 +55,14 @@ const {
 </template>
 
 <style scoped>
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 1030px) {
     .tabs {
         font-size: 16px;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .tabs {
+        flex-direction: column;
     }
 }
 </style>

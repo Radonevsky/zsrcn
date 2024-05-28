@@ -23,15 +23,28 @@ class DocumentReplaceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'document' => ['required', 'mimes:docx,doc,pdf'],
+            'document' => ['required', 'file'],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->hasFile('document')) {
+                $extension = strtolower($this->file('document')->getClientOriginalExtension());
+                $allowedExtensions = ['doc', 'xlsx', 'xls', 'docx', 'pdf'];
+
+                if (!in_array($extension, $allowedExtensions)) {
+                    $validator->errors()->add('document', 'Разрешены только файлы с расширением: .doc, .pdf, .xlsx, .xls, .docx');
+                }
+            }
+        });
     }
 
     public function messages()
     {
         return [
             'document.required' => 'Пожалуйста, загрузите документ',
-            'document.mimes' => 'Разрешены только файлы с расширением: .doc или .pdf',
         ];
     }
 

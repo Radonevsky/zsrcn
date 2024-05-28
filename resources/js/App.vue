@@ -63,10 +63,13 @@ const scrollUp = () => {
     <div id='js-show-iframe-wrapper'> <div class='pos-banner-fluid bf-6'> <div class='bf-6__decor'> <div class='bf-6__logo-wrap'> <img class='bf-6__logo' src='https://pos.gosuslugi.ru/bin/banner-fluid/gosuslugi-logo-blue.svg' alt='Госуслуги' /> <div class='bf-6__slogan'>Решаем вместе</div > </div > </div > <div class='bf-6__content'> <div class='bf-6__text'> Знаете, какая помощь от государства необходима, чтобы реализовать свой потенциал на максимум? </div > <div class='bf-6__bottom-wrap'> <div class='bf-6__btn-wrap'> <!-- pos-banner-btn_2 не удалять; другие классы не добавлять --> <button class='pos-banner-btn_2' type='button' >Написать о проблеме </button > </div > </div> </div > </div > </div >
     <div class="flex max-h-[500px] justify-around banners">
         <a href="https://bus.gov.ru/qrcode/rate/23025" target="_blank" title="Оцените нашу работу">
-            <img src="http://zsrcn.zaigraevo.ru/images/banners/ocenka1.jpg" class="max-h-[500px]" alt="Оцените нашу работу">
+            <img src="../images/ocenka1.jpg" class="max-h-[500px]" alt="Оцените нашу работу">
         </a>
         <a href="https://vk.com/public217439187" target="_blank" title="Вконтакте">
-            <img src="http://zsrcn.zaigraevo.ru/images/banners/qr.png" class="max-h-[500px]" alt="Вконтакте">
+            <img src="../images/qr.png" class="max-h-[500px]" alt="Вконтакте">
+        </a>
+        <a href="https://docs.google.com/forms/d/12i0LnXxNu2_FKfgSozhbMgfa7Q0vn-MBV-LUoejbhAI/viewform?edit_requested=true" target="_blank" title="Опрос">
+            <img src="../images/opros.png" class="max-h-[500px]" alt="Опрос">
         </a>
     </div>
 
