@@ -125,9 +125,11 @@ const routes = [
                 component: PassportRoutes,
                 name: 'center-passport',
                 children: [
+                    { path: 'passport-2024', component: Passport, name: 'center-passport-2024' },
                     { path: 'passport-2023', component: Passport, name: 'center-passport-2023' },
                     { path: 'passport-2021', component: Passport, name: 'center-passport-2021' },
                     { path: 'passport-2020', component: Passport, name: 'center-passport-2020' },
+                    { path: 'passport-2019', component: Passport, name: 'center-passport-2019' },
                     { path: '', redirect: '/documents/passport/passport-2023', name: 'passport-default' },
                 ],
             },
@@ -298,13 +300,8 @@ const routes = [
         children: [
             {
                 path: 'foster-common',
-                component: InspectionReports,
-                name: 'foster-common-docs',
-            },
-            {
-                path: 'foster-common/:uuid',
-                component: DocumentSection,
-                name: 'foster-common-doc',
+                component: DocumentView,
+                name: 'foster-common',
             },
             {
                 path: 'foster-school',
@@ -328,13 +325,8 @@ const routes = [
             },
             {
                 path: 'foster-service',
-                component: InspectionReports,
-                name: 'foster-service-docs',
-            },
-            {
-                path: 'foster-service/:uuid',
-                component: DocumentSection,
-                name: 'foster-service-doc',
+                component: DocumentView,
+                name: 'foster-service',
             },
             {path: '', redirect: '/support-foster/foster-common', name: 'support-foster-default'},
         ],

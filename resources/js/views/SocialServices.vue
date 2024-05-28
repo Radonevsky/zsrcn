@@ -24,7 +24,7 @@ const centerInfoItems = ref([
     {
         id: 3,
         title: 'Электронный адрес',
-        content: 'gusonat@mail.ru',
+        content: '<a href="mailto:gusonat@mail.ru" class="underline">gusonat@mail.ru</a>',
     },
     {
         id: 4,
@@ -189,8 +189,7 @@ const {
                     <td>
                         {{ item.title }}
                     </td>
-                    <td>
-                        {{ item.content }}
+                    <td v-html="item.content">
                     </td>
                 </tr>
                 </tbody>

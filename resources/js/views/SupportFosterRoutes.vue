@@ -33,7 +33,7 @@ const tabs = ref([
 </script>
 
 <template>
-    <router-link to='/statements' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
+    <router-link to='/support-foster' class="hover:underline hover:cursor-pointer underline-offset-[4px] decoration-white">
         <PageTitle title='Служба сопровождения замещающих семей' bg-class='bg-purpl-blue' text-color-class='text-white' :router-link='true'/>
     </router-link>
     <ContentContainer>
