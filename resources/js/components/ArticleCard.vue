@@ -183,18 +183,21 @@ const {
         hover:cursor-pointer hover:scale-[1.2] active:scale-[1] transition-all' >
         Редактировать
     </button>
-    <p class='absolute bottom-[50px] font-roboto500 text-white text-[14px]'>
+    <p class='absolute bottom-[50px] font-roboto500 text-white text-[14px] created-date'>
         Добавлено: {{ props.createdAt }}
     </p>
 </article>
 </template>
 
 <style scoped>
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 950px) {
     article {
         flex-direction: column;
         height: auto;
         align-items: center;
+    }
+    .created-date {
+        bottom: 7px;
     }
 }
 
@@ -203,6 +206,7 @@ const {
         padding: 30px;
         gap: 20px;
     }
+
 }
 
 </style>
