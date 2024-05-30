@@ -10,6 +10,9 @@ import axios from "axios";
 import useCommon from "../use/common.js";
 import adminApi from "../adminApi.js";
 import useGallery from "../use/gallery.js";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import FilterIcon from "../components/icons/filterIcon.vue";
 
 const {fetchArticles, coloredBg, storeArticle, dropzone} = useArticles()
 const {isAdmin} = useCommon()
@@ -23,10 +26,12 @@ const newArticleTitle = ref('')
 const newArticleText = ref('')
 const textareaCreateElement = ref(null)
 const preloader = ref(false)
+const selectedDate = ref(null);
+const filterOpened = ref(false)
 
 async function setArticles() {
     preloader.value = true
-    const partionedArticles = await fetchArticles(currentArticlesPage.value)
+    const partionedArticles = await fetchArticles(currentArticlesPage.value, selectedDate.value)
     if (partionedArticles.length > 0) {
         partionedArticles.forEach(item => {
             return coloredBg(item)
@@ -101,6 +106,24 @@ watch(newArticleText, ()=> {
 const {
     isImpairedVision,
 } = useCommon()
+
+const dateFilterChanged = (handleDate)=> {
+    selectedDate.value = handleDate
+
+    articles.value = []
+    currentArticlesPage.value = 0
+    setArticles()
+}
+
+const switchFilter = ()=> {
+    if (filterOpened.value && !selectedDate.value) {
+        filterOpened.value = false
+
+        return
+    }
+
+    filterOpened.value = true
+}
 </script>
 
 <template>
@@ -110,6 +133,25 @@ const {
             <ContentContainer>
                 <div v-if="preloader" class="w-[100px] mx-auto">
                     <img src="../../../resources/images/preloader.gif" class="w-[100px] h-[100px]" alt="Loading">
+                </div>
+                <div class="max-w-[1028px] mx-auto mb-[45px] flex gap-[15px] min-h-[38px]">
+                    <filter-icon
+                        class="hover:cursor-pointer"
+                        @click="switchFilter"
+                        :color="filterOpened ? '#D1E683' : '#6070A3'"
+                    ></filter-icon>
+                    <VueDatePicker
+                        :model-value="selectedDate"
+                        v-if="filterOpened"
+                        locale="ru"
+                        select-text="Выбрать"
+                        cancel-text="Отмена"
+                        @update:model-value="dateFilterChanged"
+                        @cleared="filterOpened = false"
+                        month-picker
+                        dark
+                        class="max-w-[150px]"
+                    ></VueDatePicker>
                 </div>
                 <add-button
                     v-if='isAdmin && !newArticleMode && !preloader'
@@ -141,6 +183,12 @@ const {
     </div>
 </template>
 
-<style scoped>
-
+<style>
+.dp__theme_dark {
+    --dp-primary-color: #D1E683;
+    --dp-background-color: #6070A3;
+    --dp-icon-color: #fff;
+    --dp-border-color: #6070A3;
+    --dp-hover-color: #D1E683;
+}
 </style>

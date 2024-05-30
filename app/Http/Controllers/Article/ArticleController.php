@@ -13,7 +13,7 @@ class ArticleController extends Controller
 {
     public function index(Request $request, ArticleRepository $ar)
     {
-        $articles = $ar->getArticleList($request->page);
+        $articles = $ar->getArticleList($request->page, $request->year, $request->month);
 
         return response()->json([
             'articles' => $articles,

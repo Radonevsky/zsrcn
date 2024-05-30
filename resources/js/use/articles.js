@@ -12,8 +12,10 @@ const articleBgClassColors = [
 ]
 const colorCounter = ref(0)
 
-async function fetchArticles(page) {
-    const response = await axios.get(`/api/articles?page=${page}`)
+async function fetchArticles(page, filter = null) {
+    const response = await axios.get(
+        `/api/articles?page=${page}${filter ? '&year=' + filter.year + '&month=' + filter.month : ''}`
+    )
     return response.data.articles
 }
 
