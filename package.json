@@ -16,6 +16,7 @@
         "vue": "^3.3.4"
     },
     "dependencies": {
+        "@vuepic/vue-datepicker": "^8.7.0",
         "@vueuse/core": "^10.3.0",
         "browser-image-compression": "^2.0.2",
         "dropzone": "^6.0.0-beta.2",

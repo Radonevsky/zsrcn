@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Storage;
 class ArticleRepository
 {
     private const COUNT_ARTICLES = 3;
-    public function getArticleList($page)
+    public function getArticleList($page, $year, $month)
     {
-        $articles = Article::query()
+        $query = Article::query()
             ->join('images as i', 'i.article_id', 'articles.id')
             ->select(
                 'articles.id',
@@ -23,7 +23,14 @@ class ArticleRepository
                 'i.preview_url as img_prev_url',
                 'articles.id',
                 'articles.created_at',
-            )
+            );
+
+        if ($month && $year) {
+            $query->whereYear('articles.created_at', $year)
+                ->whereMonth('articles.created_at', $month+1);
+        }
+
+        $articles = $query
             ->skip($page * self::COUNT_ARTICLES)
             ->limit(self::COUNT_ARTICLES)
             ->orderByDesc('articles.created_at')
