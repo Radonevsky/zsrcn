@@ -160,6 +160,28 @@ async function sendFeedback(payload) {
         })
 }
 
+async function fetchAvailableContent() {
+    return axios.get(`/api/content/available`)
+        .then(response => response.data.content)
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
+async function updateAvailableContent(payload) {
+    return adminApi.put(`/api/auth/content/available`, payload)
+        .then(response => {
+            alert('Обновлено')
+        })
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -175,6 +197,8 @@ export default function useCommon() {
         sendFeedback,
         checkAdmin,
         logout,
+        fetchAvailableContent,
+        updateAvailableContent,
         isImpairedVision,
         isAdmin,
     }
