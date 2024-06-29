@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Album\AlbumController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Gallery\GalleryController;
 use App\Http\Controllers\MailController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Article\ArticleController;
 /*
@@ -33,6 +33,11 @@ Route::group(['prefix' => 'documents', 'namespace' => 'Document'], function() {
     Route::get('/scope/{type}', [DocumentController::class, 'getDocuments'])->name('document_types');
     Route::get('/uuid/{uuid}', [DocumentController::class, 'getDocumentByUuid'])->name('get_document');
     Route::get('/download/{uuid}', [DocumentController::class, 'getDocumentDownloadByUuid'])->name('get_document_uuid');
+});
+
+Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
+    Route::get('/available', [ContentController::class, 'getAvailable'])->name('get_available');
+    Route::put('/available', [ContentController::class, 'updateAvailable'])->name('update_available');
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
@@ -66,6 +71,9 @@ Route::group([
             Route::patch('/description/{uuid}', [DocumentController::class, 'updateDocumentDescription'])->name('update_description_document');
             Route::post('/uuid/{uuid}', [DocumentController::class, 'replaceDocumentByUuid'])->name('replace_document');
             Route::post('/{type}', [DocumentController::class, 'store'])->name('document_store');
+        });
+        Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
+            Route::put('/available', [ContentController::class, 'updateAvailable'])->name('update_available');
         });
     });
 });
