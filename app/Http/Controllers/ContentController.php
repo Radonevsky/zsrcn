@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateAvailableRequest;
 use App\Repositories\ContentRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
@@ -16,6 +17,74 @@ class ContentController extends Controller
             return response()->json([
                 'error' => false,
                 'content' => $content,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getExperience(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $content = $cr->getExperienceContent()->content;
+
+            return response()->json([
+                'error' => false,
+                'content' => $content,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getExperienceTable(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $content = $cr->getExperienceTableContent();
+
+            return response()->json([
+                'error' => false,
+                'content' => $content,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateExperienceTable(Request $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $updated = $cr->updateExperienceTableContent($request->all());
+
+            return response()->json([
+                'error' => false,
+                'updated' => $updated,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateExperience(Request $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $updated = $cr->updateExperienceContent($request->all());
+
+            return response()->json([
+                'error' => false,
+                'updated' => $updated,
             ]);
         } catch (\Exception $e) {
             return response()->json([
