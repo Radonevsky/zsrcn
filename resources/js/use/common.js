@@ -182,6 +182,48 @@ async function updateAvailableContent(payload) {
         })
 }
 
+async function fetchExperienceContent() {
+    return axios.get(`/api/content/experience`)
+        .then(response => response.data.content)
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
+async function updateExperienceContent(content) {
+    return adminApi.put(`/api/auth/content/experience`, {content: content})
+        .then(response => {
+            alert('Обновлено')
+        })
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
+async function fetchExperienceTableContent() {
+    return axios.get(`/api/content/experience-table`)
+        .then(response => response.data.content)
+        .catch(error => {
+            alert(error.response.data.message)
+            return false
+        })
+}
+
+async function updateExperienceTableContent(payload) {
+    return adminApi.put(`/api/auth/content/experience-table`, payload)
+        .then(response => {
+            alert('Таблица обновлена')
+        })
+        .catch(error => {
+            alert(error.response.data.message)
+            return false
+        })
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -199,6 +241,10 @@ export default function useCommon() {
         logout,
         fetchAvailableContent,
         updateAvailableContent,
+        fetchExperienceContent,
+        updateExperienceContent,
+        fetchExperienceTableContent,
+        updateExperienceTableContent,
         isImpairedVision,
         isAdmin,
     }
