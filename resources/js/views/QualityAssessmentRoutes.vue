@@ -10,12 +10,12 @@ window.scrollTo(0, 0)
 const tabs = ref([
     {
         id: 1,
-        name: 'Результаты проверки 2021 г.',
+        name: 'Результаты проверки',
         link: '/quality-assessment/results-2021',
     },
     {
         id: 2,
-        name: 'План мероприятий 2021 г.',
+        name: 'План мероприятий',
         link: '/quality-assessment/plan-2021',
     },
     {
@@ -30,7 +30,7 @@ const tabs = ref([
     },
     {
         id: 5,
-        name: 'Отчет НОК 2021 г.',
+        name: 'Отчет НОК',
         link: '/quality-assessment/nok-report',
     },
     {
