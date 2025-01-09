@@ -220,6 +220,16 @@ const routes = [
                 component: DocumentSection,
                 name: 'statement2024',
             },
+            {
+                path: '2025',
+                component: InspectionReports,
+                name: 'statements2025',
+            },
+            {
+                path: '2025/:uuid',
+                component: DocumentSection,
+                name: 'statement2025',
+            },
             { path: '', redirect: '/statements/2023', name: 'statements-default' },
         ],
         meta: { title: 'Отчетные документы' }
@@ -288,6 +298,16 @@ const routes = [
                 path: '2024/:uuid',
                 component: DocumentSection,
                 name: 'planning2024',
+            },
+            {
+                path: '2025',
+                component: InspectionReports,
+                name: 'plannings2025',
+            },
+            {
+                path: '2025/:uuid',
+                component: DocumentSection,
+                name: 'planning2025',
             },
             {path: '', redirect: '/planning/2023', name: 'planning-default'},
         ],
