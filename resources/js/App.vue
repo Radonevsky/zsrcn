@@ -71,6 +71,7 @@ const scrollUp = () => {
         <a href="https://docs.google.com/forms/d/12i0LnXxNu2_FKfgSozhbMgfa7Q0vn-MBV-LUoejbhAI/viewform?edit_requested=true" target="_blank" title="Опрос">
             <img src="../images/opros.png" class="max-h-[500px]" alt="Опрос">
         </a>
+        <img src="https://egov-buryatia.ru/upload/iblock/0aa/mo5pa0a12hld87otm34mwjib8w1ngj2l.jpg" class="max-h-[500px]" alt="80 летие победы">
     </div>
 
 </template>
