@@ -1617,6 +1617,9 @@ documentsScrollUp()
             <div v-if="currentArticle.name === 'center-material-technical'">
                 <document-download-upload name="Материально-техническое обеспечение" type="center-material-technical"></document-download-upload>
             </div>
+            <div v-if="currentArticle.name === 'center-board-trustees'">
+                <document-download-upload name="Положение о попечительском совете" type="center-board-trustees"></document-download-upload>
+            </div>
             <div v-if="currentArticle.name === 'foster-common'">
                 <document-download-upload name="План работы службы по сопровождению замещающих семей" type="foster-common-plan"></document-download-upload>
             </div>
