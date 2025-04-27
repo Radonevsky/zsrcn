@@ -23,6 +23,7 @@ class Document extends Authenticatable
 {
     const DOCUMENT_TYPES_PLURAL = [
         'reports',
+        'statements2025',
         'statements2024',
         'statements2023',
         'statements2022',
@@ -30,6 +31,7 @@ class Document extends Authenticatable
         'statements2020',
         'statements2019',
         'plannings2024',
+        'plannings2025',
         'plannings2023',
         'plannings2022',
         'plannings2021',
