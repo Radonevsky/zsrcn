@@ -111,4 +111,39 @@ class ContentController extends Controller
             ], 404);
         }
     }
+
+    public function getStructure(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $content = $cr->getStructureContent();
+
+            return response()->json([
+                'error' => false,
+                'content' => $content,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateStructure(Request $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $updated = $cr->updateStructureContent($request->all());
+
+            return response()->json([
+                'error' => false,
+                'content' => $updated,
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
 }

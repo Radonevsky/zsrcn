@@ -2,25 +2,83 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import useCommon from "../use/common.js";
+import {ref} from "vue";
+import CommonButton from "../components/CommonButton.vue";
+
 const {
     isImpairedVision,
+    isAdmin,
+    fetchStructureContent,
+    updateStructureContent,
 } = useCommon()
+
+const content = ref(null)
+const loaded = ref(false)
+const editMode = ref(false)
+const description = ref('')
+
+const setStructureContent = async ()=> {
+    content.value = await fetchStructureContent()
+    if (content.value) {
+        description.value = content.value.description || ''
+    }
+    loaded.value = true
+}
+
+const saveStructureContent = async ()=> {
+    const updated = await updateStructureContent({
+        description: description.value,
+        org_chart_data: content.value?.org_chart_data || null,
+        additional_data: content.value?.additional_data || null,
+    })
+
+    if (updated) {
+        content.value = updated
+        description.value = updated.description || ''
+        editMode.value = false
+    } else {
+        // If update failed, reload from server
+        await setStructureContent()
+        editMode.value = false
+    }
+}
+
+setStructureContent()
 </script>
 
 <template>
 <ContentContainer>
     <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:#000':''">
         <p>Структура центра</p>
-        <p class='mt-[20px]'>В центре функционируют:</p>
-        <p class='mt-[20px]'>1.Приёмно-карантинное отделение</p>
-        <p>(рассчитано на 8 мест). Все дети, поступающие в центр, проходят через приёмно-карантинное отделение.</p>
-        <p class='mt-[20px]'>2.Стационарное отделение (рассчитано на 34 места)</p>
-        <p class='mt-[20px]'>3.Отделение службы сопровождения замещающих семей, создано в 2009 года. В рамках работы службы функционирует</p>
-        <p>Школа приёмных родителей и Клуб замещающих родителей «Тепло домашнего очага»</p>
+
+        <!-- Description Text - Editable -->
+        <div class='mt-[20px]' v-if="loaded && !editMode" style="white-space: pre-line;">
+            {{ description }}
+        </div>
+        <textarea
+            v-if="editMode && loaded"
+            v-model="description"
+            class="mt-[20px] p-[5px] w-full border-light-purple border-[1px] rounded-[10px] outline-1 py-[15px] focus:shadow-around
+            focus:border-orange text-[20px] font-roboto400 text-link-dark-blue resize-none"
+            rows="12">
+        </textarea>
+
+        <!-- Edit Buttons -->
+        <span v-if="!editMode && isAdmin && loaded" class="mt-[20px] block">
+            <common-button text="Редактировать текст" @click="editMode = true"></common-button>
+        </span>
+        <span v-if="editMode && isAdmin && loaded" class="mt-[20px] block">
+            <common-button text="Сохранить" @click="saveStructureContent"></common-button>
+            <common-button text="Отмена" @click="editMode = false; description = content.description" class="mt-[10px] ml-[10px]"></common-button>
+        </span>
     </div>
+
+    <!-- Org Chart Title - Not editable for now -->
     <div class='text-[20px] font-roboto700 text-link-dark-blue max-w-[863px] text-center mx-auto mt-[45px]' :style="isImpairedVision ? 'color:#000':''">
         Структура ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»
     </div>
+
+    <!-- Org Chart - Not editable for now -->
     <div class='text-[30px] mt-[55px] font-roboto700 '>
         <div class="tree">
             <div class='tree__item--head flex justify-center'>
