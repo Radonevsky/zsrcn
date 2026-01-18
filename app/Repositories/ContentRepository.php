@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\AvailableContent;
 use App\Models\ExperienceContent;
 use App\Models\ExperienceTableContent;
+use App\Models\StructureContent;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -81,6 +82,30 @@ class ContentRepository
             $content->count = $data['count'];
             $content->free_count = $data['free_count'];
 
+            $content->save();
+
+            return $content;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    public function getStructureContent(): StructureContent
+    {
+        try {
+            return StructureContent::query()->first();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    public function updateStructureContent($data): StructureContent
+    {
+        try {
+            $content = StructureContent::query()->first();
+            $content->update($data);
             $content->save();
 
             return $content;

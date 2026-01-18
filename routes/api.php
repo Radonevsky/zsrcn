@@ -39,6 +39,7 @@ Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
     Route::get('/available', [ContentController::class, 'getAvailable'])->name('get_available');
     Route::get('/experience', [ContentController::class, 'getExperience'])->name('get_experience');
     Route::get('/experience-table', [ContentController::class, 'getExperienceTable'])->name('get_experience_table');
+    Route::get('/structure', [ContentController::class, 'getStructure'])->name('get_structure');
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
@@ -77,6 +78,7 @@ Route::group([
             Route::put('/available', [ContentController::class, 'updateAvailable'])->name('update_available');
             Route::put('/experience', [ContentController::class, 'updateExperience'])->name('update_experience');
             Route::put('/experience-table', [ContentController::class, 'updateExperienceTable'])->name('update_experience_table');
+            Route::put('/structure', [ContentController::class, 'updateStructure'])->name('update_structure');
         });
     });
 });

@@ -224,6 +224,25 @@ async function updateExperienceTableContent(payload) {
         })
 }
 
+async function fetchStructureContent() {
+    return axios.get(`/api/content/structure`)
+        .then(response => response.data.content)
+        .catch(error => {
+            console.error('Error fetching structure:', error)
+            return null
+        })
+}
+
+async function updateStructureContent(payload) {
+    try {
+        const response = await adminApi.put(`/api/auth/content/structure`, payload)
+        return response?.data?.content || null
+    } catch (error) {
+        console.error('Error updating structure:', error)
+        return null
+    }
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -245,6 +264,8 @@ export default function useCommon() {
         updateExperienceContent,
         fetchExperienceTableContent,
         updateExperienceTableContent,
+        fetchStructureContent,
+        updateStructureContent,
         isImpairedVision,
         isAdmin,
     }

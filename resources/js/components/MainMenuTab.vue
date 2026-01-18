@@ -9,8 +9,9 @@ const props = defineProps({
     externalLink: Boolean,
 })
 
+const route = useRoute()
 const routeName = computed(() => {
-    return useRoute().name
+    return route.name
 })
 
 const {
