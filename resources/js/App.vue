@@ -72,7 +72,7 @@ const scrollUp = () => {
             <img src="../images/opros.png" class="max-h-[500px]" alt="Опрос">
         </a>
         <img src="https://egov-buryatia.ru/upload/iblock/0aa/mo5pa0a12hld87otm34mwjib8w1ngj2l.jpg" class="max-h-[500px]" alt="80 летие победы">
-        <img src="https://odr.yanao.ru/upload/iblock/30c/hr0ue66a8268tevjk8jrf4xhh1xwbdx5.png" class="max-h-[400px]" alt="Телефон доверия">
+        <img src="https://i.okcdn.ru/i?r=CICUQJv1RQZIqEhgaodS4Lx637RCPaxh6IIOtSLzGfFDSwcARrgz7pXW_SNVPmZw00dQ_iX02QDoqIfLPyl4bKHyVwWAlmrN7Rg6lnRbwGkdQqU7sQ646WIZvsB_Ux-G67UBXAF4_UZDnP706aLbkE0WMFET3Crf_Hc_3I-zlCwHexJJ8hC8usAQMcfvNgLOh0b3JQDNAAAAKQ" class="max-h-[250px] p-4" alt="Телефон доверия">
     </div>
 
 </template>
