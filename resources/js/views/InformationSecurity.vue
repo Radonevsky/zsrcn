@@ -3,6 +3,7 @@
 import ContentContainer from "../layouts/ContentContainer.vue";
 import PageTitle from "../components/PageTitle.vue";
 import useCommon from "../use/common.js";
+import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
 window.scrollTo(0, 0)
 const {
     isImpairedVision,
@@ -18,8 +19,10 @@ const {
             <h2 class='font-roboto700 my-[20px]'>
                 Что такое цифровая грамотность?
             </h2>
-            <img src="../../../public/informationSecurity.png" alt="Информационная безопасность">
-            <p>
+            <img src="../../../public/informationSecurity.png" alt="Информационная безопасность" class="pb-[20px]">
+            <document-download-upload name="Памятка для детей" type="memo-kids"></document-download-upload>
+            <document-download-upload name="Памятка для родителей" type="memo-parents"></document-download-upload>
+            <p class="pt-[20px]">
                 Если разобрать словосочетание «цифровая компетенция» по частям, то получится что-то вроде «навыков жизни
                 в цифровом пространстве».
             </p>

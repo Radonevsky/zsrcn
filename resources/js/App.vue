@@ -71,8 +71,10 @@ const scrollUp = () => {
         <a href="https://docs.google.com/forms/d/12i0LnXxNu2_FKfgSozhbMgfa7Q0vn-MBV-LUoejbhAI/viewform?edit_requested=true" target="_blank" title="Опрос">
             <img src="../images/opros.png" class="max-h-[500px]" alt="Опрос">
         </a>
-        <img src="https://egov-buryatia.ru/upload/iblock/0aa/mo5pa0a12hld87otm34mwjib8w1ngj2l.jpg" class="max-h-[500px]" alt="80 летие победы">
-        <img src="https://i.okcdn.ru/i?r=CICUQJv1RQZIqEhgaodS4Lx637RCPaxh6IIOtSLzGfFDSwcARrgz7pXW_SNVPmZw00dQ_iX02QDoqIfLPyl4bKHyVwWAlmrN7Rg6lnRbwGkdQqU7sQ646WIZvsB_Ux-G67UBXAF4_UZDnP706aLbkE0WMFET3Crf_Hc_3I-zlCwHexJJ8hC8usAQMcfvNgLOh0b3JQDNAAAAKQ" class="max-h-[250px] p-4" alt="Телефон доверия">
+    </div>
+    <div class="flex flex-wrap justify-center">
+        <img src="https://ds-zolotoj-klyuchik-essentuki-r07.gosweb.gosuslugi.ru/netcat_files/generated/89/154/906x510/98/a86a78ab6d6d0621561fff36c9b7d498.jpg" alt="Год единства народов">
+        <img src="https://i.okcdn.ru/i?r=CICUQJv1RQZIqEhgaodS4Lx637RCPaxh6IIOtSLzGfFDSwcARrgz7pXW_SNVPmZw00dQ_iX02QDoqIfLPyl4bKHyVwWAlmrN7Rg6lnRbwGkdQqU7sQ646WIZvsB_Ux-G67UBXAF4_UZDnP706aLbkE0WMFET3Crf_Hc_3I-zlCwHexJJ8hC8usAQMcfvNgLOh0b3JQDNAAAAKQ" alt="Телефон доверия">
     </div>
 
 </template>
