@@ -3,8 +3,11 @@
 import ContentContainer from "../layouts/ContentContainer.vue";
 import useCommon from "../use/common.js";
 import {useRouter} from "vue-router";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
+import AddButton from "./AddButton.vue";
+import SectionDocumentItem from "../components/SectionDocumentItem.vue";
+import AddSectionDocument from "../components/AddSectionDocument.vue";
 
 const articles = ref([
     {
@@ -1583,6 +1586,8 @@ const articles = ref([
 const router = useRouter();
 const currentRoute = ref(null)
 const currentArticle = ref(null)
+const fosterCommonSections = ref([])
+const addFosterCommonMode = ref(false)
 
 currentRoute.value = router.currentRoute.value.name
 currentArticle.value = articles.value.find(item => item.name === currentRoute.value)
@@ -1594,16 +1599,52 @@ router.afterEach((to) => {
 
 function articleMatch(path) {
     currentArticle.value = articles.value.find(item => item.name === path.name)
+    if (currentArticle.value?.name === 'foster-common') {
+        setFosterCommonDocuments()
+    }
 }
 
-const { documentsScrollUp, isImpairedVision } = useCommon()
+const { documentsScrollUp, isImpairedVision, fetchDocumentsByType, isAdmin } = useCommon()
 documentsScrollUp()
+
+async function setFosterCommonDocuments() {
+    addFosterCommonMode.value = false
+    fosterCommonSections.value = await fetchDocumentsByType('foster-common-docs')
+}
+
+if (currentArticle.value?.name === 'foster-common') {
+    setFosterCommonDocuments()
+}
+
+watch(() => router.currentRoute.value, async (to) => {
+    if (to.name === 'foster-common') {
+        setFosterCommonDocuments()
+    }
+})
 
 </script>
 
 <template>
     <ContentContainer>
         <div v-if="currentArticle" class="text-[20px] font-roboto400 text-link-dark-blue" :style="isImpairedVision ? 'color:black':''">
+            <div v-if="currentArticle.name === 'foster-common'" class="mb-[30px]">
+                <add-button v-if="isAdmin" @click="addFosterCommonMode = true">Добавить документ</add-button>
+                <add-section-document
+                    v-if="addFosterCommonMode && isAdmin"
+                    @uploaded="setFosterCommonDocuments"
+                    type="foster-common-docs">
+                </add-section-document>
+                <div class="flex flex-col gap-[22px] mt-[20px]">
+                    <section-document-item
+                        v-for="item in fosterCommonSections"
+                        :type="item.type"
+                        :rout="router.currentRoute.value.path"
+                        :name="item.name"
+                        :uuid="item.uuid"
+                        :key="item.uuid">
+                    </section-document-item>
+                </div>
+            </div>
             <h3 v-if="currentArticle.title" class="font-roboto700 max-w-[900px] text-center m-auto">
                 {{ currentArticle.title }}
             </h3>
@@ -1619,12 +1660,6 @@ documentsScrollUp()
             </div>
             <div v-if="currentArticle.name === 'center-board-trustees'">
                 <document-download-upload name="Положение о попечительском совете" type="center-board-trustees"></document-download-upload>
-            </div>
-            <div v-if="currentArticle.name === 'foster-common'">
-                <document-download-upload name="План работы службы по сопровождению замещающих семей" type="foster-common-plan"></document-download-upload>
-            </div>
-            <div v-if="currentArticle.name === 'foster-club'">
-                <document-download-upload name="Работа клуба" type="foster-club"></document-download-upload>
             </div>
         </div>
     </ContentContainer>

@@ -344,6 +344,11 @@ const routes = [
                 name: 'foster-common',
             },
             {
+                path: 'foster-common/:uuid',
+                component: DocumentSection,
+                name: 'foster-common-doc',
+            },
+            {
                 path: 'foster-school',
                 component: InspectionReports,
                 name: 'foster-school-docs',
