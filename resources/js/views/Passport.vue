@@ -7,7 +7,7 @@ import {ref} from "vue";
 import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
 const router = useRouter();
 const { documentsScrollUp } = useCommon()
-const routerName = ref('center-passport-2023')
+const routerName = ref('center-passport-2026')
 
 router.afterEach((to) => {
     documentsScrollUp()
@@ -17,6 +17,12 @@ router.afterEach((to) => {
 
 <template>
     <ContentContainer>
+        <div v-if="routerName === 'center-passport-2026'">
+            <document-download-upload name="Паспорт учреждения 2026г." type="passport_2026"></document-download-upload>
+        </div>
+        <div v-if="routerName === 'center-passport-2025'">
+            <document-download-upload name="Паспорт учреждения 2025г." type="passport_2025"></document-download-upload>
+        </div>
         <div v-if="routerName === 'center-passport-2024'">
             <document-download-upload name="Паспорт учреждения 2024г." type="passport_2024"></document-download-upload>
         </div>
@@ -25,12 +31,6 @@ router.afterEach((to) => {
         </div>
         <div v-if="routerName === 'center-passport-2021'">
             <document-download-upload name="Паспорт учреждения 2021г." type="passport_2021"></document-download-upload>
-        </div>
-        <div v-if="routerName === 'center-passport-2020'">
-            <document-download-upload name="Паспорт учреждения 2020г." type="passport_2020"></document-download-upload>
-        </div>
-        <div v-if="routerName === 'center-passport-2019'">
-            <document-download-upload name="Паспорт учреждения 2019г." type="passport_2019"></document-download-upload>
         </div>
     </ContentContainer>
 </template>

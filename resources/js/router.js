@@ -114,7 +114,8 @@ const routes = [
                 component: CharterRoutes,
                 name: 'center-charter',
                 children: [
-                    { path: 'charter-changes', component: Charter, name: 'center-charter-changes' },
+                    { path: 'charter-changes', component: InspectionReports, name: 'charter-changes-docs' },
+                    { path: 'charter-changes/:uuid', component: DocumentSection, name: 'charter-changes-doc' },
                     { path: 'ogrn', component: Charter, name: 'center-ogrn' },
                     { path: 'center-charter-doc', component: Charter, name: 'center-charter-doc' },
                     { path: '', redirect: '/documents/charter/center-charter-doc', name: 'charter-default' },
@@ -125,12 +126,12 @@ const routes = [
                 component: PassportRoutes,
                 name: 'center-passport',
                 children: [
+                    { path: 'passport-2026', component: Passport, name: 'center-passport-2026' },
+                    { path: 'passport-2025', component: Passport, name: 'center-passport-2025' },
                     { path: 'passport-2024', component: Passport, name: 'center-passport-2024' },
                     { path: 'passport-2023', component: Passport, name: 'center-passport-2023' },
                     { path: 'passport-2021', component: Passport, name: 'center-passport-2021' },
-                    { path: 'passport-2020', component: Passport, name: 'center-passport-2020' },
-                    { path: 'passport-2019', component: Passport, name: 'center-passport-2019' },
-                    { path: '', redirect: '/documents/passport/passport-2023', name: 'passport-default' },
+                    { path: '', redirect: '/documents/passport/passport-2026', name: 'passport-default' },
                 ],
             },
             { path: 'convention', component: DocumentView, name: 'rights-convention' },
@@ -364,6 +365,11 @@ const routes = [
                 name: 'foster-club',
             },
             {
+                path: 'foster-club/:uuid',
+                component: DocumentSection,
+                name: 'foster-club-doc',
+            },
+            {
                 path: 'foster-service',
                 component: DocumentView,
                 name: 'foster-service',
@@ -390,6 +396,7 @@ const routes = [
             },
             { path: 'legal-basis', component: CitizenAppealsLegalBasis, name: 'citizen-appeals-basis' },
             { path: 'rules', component: CitizenAppealsRules, name: 'citizen-appeals-rules' },
+            { path: ':uuid', component: DocumentSection, name: 'citizen-appeals-doc' },
         ],
         meta: { title: 'Обращения граждан' }
     },
@@ -401,6 +408,7 @@ const routes = [
             { path: 'programm', component: InspectionReports, name: 'methodical-programm-summer-docs' },
             { path: 'programm/:uuid', component: DocumentSection, name: 'methodical-programm-summer-doc' },
             { path: 'social-technologies', component: SocialTechnologies, name: 'methodical-social-technologies' },
+            { path: 'social-technologies/:uuid', component: DocumentSection, name: 'methodical-social-technologies-doc' },
             { path: 'work', component: InspectionReports, name: 'methodical-work-docs' },
             { path: 'work/:uuid', component: DocumentSection, name: 'methodical-work-doc' },
             {path: '', redirect: '/methodical/programm', name: 'methodical-default'},
