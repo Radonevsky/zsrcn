@@ -2,14 +2,50 @@
 
 import ContentContainer from "../layouts/ContentContainer.vue";
 import useCommon from "../use/common.js";
+import {ref} from "vue";
+import {useRouter} from "vue-router";
+import AddButton from "./AddButton.vue";
+import SectionDocumentItem from "../components/SectionDocumentItem.vue";
+import AddSectionDocument from "../components/AddSectionDocument.vue";
+
+const router = useRouter()
+const routeHref = ref(router.currentRoute.value.href)
+const sections = ref([])
+const addSectionMode = ref(false)
+
 const {
     isImpairedVision,
+    fetchDocumentsByType,
+    isAdmin,
 } = useCommon()
+
+async function setDocuments() {
+    addSectionMode.value = false
+    sections.value = await fetchDocumentsByType('citizen-appeals-docs')
+}
+
+setDocuments()
 </script>
 
 <template>
     <ContentContainer>
         <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
+            <add-button v-if="isAdmin" @click="addSectionMode = true">Добавить документ</add-button>
+            <add-section-document
+                v-if="addSectionMode && isAdmin"
+                @uploaded="setDocuments"
+                type="citizen-appeals-docs">
+            </add-section-document>
+            <div class="flex flex-col gap-[22px] mt-[20px]">
+                <section-document-item
+                    v-for="item in sections"
+                    :type="item.type"
+                    :rout="routeHref"
+                    :name="item.name"
+                    :uuid="item.uuid"
+                    :key="item.uuid">
+                </section-document-item>
+            </div>
             <h2 class='font-roboto700 max-w-[900px] m-auto'>
                 График приема граждан
             </h2>

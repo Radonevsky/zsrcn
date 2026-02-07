@@ -1547,7 +1547,7 @@ const articles = ref([
     {
         id: 11,
         name: 'foster-club',
-        title: 'Работа службы сопровождающих семей',
+        title: 'Работа клуба сопровождающих семей',
         subTitle: null,
         content: '<ul>' +
             '  <li>Цели:' +
@@ -1588,6 +1588,8 @@ const currentRoute = ref(null)
 const currentArticle = ref(null)
 const fosterCommonSections = ref([])
 const addFosterCommonMode = ref(false)
+const fosterClubSections = ref([])
+const addFosterClubMode = ref(false)
 
 currentRoute.value = router.currentRoute.value.name
 currentArticle.value = articles.value.find(item => item.name === currentRoute.value)
@@ -1602,6 +1604,9 @@ function articleMatch(path) {
     if (currentArticle.value?.name === 'foster-common') {
         setFosterCommonDocuments()
     }
+    if (currentArticle.value?.name === 'foster-club') {
+        setFosterClubDocuments()
+    }
 }
 
 const { documentsScrollUp, isImpairedVision, fetchDocumentsByType, isAdmin } = useCommon()
@@ -1612,13 +1617,24 @@ async function setFosterCommonDocuments() {
     fosterCommonSections.value = await fetchDocumentsByType('foster-common-docs')
 }
 
+async function setFosterClubDocuments() {
+    addFosterClubMode.value = false
+    fosterClubSections.value = await fetchDocumentsByType('foster-club-docs')
+}
+
 if (currentArticle.value?.name === 'foster-common') {
     setFosterCommonDocuments()
+}
+if (currentArticle.value?.name === 'foster-club') {
+    setFosterClubDocuments()
 }
 
 watch(() => router.currentRoute.value, async (to) => {
     if (to.name === 'foster-common') {
         setFosterCommonDocuments()
+    }
+    if (to.name === 'foster-club') {
+        setFosterClubDocuments()
     }
 })
 
@@ -1637,6 +1653,24 @@ watch(() => router.currentRoute.value, async (to) => {
                 <div class="flex flex-col gap-[22px] mt-[20px]">
                     <section-document-item
                         v-for="item in fosterCommonSections"
+                        :type="item.type"
+                        :rout="router.currentRoute.value.path"
+                        :name="item.name"
+                        :uuid="item.uuid"
+                        :key="item.uuid">
+                    </section-document-item>
+                </div>
+            </div>
+            <div v-if="currentArticle.name === 'foster-club'" class="mb-[30px]">
+                <add-button v-if="isAdmin" @click="addFosterClubMode = true">Добавить документ</add-button>
+                <add-section-document
+                    v-if="addFosterClubMode && isAdmin"
+                    @uploaded="setFosterClubDocuments"
+                    type="foster-club-docs">
+                </add-section-document>
+                <div class="flex flex-col gap-[22px] mt-[20px]">
+                    <section-document-item
+                        v-for="item in fosterClubSections"
                         :type="item.type"
                         :rout="router.currentRoute.value.path"
                         :name="item.name"

@@ -8,29 +8,29 @@ documentsScrollUp()
 
 const tabs = ref([
     {
-        id: 5,
+        id: 1,
+        name: 'Паспорт учреждения 2026',
+        link: 'passport-2026',
+    },
+    {
+        id: 2,
+        name: 'Паспорт учреждения 2025',
+        link: 'passport-2025',
+    },
+    {
+        id: 3,
         name: 'Паспорт учреждения 2024',
         link: 'passport-2024',
     },
     {
-        id: 1,
+        id: 4,
         name: 'Паспорт учреждения 2023',
         link: 'passport-2023',
     },
     {
-        id: 2,
+        id: 5,
         name: 'Паспорт учреждения 2021',
         link: 'passport-2021',
-    },
-    {
-        id: 3,
-        name: 'Паспорт учреждения 2020',
-        link: 'passport-2020',
-    },
-    {
-        id: 4,
-        name: 'Паспорт учреждения 2019',
-        link: 'passport-2019',
     },
 ])
 const {
