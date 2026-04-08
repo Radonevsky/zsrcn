@@ -184,7 +184,10 @@ async function updateAvailableContent(payload) {
 
 async function fetchExperienceContent() {
     return axios.get(`/api/content/experience`)
-        .then(response => response.data.content)
+        .then(response => ({
+            content: response.data.content,
+            programs_content: response.data.programs_content ?? '',
+        }))
         .catch(error => {
             alert(error.response.data.message)
 
@@ -192,8 +195,10 @@ async function fetchExperienceContent() {
         })
 }
 
-async function updateExperienceContent(content) {
-    return adminApi.put(`/api/auth/content/experience`, {content: content})
+async function updateExperienceContent(payload) {
+    const body = typeof payload === 'string' ? { content: payload } : payload
+
+    return adminApi.put(`/api/auth/content/experience`, body)
         .then(response => {
             alert('Обновлено')
         })
@@ -243,6 +248,28 @@ async function updateStructureContent(payload) {
     }
 }
 
+async function fetchAboutDescriptionContent() {
+    return axios.get(`/api/content/about-description`)
+        .then(response => response.data.html)
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
+async function updateAboutDescriptionContent(html) {
+    return adminApi.put(`/api/auth/content/about-description`, { html })
+        .then(() => {
+            alert('Обновлено')
+        })
+        .catch(error => {
+            alert(error.response.data.message)
+
+            return false
+        })
+}
+
 export default function useCommon() {
     return {
         getImgUrl,
@@ -266,6 +293,8 @@ export default function useCommon() {
         updateExperienceTableContent,
         fetchStructureContent,
         updateStructureContent,
+        fetchAboutDescriptionContent,
+        updateAboutDescriptionContent,
         isImpairedVision,
         isAdmin,
     }

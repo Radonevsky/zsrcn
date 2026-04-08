@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\AboutDescriptionContent;
 use App\Models\AvailableContent;
 use App\Models\ExperienceContent;
 use App\Models\ExperienceTableContent;
 use App\Models\StructureContent;
+use App\Support\SanitizeHtml;
+use Database\Seeders\AboutDescriptionSeeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -43,14 +46,53 @@ class ContentRepository
         }
     }
 
-    public function updateExperienceContent($data): string
+    public function updateExperienceContent($data): array
     {
         try {
             $experienceContent = ExperienceContent::query()->first();
-            $experienceContent->content = $data['content'];
+            if (array_key_exists('content', $data)) {
+                $experienceContent->content = $data['content'];
+            }
+            if (array_key_exists('programs_content', $data)) {
+                $experienceContent->programs_content = $data['programs_content'];
+            }
             $experienceContent->save();
 
-            return $data['content'];
+            return [
+                'content' => $experienceContent->content,
+                'programs_content' => $experienceContent->programs_content ?? '',
+            ];
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    public function getAboutDescriptionContent(): AboutDescriptionContent
+    {
+        try {
+            $row = AboutDescriptionContent::query()->first();
+            if (! $row) {
+                $row = AboutDescriptionContent::query()->create([
+                    'html' => AboutDescriptionSeeder::defaultHtml(),
+                ]);
+            }
+
+            return $row;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    public function updateAboutDescriptionContent($data): string
+    {
+        try {
+            $content = AboutDescriptionContent::query()->firstOrFail();
+            $content->html = SanitizeHtml::aboutDescription($data['html'] ?? '');
+            $content->save();
+
+            return $content->html;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Ошибка обновления данных');

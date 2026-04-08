@@ -29,11 +29,12 @@ class ContentController extends Controller
     public function getExperience(ContentRepository $cr): JsonResponse
     {
         try {
-            $content = $cr->getExperienceContent()->content;
+            $row = $cr->getExperienceContent();
 
             return response()->json([
                 'error' => false,
-                'content' => $content,
+                'content' => $row->content,
+                'programs_content' => $row->programs_content ?? '',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -137,6 +138,41 @@ class ContentController extends Controller
             return response()->json([
                 'error' => false,
                 'content' => $updated,
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getAboutDescription(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->getAboutDescriptionContent();
+
+            return response()->json([
+                'error' => false,
+                'html' => $row->html,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateAboutDescription(Request $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $html = $cr->updateAboutDescriptionContent($request->all());
+
+            return response()->json([
+                'error' => false,
+                'html' => $html,
                 'message' => 'Успешно обновлено!',
             ]);
         } catch (\Exception $e) {
