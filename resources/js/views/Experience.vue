@@ -14,14 +14,20 @@ const {
 } = useCommon()
 
 const experienceContent = ref(null)
+const programsContent = ref('')
 const loadedExperience = ref(false)
 const editExperienceMode = ref(false)
+const editProgramsMode = ref(false)
 const experienceTableContent = ref(null)
 const loadedExperienceTable = ref(false)
 const editExperienceTableMode = ref(false)
 
 const setExperienceContent = async ()=> {
-    experienceContent.value = await fetchExperienceContent()
+    const data = await fetchExperienceContent()
+    if (data !== false) {
+        experienceContent.value = data.content
+        programsContent.value = data.programs_content ?? ''
+    }
     loadedExperience.value = true
 }
 
@@ -32,9 +38,14 @@ const setExperienceTableContent = async () => {
 
 const saveAExperienceContent = async ()=> {
     loadedExperience.value = false
-    await updateExperienceContent(experienceContent.value)
+    await updateExperienceContent({ content: experienceContent.value })
     editExperienceMode.value = false
     loadedExperience.value = true
+}
+
+const saveProgramsContent = async () => {
+    await updateExperienceContent({ programs_content: programsContent.value })
+    editProgramsMode.value = false
 }
 
 const saveExperienceTableContent = async () => {
@@ -126,16 +137,20 @@ setExperienceTableContent();
                 <CommonButton text="Сохранить таблицу" @click="saveExperienceTableContent"></CommonButton>
             </span>
 
-            <p class='mt-[20px]'>
-                Разработана и реализуется программа развития учреждения «Взгляд в будущее» 2022-2025 гг.,
-                реализованы рабочие программы кружковой деятельности педагогов: «Подружка», «Мир книги», «Музыкальная капель»,
-                «Здоровей-ка», «Путевка в жизнь», «Я познаю мир», «Декоративно-прикладное искусство «Фантазия» , «Наши руки не для скуки»,
-                программа по социализации подростков, волонтерское движение «Шаг вперед». В 2017 году в рамках реализации благотворительной
-                программы «С любовью к детям» реализуемой совместно и при поддержке Благотворительного фонда компании «Амвэй»
-                «В ответе за будущее», Фонд поддержки и развития филантропии «КАФ» проводили открытый конкурс проектов «С любовью к детям»,
-                нами был написан и реализован грантовый проект «Солнышко в ладошках» на сумму 870тыс. рублей., благодаря которому усовершенствовалась
-                работа по сопровождению замещающих семей.
+            <p class='mt-[20px] whitespace-pre-line' v-if="loadedExperience && !editProgramsMode">
+                {{ programsContent }}
             </p>
+            <textarea
+                v-if="editProgramsMode"
+                v-model="programsContent"
+                class="mt-[20px] h-[220px] w-full max-w-full resize-none rounded-[10px] border border-light-purple border-[1px] p-[15px] text-[20px] font-roboto400 text-link-dark-blue outline-none focus:border-orange focus:shadow-around"
+            ></textarea>
+            <span v-if="!editProgramsMode && isAdmin && loadedExperience" class="inline-block">
+                <common-button text="Редактировать текст о программах" @click="editProgramsMode = true"></common-button>
+            </span>
+            <span v-if="editProgramsMode && isAdmin && loadedExperience" class="inline-block">
+                <common-button text="Сохранить текст о программах" @click="saveProgramsContent"></common-button>
+            </span>
             <p class='text-end'>Директор Г.И.Кочетова</p>
         </div>
     </ContentContainer>

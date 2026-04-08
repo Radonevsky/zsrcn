@@ -39,6 +39,7 @@ Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
     Route::get('/available', [ContentController::class, 'getAvailable'])->name('get_available');
     Route::get('/experience', [ContentController::class, 'getExperience'])->name('get_experience');
     Route::get('/experience-table', [ContentController::class, 'getExperienceTable'])->name('get_experience_table');
+    Route::get('/about-description', [ContentController::class, 'getAboutDescription'])->name('get_about_description');
     Route::get('/structure', [ContentController::class, 'getStructure'])->name('get_structure');
 });
 
@@ -78,6 +79,7 @@ Route::group([
             Route::put('/available', [ContentController::class, 'updateAvailable'])->name('update_available');
             Route::put('/experience', [ContentController::class, 'updateExperience'])->name('update_experience');
             Route::put('/experience-table', [ContentController::class, 'updateExperienceTable'])->name('update_experience_table');
+            Route::put('/about-description', [ContentController::class, 'updateAboutDescription'])->name('update_about_description');
             Route::put('/structure', [ContentController::class, 'updateStructure'])->name('update_structure');
         });
     });
