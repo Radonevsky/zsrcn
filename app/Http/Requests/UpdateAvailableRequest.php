@@ -24,6 +24,8 @@ class UpdateAvailableRequest extends FormRequest
             'update_date' => 'required|string|max:50',
             'count' => 'required|string|max:50',
             'free_count' => 'required|string|max:50',
+            'day_care_count' => 'nullable|string|max:50',
+            'day_care_free_count' => 'nullable|string|max:50',
         ];
     }
 }

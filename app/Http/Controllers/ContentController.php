@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateAvailableRequest;
+use App\Http\Requests\UpdateContactsContentRequest;
+use App\Http\Requests\UpdateBoardTrusteesPageRequest;
+use App\Http\Requests\UpdateSocialServicesPageContentRequest;
+use App\Http\Requests\UpdateStaffPageContentRequest;
 use App\Repositories\ContentRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -173,6 +177,150 @@ class ContentController extends Controller
             return response()->json([
                 'error' => false,
                 'html' => $html,
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getContactsContent(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $content = $cr->getContactsContent();
+
+            return response()->json([
+                'error' => false,
+                'content' => $content,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateContactsContent(UpdateContactsContentRequest $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $updated = $cr->updateContactsContent($request->validated());
+
+            return response()->json([
+                'error' => false,
+                'content' => $updated,
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getStaffPage(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->getStaffPageContent();
+
+            return response()->json([
+                'error' => false,
+                'intro_text' => $row->intro_text,
+                'director_text' => $row->director_text,
+                'roster' => $row->roster ?? [],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateStaffPage(UpdateStaffPageContentRequest $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->updateStaffPageContent($request->validated());
+
+            return response()->json([
+                'error' => false,
+                'intro_text' => $row->intro_text,
+                'director_text' => $row->director_text,
+                'roster' => $row->roster ?? [],
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getBoardTrusteesPage(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->getBoardTrusteesPageContent();
+
+            return response()->json([
+                'error' => false,
+                'html' => $row->html,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateBoardTrusteesPage(UpdateBoardTrusteesPageRequest $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $html = $cr->updateBoardTrusteesPageContent($request->validated());
+
+            return response()->json([
+                'error' => false,
+                'html' => $html,
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getSocialServicesPage(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->getSocialServicesPageContent();
+
+            return response()->json([
+                'error' => false,
+                'regulation_text' => $row->regulation_text,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateSocialServicesPage(UpdateSocialServicesPageContentRequest $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->updateSocialServicesPageContent($request->validated());
+
+            return response()->json([
+                'error' => false,
+                'regulation_text' => $row->regulation_text,
                 'message' => 'Успешно обновлено!',
             ]);
         } catch (\Exception $e) {

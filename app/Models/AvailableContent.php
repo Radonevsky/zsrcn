@@ -15,5 +15,7 @@ class AvailableContent extends Model
         'update_date',
         'count',
         'free_count',
+        'day_care_count',
+        'day_care_free_count',
     ];
 }

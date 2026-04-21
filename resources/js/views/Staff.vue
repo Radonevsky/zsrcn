@@ -1,430 +1,226 @@
 <script setup>
 
-import ContentContainer from "../layouts/ContentContainer.vue";
-import useCommon from "../use/common.js";
+import ContentContainer from '../layouts/ContentContainer.vue'
+import useCommon from '../use/common.js'
+import { ref } from 'vue'
+import CommonButton from '../components/CommonButton.vue'
+
 const {
     isImpairedVision,
+    isAdmin,
+    fetchStaffPageContent,
+    updateStaffPageContent,
 } = useCommon()
+
+const loaded = ref(false)
+const introText = ref('')
+const directorText = ref('')
+const roster = ref([])
+
+const editTextMode = ref(false)
+const editTableMode = ref(false)
+
+let textSnapshot = { intro: '', director: '' }
+let rosterSnapshot = []
+
+function cloneRoster(rows) {
+    return JSON.parse(JSON.stringify(rows))
+}
+
+async function loadStaff() {
+    const data = await fetchStaffPageContent()
+    if (data !== false) {
+        introText.value = data.intro_text ?? ''
+        directorText.value = data.director_text ?? ''
+        roster.value = cloneRoster(data.roster ?? [])
+    }
+    loaded.value = true
+}
+
+function startEditText() {
+    textSnapshot = { intro: introText.value, director: directorText.value }
+    editTextMode.value = true
+}
+
+function cancelEditText() {
+    introText.value = textSnapshot.intro
+    directorText.value = textSnapshot.director
+    editTextMode.value = false
+}
+
+async function saveText() {
+    loaded.value = false
+    const ok = await updateStaffPageContent({
+        intro_text: introText.value,
+        director_text: directorText.value,
+        roster: roster.value,
+    })
+    if (ok) {
+        await loadStaff()
+        editTextMode.value = false
+    }
+    loaded.value = true
+}
+
+function startEditTable() {
+    rosterSnapshot = cloneRoster(roster.value)
+    editTableMode.value = true
+}
+
+function cancelEditTable() {
+    roster.value = rosterSnapshot
+    editTableMode.value = false
+}
+
+async function saveTable() {
+    loaded.value = false
+    const ok = await updateStaffPageContent({
+        intro_text: introText.value,
+        director_text: directorText.value,
+        roster: roster.value,
+    })
+    if (ok) {
+        await loadStaff()
+        editTableMode.value = false
+    }
+    loaded.value = true
+}
+
+function addSectionRow() {
+    roster.value.push({ kind: 'section', title: '' })
+}
+
+function addPersonRow() {
+    roster.value.push({ kind: 'person', name: '', position: '' })
+}
+
+function removeRow(index) {
+    roster.value.splice(index, 1)
+}
+
+function moveRow(index, delta) {
+    const j = index + delta
+    if (j < 0 || j >= roster.value.length) {
+        return
+    }
+    const next = [...roster.value]
+    const t = next[index]
+    next[index] = next[j]
+    next[j] = t
+    roster.value = next
+}
+
+loadStaff()
 </script>
 
 <template>
-<ContentContainer>
-    <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
-        <p>Персональный состав</p>
-        <p class='mt-[20px]'>
-            Коллектив состоит из 52 человек.
-        </p>
-        <p class='mt-[20px]'>
-            Воспитатели, помощники воспитателей, педагог - психолог, специалисты по социальной работе, медицинский персонал, обслуживающий персонал.
-            Все специалисты имеют высокую профессиональную квалификацию.
-            Работники центра стараются дарить детям не только тепло и заботу, но и эффективно решать проблемы детского и семейного неблагополучия,
-            оказывать планомерную поддержку детям и семьям.
-        </p>
-        <h3 class="text-center mt-[20px]">Структурные подразделения учреждения</h3>
-        <table class="text-center table-auto mt-[10px] large">
-            <thead>
-            <tr>
-                <th>Наименование</th>
-                <th>Время работы</th>
-                <th>Должность, ФИО</th>
-                <th>Телефон</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td rowspan="2">Административно-управленческий персонал</td>
-                <td rowspan="2">8.00-16.15</td>
-                <td>
-                    <p>Директор</p>
-                    <p>Кочетова Галина Ивановна</p>
-                </td>
-                <td>
-                    8 (30136) 53-6-66
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Экономист</p>
-                    <p>Трифонова Наталья Лавреновна</p>
-                </td>
-                <td>
-                    8 (30136) 53-9-72
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="4">Предоставление временного приюта несовершеннолетним, оказавшимся в трудной жизненной ситуации</td>
-                <td rowspan="3">8.00-16.15</td>
-                <td>
-                    <p>Заведующий отделением</p>
-                    <p>Москвитина Алла Александровна</p>
-                </td>
-                <td rowspan="5">
-                    8 (30136) 53-9-32
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Специалисты по социальной работе</p>
-                    <p>Васильева Валентина Васильевна</p>
-                    <p>Згирская Марина Николаевна</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Психолог</p>
-                    <p>Филиппова Галина Андреевна</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Круглосуточно
-                </td>
-                <td>
-                    Дежурный персонал
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Служба сопровождения замещающих семей
-                </td>
-                <td>
-                    8.00-16.15
-                </td>
-                <td>
-                    <p>Заведующий службой сопровождения</p>
-                    <p>Арапова Любовь Сергеевна</p>
-                    <p>Психолог</p>
-                    <p>Зеленовская Олеся Дмитриевна</p>
-                    <p>Специалисты службы:</p>
-                    <p>Полянская Ирина Петровна</p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="mobile flex-col">
-            <div class='bg-light-bg border font-bold'>Административно-управленческий персонал</div>
-            <div class="border">
-                <p>Директор</p>
-                <p>Кочетова Галина Ивановна</p>
-                <p>8 (30136) 53-6-66</p>
-                <p>Экономист</p>
-                <p>Трифонова Наталья Лавреновна</p>
-                <p>8 (30136) 53-9-72</p>
-                <p>8.00-16.15</p>
-            </div>
-            <div class='bg-light-bg border font-bold'>
-                Предоставление временного приюта несовершеннолетним, оказавшимся в трудной жизненной ситуации
-            </div>
-            <div class="border">
-                <p>Заведующий отделением</p>
-                <p>Москвитина Алла Александровна</p>
-                <p>Специалисты по социальной работе</p>
-                <p>Васильева Валентина Васильевна,</p>
-                <p>Згирская Марина Николаевна</p>
-                <p>Психолог</p>
-                <p>Филиппова Галина Андреевна</p>
-                <p>8.00-16.15</p>
-                <p>Дежурный персонал - Круглосуточно</p>
-                <p>8 (30136) 53-9-32</p>
-            </div>
-            <div class='bg-light-bg border font-bold'>
-                Служба сопровождения замещающих семей
-            </div>
-            <div class="border">
-                <p>Заведующий службой сопровождения</p>
-                <p>Арапова Любовь Сергеевна</p>
-                <p>Психолог</p>
-                <p>Зеленовская Олеся Дмитриевна</p>
-                <p>Специалисты службы:</p>
-                <p>Полянская Ирина Петровна</p>
-                <p>8.00-16.15</p>
-                <p>8 (30136) 53-9-32</p>
-            </div>
-        </div>
-        <div class="mt-[20px]">
-            <p>Директор: Кочетова Галина Ивановна</p>
-            <p>Образование: высшее .Окончила ФГОУВПО "Восточно - Сибирская академия культуры и искусства"</p>
-            <p>Специальность: менеджер по социально - культурной деятельности</p>
-            <p>Общий трудовой стаж : 38 лет</p>
-            <p>Стаж работы в социальной сфере: 17 лет</p>
-        </div>
-        <table class="mt-[20px]">
-            <thead>
-            <tr>
-                <th>
-                    Ф.И.О.
-                </th>
-                <th>
-                    Должность
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="font-roboto700" colspan="2">
-                    АУП
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Кочетова Галина Ивановна
-                </td>
-                <td>
-                    Директор
-                </td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">
-                    Бухгалтерское, кадровое и юридическое сопровождение
-                </td>
-            </tr>
-            <tr>
-                <td>Трифонова Наталья Лавреновна</td>
-                <td>Экономист</td>
-            </tr>
-            <tr>
-                <td>Шурыгина Ирина Юрьевна</td>
-                <td>Специалист по кадрам</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Социальное обслуживание в стационарной форме для несовершеннолетних</td>
-            </tr>
-            <tr>
-                <td>Малышев Сергей Владимирович</td>
-                <td>Врач</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Средний медицинский персонал</td>
-            </tr>
-            <tr>
-                <td>Акбашева Раиса Николаевна</td>
-                <td>Медицинская сестра</td>
-            </tr>
-            <tr>
-                <td>Башинова Татьяна Ильинична</td>
-                <td>Медицинская сестра</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Педагогические работники</td>
-            </tr>
-            <tr>
-                <td>Пилипчик Екатерина Федоровна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td>Трофимова Марина Иннокентьевна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td>Чернухина Наталья Михайловна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td>Шурыгина Валентина Владимировна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td>Шурыгина Ирина Борисовна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td>Шурыгина Валентина Юрьевна</td>
-                <td>Воспитатель</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Специалисты</td>
-            </tr>
-            <tr>
-                <td>Москвитина Алла Александровна</td>
-                <td>Заведующая отделением</td>
-            </tr>
-            <tr>
-                <td>Васильева Валентина Васильевна</td>
-                <td>Спец.по
+    <ContentContainer>
+        <div class="text-[20px] font-roboto400 text-link-dark-blue" :style="isImpairedVision ? 'color:black':''">
+            <p>Персональный состав</p>
 
-                    соц работе
-                </td>
-            </tr>
-            <tr>
-                <td>Филиппова Галина Андреевна</td>
-                <td>Психолог</td>
-            </tr>
-            <tr>
-                <td>Згирская Марина Николаевна</td>
-                <td>Спец.по
+            <div v-if="!loaded" class="mt-[20px]">
+                <img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Загрузка">
+            </div>
 
-                    соц работе
-                </td>
-            </tr>
-            <tr>
-                <td>Згирская Галина Александровна</td>
-                <td>Спец.по охране труда</td>
-            </tr>
-            <tr>
-                <td>Афанасьева Татьяна Михайловна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Грешилова Надежда Викторовна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Дружинина Анжелика Ивановна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Литко Вера Александровна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Нелюбина Дарья Михайловна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Петрова Ирина Николаевна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Петрова Полина Константиновна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Пластинина Светлана Асламбековна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Позднякова Елена Валерьевна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Хлебодарова Елена Владимировна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Афанасьева Татьяна Григорьевна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Шарабаева Лариса Васильевна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Петрова Светлана Ивановна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Жалцанова Лариса Лайдаровна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td>Пестерева Татьяна Ивановна</td>
-                <td>Помощник воспитателя</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Организация питания</td>
-            </tr>
-            <tr>
-                <td>Бухарина Любовь Михайловна</td>
-                <td>Повар</td>
-            </tr>
-            <tr>
-                <td>Петрова Ирина Валерьевна</td>
-                <td>Повар</td>
-            </tr>
-            <tr>
-                <td>Серова Татьяна Михайловна</td>
-                <td>Кух. рабочий</td>
-            </tr>
-            <tr>
-                <td>Тихонова Виктория Георгиевна</td>
-                <td>Кух. рабочий</td>
-            </tr>
-            <tr>
-                <td>Доржиева Валентина Федоровна</td>
-                <td>Кух. рабочий</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Служба по сопровождению замещающих семей</td>
-            </tr>
-            <tr>
-                <td>Арапова Любовь Сергеевна</td>
-                <td>Заведующая службой сопровождения</td>
-            </tr>
-            <tr>
-                <td>Зеленовская Олеся Дмитриевна</td>
-                <td>Психолог</td>
-            </tr>
-            <tr>
-                <td>Полянская Ирина Петровна</td>
-                <td>Спец. по соц. работе</td>
-            </tr>
-            <tr>
-                <td>Недорезова Ирина Михайловна</td>
-                <td>Спец. по соц. работе</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Материальное обеспечение</td>
-            </tr>
-            <tr>
-                <td>Добрынина Людмила Егоровна</td>
-                <td>Кастелянша</td>
-            </tr>
-            <tr>
-                <td>Зубакина Марина Сергеевна</td>
-                <td>Зав.склад</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Транспортное обеспечение</td>
-            </tr>
-            <tr>
-                <td>Зеленовский Сергей Николаевич</td>
-                <td>Водитель</td>
-            </tr>
-            <tr>
-                <td>Иванов Михаил Лаврентьевич</td>
-                <td>Водитель</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Хозяйственное обслуживание зданий и территорий</td>
-            </tr>
-            <tr>
-                <td>Назарова Марина Васильевна</td>
-                <td>Заведующая хозяйством</td>
-            </tr>
-            <tr>
-                <td>Гаврилов Василий Маркелович</td>
-                <td>Слесарь-сантехник</td>
-            </tr>
-            <tr>
-                <td>Доржиева Валентина Федоровна</td>
-                <td>Уборщик служебных помещений</td>
-            </tr>
-            <tr>
-                <td>Щербакова Дарья Николаевна</td>
-                <td>Уборщик служебных помещений</td>
-            </tr>
-            <tr>
-                <td>Михайлишина Оксана Анатольевна</td>
-                <td>Уборщик служебных помещений</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Дополнительное обслуживание получателей услуг</td>
-            </tr>
-            <tr>
-                <td>Малых Любовь Константиновна</td>
-                <td>Швея по ремонту одежды</td>
-            </tr>
-            <tr>
-                <td class="font-roboto700" colspan="2">Вспомогательный персонал</td>
-            </tr>
-            <tr>
-                <td>Афанасьева Вера Александровна</td>
-                <td>Дворник</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</ContentContainer>
+            <template v-else>
+                <div v-if="!editTextMode" class="mt-[20px]" style="white-space: pre-line;">
+                    {{ introText }}
+                </div>
+                <textarea
+                    v-else
+                    v-model="introText"
+                    rows="8"
+                    class="mt-[20px] w-full p-[12px] border border-light-purple rounded-[10px] text-[20px] font-roboto400 resize-y"
+                ></textarea>
+
+                <div v-if="!editTextMode" class="mt-[20px]" style="white-space: pre-line;">
+                    {{ directorText }}
+                </div>
+                <textarea
+                    v-else
+                    v-model="directorText"
+                    rows="6"
+                    class="mt-[20px] w-full p-[12px] border border-light-purple rounded-[10px] text-[20px] font-roboto400 resize-y"
+                ></textarea>
+
+                <div v-if="!editTextMode && !editTableMode && isAdmin" class="mt-[16px]">
+                    <common-button text="Редактировать текст" @click="startEditText"></common-button>
+                </div>
+                <div v-if="editTextMode && isAdmin" class="mt-[16px]">
+                    <common-button text="Сохранить текст" @click="saveText"></common-button>
+                    <common-button text="Отмена" class="ml-[10px]" @click="cancelEditText"></common-button>
+                </div>
+
+                <table class="mt-[20px] staff-roster-table">
+                    <thead>
+                        <tr>
+                            <th>Ф.И.О.</th>
+                            <th>Должность</th>
+                            <th v-if="editTableMode && isAdmin" class="staff-roster-actions"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="(row, index) in roster" :key="index">
+                            <tr v-if="row.kind === 'section'">
+                                <td class="font-roboto700" colspan="2">
+                                    <template v-if="!editTableMode">{{ row.title }}</template>
+                                    <input
+                                        v-else
+                                        v-model="row.title"
+                                        class="w-full p-[6px] border border-light-purple rounded-[6px] font-roboto700"
+                                        type="text"
+                                    >
+                                </td>
+                                <td v-if="editTableMode && isAdmin" class="staff-roster-actions align-top">
+                                    <button type="button" class="block underline text-left mb-[4px]" @click="moveRow(index, -1)">Вверх</button>
+                                    <button type="button" class="block underline text-left mb-[4px]" @click="moveRow(index, 1)">Вниз</button>
+                                    <button type="button" class="block underline text-left text-red-700" @click="removeRow(index)">Удалить</button>
+                                </td>
+                            </tr>
+                            <tr v-else-if="row.kind === 'person'">
+                                <td>
+                                    <template v-if="!editTableMode">{{ row.name }}</template>
+                                    <textarea
+                                        v-else
+                                        v-model="row.name"
+                                        rows="2"
+                                        class="w-full p-[6px] border border-light-purple rounded-[6px] resize-y"
+                                    ></textarea>
+                                </td>
+                                <td style="white-space: pre-line;">
+                                    <template v-if="!editTableMode">{{ row.position }}</template>
+                                    <textarea
+                                        v-else
+                                        v-model="row.position"
+                                        rows="3"
+                                        class="w-full p-[6px] border border-light-purple rounded-[6px] resize-y"
+                                    ></textarea>
+                                </td>
+                                <td v-if="editTableMode && isAdmin" class="staff-roster-actions align-top">
+                                    <button type="button" class="block underline text-left mb-[4px]" @click="moveRow(index, -1)">Вверх</button>
+                                    <button type="button" class="block underline text-left mb-[4px]" @click="moveRow(index, 1)">Вниз</button>
+                                    <button type="button" class="block underline text-left text-red-700" @click="removeRow(index)">Удалить</button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+                <div v-if="editTableMode && isAdmin" class="mt-[12px] flex flex-wrap gap-[12px]">
+                    <button type="button" class="underline" @click="addSectionRow">Добавить подразделение (заголовок)</button>
+                    <button type="button" class="underline" @click="addPersonRow">Добавить строку (ФИО + должность)</button>
+                </div>
+
+                <div v-if="!editTableMode && !editTextMode && isAdmin" class="mt-[16px]">
+                    <common-button text="Редактировать таблицу" @click="startEditTable"></common-button>
+                </div>
+                <div v-if="editTableMode && isAdmin" class="mt-[16px]">
+                    <common-button text="Сохранить таблицу" @click="saveTable"></common-button>
+                    <common-button text="Отмена" class="ml-[10px]" @click="cancelEditTable"></common-button>
+                </div>
+            </template>
+        </div>
+    </ContentContainer>
 </template>
 
 <style scoped>
@@ -434,26 +230,27 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid black;
+    padding: 6px 8px;
+    vertical-align: top;
 }
-.mobile {
-    display: none;
+
+.staff-roster-actions {
+    width: 100px;
+    text-align: left;
+    white-space: nowrap;
 }
-.mobile div {
-    padding: 0 5px 0 5px;
-}
+
 @media only screen and (max-width: 750px) {
-    table {
+    .staff-roster-table {
         font-size: 14px;
     }
-}
-@media only screen and (max-width: 550px) {
-    .large {
-        display: none;
-    }
-    .mobile {
-        display: flex;
+
+    .staff-roster-actions {
+        font-size: 12px;
     }
 }
 </style>

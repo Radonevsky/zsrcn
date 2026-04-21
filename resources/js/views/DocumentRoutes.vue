@@ -50,11 +50,6 @@ const tabs = ref([
     },
     {
         id: 9,
-        name: 'Попечительский совет',
-        link: '/documents/board-trustees',
-    },
-    {
-        id: 10,
         name: 'Акты проверок',
         link: '/documents/inspection-reports',
     },

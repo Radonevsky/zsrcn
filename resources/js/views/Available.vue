@@ -17,6 +17,14 @@ const editMode = ref(false)
 
 const setAvailableContent = async ()=> {
     content.value = await fetchAvailableContent()
+    if (content.value) {
+        if (content.value.day_care_count === undefined || content.value.day_care_count === null) {
+            content.value.day_care_count = ''
+        }
+        if (content.value.day_care_free_count === undefined || content.value.day_care_free_count === null) {
+            content.value.day_care_free_count = ''
+        }
+    }
     loaded.value = true
 }
 
@@ -26,6 +34,8 @@ const saveAvailableContent = async ()=> {
         update_date: content.value.update_date,
         count: content.value.count,
         free_count: content.value.free_count,
+        day_care_count: content.value.day_care_count ?? '',
+        day_care_free_count: content.value.day_care_free_count ?? '',
     })
     editMode.value = false
     loaded.value = true
@@ -60,6 +70,27 @@ setAvailableContent()
                     focus:border-orange text-[20px] text-tblue font-roboto700 w-[150px]">
                 <span v-if="loaded && !editMode">{{ content.free_count }}</span>
                 <span v-if="!loaded"><img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Loading"></span>
+            </div>
+
+            <div class='mt-[24px]'>
+                форма обслуживания: полустационарное обслуживание
+            </div>
+            <div>
+                <span>количество мест: </span>
+                <input v-if="editMode" v-model="content.day_care_count" class="p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
+                    focus:border-orange text-[20px] text-tblue font-roboto700 w-[150px]">
+                <span v-if="loaded && !editMode" class="text-link-dark-blue">{{ content.day_care_count }}</span>
+                <span v-if="!loaded"><img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Loading"></span>
+            </div>
+            <div>
+                <span>количество свободных мест: </span>
+                <input v-if="editMode" v-model="content.day_care_free_count" class="p-[5px] border-light-purple border-[1px] rounded-[10px] outline-0 py-[15px] focus:shadow-around
+                    focus:border-orange text-[20px] text-tblue font-roboto700 w-[150px]">
+                <span v-if="loaded && !editMode">{{ content.day_care_free_count }}</span>
+                <span v-if="!loaded"><img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Loading"></span>
+            </div>
+
+            <div class="mt-[16px]">
                 <span v-if="!editMode && isAdmin && loaded">
                     <common-button text="Редактировать" @click="editMode = true"></common-button>
                 </span>
