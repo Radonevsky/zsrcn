@@ -41,6 +41,10 @@ Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
     Route::get('/experience-table', [ContentController::class, 'getExperienceTable'])->name('get_experience_table');
     Route::get('/about-description', [ContentController::class, 'getAboutDescription'])->name('get_about_description');
     Route::get('/structure', [ContentController::class, 'getStructure'])->name('get_structure');
+    Route::get('/contacts-content', [ContentController::class, 'getContactsContent'])->name('get_contacts_content');
+    Route::get('/staff-page', [ContentController::class, 'getStaffPage'])->name('get_staff_page');
+    Route::get('/board-trustees-page', [ContentController::class, 'getBoardTrusteesPage'])->name('get_board_trustees_page');
+    Route::get('/social-services-page', [ContentController::class, 'getSocialServicesPage'])->name('get_social_services_page');
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
@@ -81,6 +85,10 @@ Route::group([
             Route::put('/experience-table', [ContentController::class, 'updateExperienceTable'])->name('update_experience_table');
             Route::put('/about-description', [ContentController::class, 'updateAboutDescription'])->name('update_about_description');
             Route::put('/structure', [ContentController::class, 'updateStructure'])->name('update_structure');
+            Route::put('/contacts-content', [ContentController::class, 'updateContactsContent'])->name('update_contacts_content');
+            Route::put('/staff-page', [ContentController::class, 'updateStaffPage'])->name('update_staff_page');
+            Route::put('/board-trustees-page', [ContentController::class, 'updateBoardTrusteesPage'])->name('update_board_trustees_page');
+            Route::put('/social-services-page', [ContentController::class, 'updateSocialServicesPage'])->name('update_social_services_page');
         });
     });
 });

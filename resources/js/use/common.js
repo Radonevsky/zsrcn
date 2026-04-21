@@ -248,6 +248,94 @@ async function updateStructureContent(payload) {
     }
 }
 
+async function fetchContactsContent() {
+    return axios.get(`/api/content/contacts-content`)
+        .then(response => response.data.content)
+        .catch(error => {
+            console.error('Error fetching contacts content:', error)
+            return false
+        })
+}
+
+async function updateContactsContent(payload) {
+    return adminApi.put(`/api/auth/content/contacts-content`, payload)
+        .then(() => {
+            alert('Сохранено')
+            return true
+        })
+        .catch(error => {
+            alert(error.response?.data?.message ?? 'Ошибка сохранения')
+            return false
+        })
+}
+
+async function fetchStaffPageContent() {
+    return axios.get(`/api/content/staff-page`)
+        .then(response => ({
+            intro_text: response.data.intro_text ?? '',
+            director_text: response.data.director_text ?? '',
+            roster: Array.isArray(response.data.roster) ? response.data.roster : [],
+        }))
+        .catch(error => {
+            console.error('Error fetching staff page:', error)
+            return false
+        })
+}
+
+async function updateStaffPageContent(payload) {
+    return adminApi.put(`/api/auth/content/staff-page`, payload)
+        .then(() => {
+            alert('Сохранено')
+            return true
+        })
+        .catch(error => {
+            alert(error.response?.data?.message ?? 'Ошибка сохранения')
+            return false
+        })
+}
+
+async function fetchSocialServicesPageContent() {
+    return axios.get(`/api/content/social-services-page`)
+        .then(response => ({
+            regulation_text: response.data.regulation_text ?? '',
+        }))
+        .catch(error => {
+            console.error('Error fetching social services page:', error)
+            return false
+        })
+}
+
+async function updateSocialServicesPageContent(payload) {
+    return adminApi.put(`/api/auth/content/social-services-page`, payload)
+        .then(() => {
+            alert('Сохранено')
+            return true
+        })
+        .catch(error => {
+            alert(error.response?.data?.message ?? 'Ошибка сохранения')
+            return false
+        })
+}
+
+async function fetchBoardTrusteesPageContent() {
+    return axios.get(`/api/content/board-trustees-page`)
+        .then(response => response.data.html)
+        .catch(error => {
+            console.error('Error fetching board trustees page:', error)
+            return false
+        })
+}
+
+async function updateBoardTrusteesPageContent(html) {
+    return adminApi.put(`/api/auth/content/board-trustees-page`, { html })
+        .then(() => {
+            alert('Обновлено')
+        })
+        .catch(error => {
+            alert(error.response?.data?.message ?? 'Ошибка сохранения')
+        })
+}
+
 async function fetchAboutDescriptionContent() {
     return axios.get(`/api/content/about-description`)
         .then(response => response.data.html)
@@ -293,6 +381,14 @@ export default function useCommon() {
         updateExperienceTableContent,
         fetchStructureContent,
         updateStructureContent,
+        fetchContactsContent,
+        updateContactsContent,
+        fetchStaffPageContent,
+        updateStaffPageContent,
+        fetchSocialServicesPageContent,
+        updateSocialServicesPageContent,
+        fetchBoardTrusteesPageContent,
+        updateBoardTrusteesPageContent,
         fetchAboutDescriptionContent,
         updateAboutDescriptionContent,
         isImpairedVision,

@@ -59,6 +59,7 @@ class Document extends Authenticatable
         'plan-2021-docs',
         'quality-assessment',
         'social-assessment-docs',
+        'center-board-trustees',
     ];
 
     protected $fillable = [

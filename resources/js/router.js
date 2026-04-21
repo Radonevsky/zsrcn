@@ -17,6 +17,7 @@ import Available from "./views/Available.vue";
 import Experience from "./views/Experience.vue";
 import SocialServices from "./views/SocialServices.vue";
 import AboutDescription from "./views/AboutDescription.vue";
+import BoardTrustees from "./views/BoardTrustees.vue";
 import DocumentRoutes from "./views/DocumentRoutes.vue";
 import PassportRoutes from "./views/PassportRoutes.vue";
 import CharterRoutes from "./views/CharterRoutes.vue";
@@ -45,6 +46,10 @@ import SocialAddView from "./views/SocialAddView.vue";
 import Login from "./views/Login.vue";
 
 const routes = [
+    {
+        path: '/documents/board-trustees',
+        redirect: '/about/board-trustees',
+    },
     {
         path: '/',
         component: Home,
@@ -100,8 +105,14 @@ const routes = [
             { path: 'social-services', component: SocialServices, name: 'center-social-services' },
             { path: 'license', component: License, name: 'center-license' },
             { path: 'description', component: AboutDescription, name: 'about-description' },
+            { path: 'board-trustees', component: BoardTrustees, name: 'board-trustees' },
+            {
+                path: 'board-trustees/:uuid',
+                component: DocumentSection,
+                name: 'board-trustees-documents-doc',
+            },
             { path: '', redirect: '/about/description', name: 'about-default' },
-        ],
+        ],  
         meta: { title: 'О нас' }
     },
     {
@@ -141,7 +152,6 @@ const routes = [
             { path: 'assessment/:uuid', component: DocumentSection, name: 'social-assessment-doc' },
             { path: 'internal-rules', component: DocumentView, name: 'center-internal-rules' },
             { path: 'material-technical', component: DocumentView, name: 'center-material-technical' },
-            { path: 'board-trustees', component: DocumentView, name: 'center-board-trustees' },
             {
                 path: 'inspection-reports',
                 component: InspectionReports,

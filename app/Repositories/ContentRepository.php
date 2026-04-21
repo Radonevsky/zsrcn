@@ -3,13 +3,21 @@
 namespace App\Repositories;
 
 use App\Models\AboutDescriptionContent;
+use App\Models\BoardTrusteesPageContent;
 use App\Models\AvailableContent;
+use App\Models\ContactsContent;
 use App\Models\ExperienceContent;
 use App\Models\ExperienceTableContent;
+use App\Models\SocialServicesPageContent;
+use App\Models\StaffPageContent;
 use App\Models\StructureContent;
 use App\Support\SanitizeHtml;
 use Database\Seeders\AboutDescriptionSeeder;
+use Database\Seeders\BoardTrusteesPageContentSeeder;
+use Database\Seeders\SocialServicesPageContentSeeder;
+use Database\Seeders\StaffPageContentSeeder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 
@@ -123,6 +131,8 @@ class ContentRepository
             $content->update_date = $data['update_date'];
             $content->count = $data['count'];
             $content->free_count = $data['free_count'];
+            $content->day_care_count = $data['day_care_count'] ?? '';
+            $content->day_care_free_count = $data['day_care_free_count'] ?? '';
 
             $content->save();
 
@@ -151,6 +161,172 @@ class ContentRepository
             $content->save();
 
             return $content;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    public function getContactsContent(): Collection
+    {
+        try {
+            return ContactsContent::query()
+                ->orderBy('sort_order')
+                ->orderBy('id')
+                ->get();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    /**
+     * @param  array<int, array<string, mixed>>  $rows
+     */
+    public function updateContactsContent(array $rows): Collection
+    {
+        try {
+            DB::transaction(function () use ($rows) {
+                ContactsContent::query()->delete();
+                foreach ($rows as $index => $row) {
+                    $email = trim((string) ($row['email'] ?? ''));
+                    if ($email === '') {
+                        $email = 'gusonat@mail.ru';
+                    }
+                    ContactsContent::query()->create([
+                        'sort_order' => (int) ($row['sort_order'] ?? $index),
+                        'department' => $row['department'] ?? '',
+                        'work_time' => $row['work_time'] ?? '',
+                        'role_info' => $row['role_info'] ?? '',
+                        'phone' => $row['phone'] ?? '',
+                        'email' => $email,
+                    ]);
+                }
+            });
+
+            return $this->getContactsContent();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    public function getStaffPageContent(): StaffPageContent
+    {
+        try {
+            if (! StaffPageContent::query()->exists()) {
+                (new StaffPageContentSeeder)->run();
+            }
+
+            return StaffPageContent::query()->firstOrFail();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    /**
+     * @param  array{intro_text?: string, director_text?: string, roster?: array<int, array<string, mixed>>}  $data
+     */
+    public function updateStaffPageContent(array $data): StaffPageContent
+    {
+        try {
+            $row = StaffPageContent::query()->firstOrFail();
+            $roster = $data['roster'] ?? [];
+            if (! is_array($roster)) {
+                $roster = [];
+            }
+            $row->intro_text = (string) ($data['intro_text'] ?? '');
+            $row->director_text = (string) ($data['director_text'] ?? '');
+            $row->roster = array_values($this->sanitizeStaffRoster($roster));
+            $row->save();
+
+            return $row;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    /**
+     * @param  array<int, array<string, mixed>>  $roster
+     * @return array<int, array<string, string>>
+     */
+    private function sanitizeStaffRoster(array $roster): array
+    {
+        $out = [];
+        foreach ($roster as $item) {
+            if (! is_array($item)) {
+                continue;
+            }
+            $kind = $item['kind'] ?? '';
+            if ($kind === 'section') {
+                $out[] = [
+                    'kind' => 'section',
+                    'title' => mb_substr((string) ($item['title'] ?? ''), 0, 500),
+                ];
+            } elseif ($kind === 'person') {
+                $out[] = [
+                    'kind' => 'person',
+                    'name' => mb_substr((string) ($item['name'] ?? ''), 0, 500),
+                    'position' => mb_substr((string) ($item['position'] ?? ''), 0, 2000),
+                ];
+            }
+        }
+
+        return $out;
+    }
+
+    public function getBoardTrusteesPageContent(): BoardTrusteesPageContent
+    {
+        try {
+            if (! BoardTrusteesPageContent::query()->exists()) {
+                (new BoardTrusteesPageContentSeeder)->run();
+            }
+
+            return BoardTrusteesPageContent::query()->firstOrFail();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    public function updateBoardTrusteesPageContent(array $data): string
+    {
+        try {
+            $content = BoardTrusteesPageContent::query()->firstOrFail();
+            $content->html = SanitizeHtml::aboutDescription($data['html'] ?? '');
+            $content->save();
+
+            return $content->html;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    public function getSocialServicesPageContent(): SocialServicesPageContent
+    {
+        try {
+            if (! SocialServicesPageContent::query()->exists()) {
+                (new SocialServicesPageContentSeeder)->run();
+            }
+
+            return SocialServicesPageContent::query()->firstOrFail();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    public function updateSocialServicesPageContent(array $data): SocialServicesPageContent
+    {
+        try {
+            $row = SocialServicesPageContent::query()->firstOrFail();
+            $row->regulation_text = (string) ($data['regulation_text'] ?? '');
+            $row->save();
+
+            return $row;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Ошибка обновления данных');
