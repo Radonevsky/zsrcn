@@ -6,84 +6,9 @@ import DocumentDownloadUpload from "../components/DocumentDownloadUpload.vue";
 import CommonButton from "../components/CommonButton.vue";
 import useCommon from "../use/common.js";
 
-const centerInfoItems = ref([
-    {
-        id: '№',
-        title: '',
-        content: '',
-    },
-    {
-        id: 1,
-        title: 'Полное наименование учреждения',
-        content: 'ГБУСО «Заиграевский социально – реабилитационный центр для несовершеннолетних»',
-    },
-    {
-        id: 2,
-        title: 'Индекс, почтовый адрес учреждения',
-        content: '671325 Республика Бурятия Заиграевский р-н с.Новая Брянь пер. Верховской 1',
-    },
-    {
-        id: 3,
-        title: 'Электронный адрес',
-        content: '<a href="mailto:gusonat@mail.ru" class="underline">gusonat@mail.ru</a>',
-    },
-    {
-        id: 4,
-        title: 'Компетенция учреждения (кратко)',
-        content: 'Содержание, воспитание и реабилитация детей.',
-    },
-    {
-        id: 5,
-        title: 'ФИО (полностью) руководителя учреждения, осуществляющего прием граждан по телефону или видеосвязи',
-        content: 'Кочетова Галина Ивановна',
-    },
-    {
-        id: 6,
-        title: 'Контакты руководителя (служебный телефон с указанием кода населенного пункта, личный)',
-        content: '8 (30136) 53-6-66\n89247707609',
-    },
-    {
-        id: 7,
-        title: 'Место осуществления личного приема граждан руководителем (адрес, кабинет(офис))',
-        content: 'Республика Бурятия Заиграевский р-н с.Новая Брянь пер. Верховской 1',
-    },
-    {
-        id: 8,
-        title: 'Дни недели и часы, определенные для приема граждан руководителем по телефону или видеосвязи',
-        content: 'вторник, четверг с 10.00ч. до 16.00ч.',
-    },
-    {
-        id: 9,
-        title: 'Ф.И.О.( полностью) уполномоченного лица, определенного для осуществления приема граждан по телефону или видеосвязи',
-        content: 'Москвитина Алла Александровна',
-    },
-    {
-        id: 10,
-        title: 'Должность уполномоченного лица, осуществляющего прием граждан по телефону или видеосвязи',
-        content: 'Заведующая отделением',
-    },
-    {
-        id: 11,
-        title: 'Контакты (служебный   телефон с указанием кода населенного пункта, личный) уполномоченного лица, определенного для , осуществления приема граждан по телефону или видеосвязи',
-        content: '8 (30136) 53- 9 – 32\n89246523502',
-    },
-    {
-        id: 12,
-        title: 'Место осуществления личного приема граждан руководителем (адрес, кабинет(офис))',
-        content: 'Республика Бурятия Заиграевский р-н с.Новая Брянь пер. Верховской 1',
-    },
-    {
-        id: 13,
-        title: 'Дни недели и часы, определенные для приема граждан руководителем по телефону или видеосвязи',
-        content: 'среда, пятница с 13.00 до 16.00ч.',
-    },
-    {
-        id: 14,
-        title: '№ и дата приказа по учреждению',
-        content: '№ 30-ОД от 13.05.2016 г.',
-    },
+const centerInfoItems = ref([])
 
-])
+const roundClockText = ref('')
 
 const documents = ref([
     {
@@ -120,16 +45,31 @@ const {
 } = useCommon()
 
 const regulationText = ref('')
-const regulationLoaded = ref(false)
+const pageContentLoaded = ref(false)
 const editRegulationMode = ref(false)
+const editTableMode = ref(false)
 let regulationSnapshot = ''
+let tableSnapshot = { intro: '', rows: [] }
 
-async function loadRegulationText() {
+function cloneCenterRows(rows) {
+    return JSON.parse(JSON.stringify(rows))
+}
+
+function restoreTable() {
+    roundClockText.value = tableSnapshot.intro
+    centerInfoItems.value = cloneCenterRows(tableSnapshot.rows)
+}
+
+async function loadPageContent() {
     const data = await fetchSocialServicesPageContent()
     if (data !== false) {
         regulationText.value = data.regulation_text ?? ''
+        roundClockText.value = data.round_clock_text ?? ''
+        centerInfoItems.value = data.center_info_items?.length
+            ? cloneCenterRows(data.center_info_items)
+            : []
     }
-    regulationLoaded.value = true
+    pageContentLoaded.value = true
 }
 
 function startEditRegulation() {
@@ -143,16 +83,61 @@ function cancelEditRegulation() {
 }
 
 async function saveRegulation() {
-    regulationLoaded.value = false
+    pageContentLoaded.value = false
     const ok = await updateSocialServicesPageContent({ regulation_text: regulationText.value })
     if (ok) {
-        await loadRegulationText()
+        await loadPageContent()
         editRegulationMode.value = false
     }
-    regulationLoaded.value = true
+    pageContentLoaded.value = true
 }
 
-loadRegulationText()
+function startEditTable() {
+    tableSnapshot = { intro: roundClockText.value, rows: cloneCenterRows(centerInfoItems.value) }
+    editTableMode.value = true
+}
+
+function cancelEditTable() {
+    restoreTable()
+    editTableMode.value = false
+}
+
+async function saveTable() {
+    pageContentLoaded.value = false
+    const ok = await updateSocialServicesPageContent({
+        round_clock_text: roundClockText.value,
+        center_info_items: centerInfoItems.value,
+    })
+    if (ok) {
+        await loadPageContent()
+        editTableMode.value = false
+    }
+    pageContentLoaded.value = true
+}
+
+function addCenterInfoRow() {
+    centerInfoItems.value = [...centerInfoItems.value, { id: '', title: '', content: '' }]
+}
+
+function removeCenterInfoRow(index) {
+    const next = [...centerInfoItems.value]
+    next.splice(index, 1)
+    centerInfoItems.value = next
+}
+
+function moveCenterInfoRow(index, delta) {
+    const j = index + delta
+    if (j < 0 || j >= centerInfoItems.value.length) {
+        return
+    }
+    const next = [...centerInfoItems.value]
+    const t = next[index]
+    next[index] = next[j]
+    next[j] = t
+    centerInfoItems.value = next
+}
+
+loadPageContent()
 
 const servicesSections = [
     {
@@ -167,8 +152,6 @@ const servicesSections = [
                     "Обеспечение мягким инвентарем согласно утвержденным нормативам",
                     "Обеспечение книгами, журналами, газетами, настольными играми",
                     "Содейств. в транспортировке для лечения, обучения, участия в культурн. мероприятиях",
-                    "",
-                    "",
                     "Сопровождение в соц-знач. орг-ции, в том числе в медорганизации",
                 ],
             },
@@ -179,9 +162,7 @@ const servicesSections = [
                     "Организация первичного медицинского осмотра и первичной санитарной",
                     "Организация первичной доврачебной помощи",
                     "Организация оздоровительных мероприятий",
-                    "",
                     "Организация систематического наблюдения за получателями социальных услуг для выявления отклонений в состоянии их здоровья",
-                    "",
                     "Организация консультирования по социально-медицинским вопросам",
                     "Организация выполнения процедур, связанных с сохранением здоровья",
                     "Содействие в оказании медицинской помощи",
@@ -215,7 +196,6 @@ const servicesSections = [
                     "Содействие в получении полагающихся пенсий, пособий, других социальных выплат и мер социальной поддержки",
                     "Содействие в подготовке запросов, заявлений, ходатайств по вопросам социальной защиты населения",
                     "Содействие в получении бесплатной помощи адвоката, обеспечение представительства в суде",
-                    "",
                 ],
             },
         ],
@@ -307,27 +287,88 @@ const servicesSections = [
 <template>
     <ContentContainer>
         <div class='text-[20px] font-roboto400 text-link-dark-blue' :style="isImpairedVision ? 'color:black':''">
-            <p class='mt-[40px]'>Учреждение работает в круглосуточном режиме.</p>
-            <table class="table-auto socials-time">
-                <tbody>
-                <tr v-for='item in centerInfoItems'>
-                    <td>
-                        {{ item.id }}
-                    </td>
-                    <td>
-                        {{ item.title }}
-                    </td>
-                    <td v-html="item.content">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div v-if="!pageContentLoaded" class="mt-[40px] flex items-center gap-[12px]">
+                <img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Загрузка">
+            </div>
+            <template v-else>
+                <p
+                    v-if="!editTableMode"
+                    class="mt-[40px]"
+                    style="white-space: pre-line;"
+                >
+                    {{ roundClockText }}
+                </p>
+                <textarea
+                    v-else
+                    v-model="roundClockText"
+                    rows="2"
+                    class="mt-[40px] w-full p-[12px] border border-light-purple rounded-[10px] text-[20px] font-roboto400 resize-y"
+                ></textarea>
+
+                <table class="table-auto socials-time">
+                    <tbody>
+                    <tr v-for="(item, rowIndex) in centerInfoItems" :key="rowIndex">
+                        <td v-if="!editTableMode">
+                            {{ item.id }}
+                        </td>
+                        <td v-else>
+                            <input
+                                v-model="item.id"
+                                type="text"
+                                class="w-full min-w-[2.5rem] p-[6px] border border-light-purple rounded-[6px] text-[20px] font-roboto400"
+                            >
+                        </td>
+                        <td
+                            v-if="!editTableMode"
+                            style="white-space: pre-line;"
+                        >
+                            {{ item.title }}
+                        </td>
+                        <td v-else>
+                            <textarea
+                                v-model="item.title"
+                                rows="3"
+                                class="w-full p-[6px] border border-light-purple rounded-[6px] text-[20px] font-roboto400 resize-y"
+                            ></textarea>
+                        </td>
+                        <td
+                            v-if="!editTableMode"
+                            v-html="item.content"
+                        ></td>
+                        <td v-else>
+                            <textarea
+                                v-model="item.content"
+                                rows="4"
+                                class="w-full p-[6px] border border-light-purple rounded-[6px] text-[20px] font-roboto400 resize-y"
+                            ></textarea>
+                        </td>
+                        <td
+                            v-if="editTableMode && isAdmin"
+                            class="align-top w-[1%] min-w-[7rem] whitespace-nowrap p-[6px]"
+                        >
+                            <button type="button" class="block text-left mb-[4px] underline" @click="moveCenterInfoRow(rowIndex, -1)">Вверх</button>
+                            <button type="button" class="block text-left mb-[4px] underline" @click="moveCenterInfoRow(rowIndex, 1)">Вниз</button>
+                            <button type="button" class="block text-left text-red-700 underline" @click="removeCenterInfoRow(rowIndex)">Удалить</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div v-if="editTableMode && isAdmin" class="mt-[12px]">
+                    <button type="button" class="underline" @click="addCenterInfoRow">Добавить строку</button>
+                </div>
+                <div
+                    v-if="!editRegulationMode && !editTableMode && isAdmin"
+                    class="mt-[16px]"
+                >
+                    <common-button text="Редактировать сведения и таблицу" @click="startEditTable"></common-button>
+                </div>
+                <div v-if="editTableMode && isAdmin" class="mt-[16px]">
+                    <common-button text="Сохранить таблицу" @click="saveTable"></common-button>
+                    <common-button text="Отмена" class="ml-[10px]" @click="cancelEditTable"></common-button>
+                </div>
 
             <div class='mt-[40px]'>
-                <div v-if="!regulationLoaded" class="flex items-center gap-[12px]">
-                    <img src="../../../resources/images/preloader.gif" class="w-[30px] h-[30px] inline" alt="Загрузка">
-                </div>
-                <template v-else>
                     <p v-if="!editRegulationMode" style="white-space: pre-line;">
                         {{ regulationText }}
                     </p>
@@ -337,20 +378,21 @@ const servicesSections = [
                         rows="8"
                         class="w-full p-[12px] border border-light-purple rounded-[10px] text-[20px] font-roboto400 resize-y"
                     ></textarea>
-                    <div v-if="!editRegulationMode && isAdmin" class="mt-[16px]">
-                        <common-button text="Редактировать текст" @click="startEditRegulation"></common-button>
+                    <div v-if="!editRegulationMode && !editTableMode && isAdmin" class="mt-[16px]">
+                        <common-button text="Редактировать нормативный текст" @click="startEditRegulation"></common-button>
                     </div>
                     <div v-if="editRegulationMode && isAdmin" class="mt-[16px]">
                         <common-button text="Сохранить" @click="saveRegulation"></common-button>
                         <common-button text="Отмена" class="ml-[10px]" @click="cancelEditRegulation"></common-button>
                     </div>
-                </template>
             </div>
+            </template>
 
+            <p class="mt-[40px] text-[20px] font-roboto500 text-link-dark-blue">Виды социальных услуг</p>
             <div
                 v-for="(section, sectionIndex) in servicesSections"
                 :key="sectionIndex"
-                class="mt-[40px]"
+                class="mt-[20px]"
             >
                 <p
                     class="services-section-title mb-3 text-center text-[20px] leading-snug font-roboto500"

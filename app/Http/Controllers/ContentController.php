@@ -304,6 +304,8 @@ class ContentController extends Controller
             return response()->json([
                 'error' => false,
                 'regulation_text' => $row->regulation_text,
+                'round_clock_text' => $row->round_clock_text,
+                'center_info_items' => $row->center_info_items ?? [],
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -321,6 +323,8 @@ class ContentController extends Controller
             return response()->json([
                 'error' => false,
                 'regulation_text' => $row->regulation_text,
+                'round_clock_text' => $row->round_clock_text,
+                'center_info_items' => $row->center_info_items ?? [],
                 'message' => 'Успешно обновлено!',
             ]);
         } catch (\Exception $e) {
