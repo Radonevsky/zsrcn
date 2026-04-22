@@ -312,18 +312,45 @@ class ContentRepository
                 (new SocialServicesPageContentSeeder)->run();
             }
 
-            return SocialServicesPageContent::query()->firstOrFail();
+            $row = SocialServicesPageContent::query()->firstOrFail();
+            $changed = false;
+            if ($row->round_clock_text === null) {
+                $row->round_clock_text = SocialServicesPageContentSeeder::defaultRoundClockText();
+                $changed = true;
+            }
+            if ($row->center_info_items === null) {
+                $row->center_info_items = SocialServicesPageContentSeeder::defaultCenterInfoItems();
+                $changed = true;
+            }
+            if ($changed) {
+                $row->save();
+            }
+
+            return $row;
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Ошибка загрузки данных');
         }
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function updateSocialServicesPageContent(array $data): SocialServicesPageContent
     {
         try {
             $row = SocialServicesPageContent::query()->firstOrFail();
-            $row->regulation_text = (string) ($data['regulation_text'] ?? '');
+            if (array_key_exists('regulation_text', $data)) {
+                $row->regulation_text = (string) $data['regulation_text'];
+            }
+            if (array_key_exists('round_clock_text', $data)) {
+                $row->round_clock_text = (string) $data['round_clock_text'];
+            }
+            if (array_key_exists('center_info_items', $data)) {
+                $row->center_info_items = $this->sanitizeCenterInfoItems(
+                    is_array($data['center_info_items'] ?? null) ? $data['center_info_items'] : []
+                );
+            }
             $row->save();
 
             return $row;
@@ -331,5 +358,34 @@ class ContentRepository
             Log::error('Error: ' . $e->getMessage());
             throw new \Exception('Ошибка обновления данных');
         }
+    }
+
+    /**
+     * @param  list<mixed>  $rows
+     * @return list<array<string, int|string>>
+     */
+    private function sanitizeCenterInfoItems(array $rows): array
+    {
+        $out = [];
+        foreach ($rows as $item) {
+            if (! is_array($item)) {
+                continue;
+            }
+            $id = $item['id'] ?? '';
+            if (is_string($id)) {
+                $id = mb_substr($id, 0, 100);
+            } elseif (is_numeric($id)) {
+                $id = (int) $id;
+            } else {
+                $id = '';
+            }
+            $out[] = [
+                'id' => $id,
+                'title' => mb_substr((string) ($item['title'] ?? ''), 0, 20000),
+                'content' => mb_substr((string) ($item['content'] ?? ''), 0, 20000),
+            ];
+        }
+
+        return $out;
     }
 }

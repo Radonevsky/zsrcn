@@ -13,5 +13,11 @@ class SocialServicesPageContent extends Model
 
     protected $fillable = [
         'regulation_text',
+        'round_clock_text',
+        'center_info_items',
+    ];
+
+    protected $casts = [
+        'center_info_items' => 'array',
     ];
 }

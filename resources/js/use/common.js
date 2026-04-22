@@ -298,6 +298,10 @@ async function fetchSocialServicesPageContent() {
     return axios.get(`/api/content/social-services-page`)
         .then(response => ({
             regulation_text: response.data.regulation_text ?? '',
+            round_clock_text: response.data.round_clock_text ?? '',
+            center_info_items: Array.isArray(response.data.center_info_items)
+                ? response.data.center_info_items
+                : [],
         }))
         .catch(error => {
             console.error('Error fetching social services page:', error)
