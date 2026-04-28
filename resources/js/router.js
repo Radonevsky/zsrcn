@@ -455,6 +455,16 @@ const routes = [
                 component: DocumentSection,
                 name: 'anti-corruption-booklets-doc',
             },
+            {
+                path: 'conflict-commission',
+                component: InspectionReports,
+                name: 'anti-corruption-conflict-commission-docs',
+            },
+            {
+                path: 'conflict-commission/:uuid',
+                component: DocumentSection,
+                name: 'anti-corruption-conflict-commission-doc',
+            },
             {path: '', redirect: '/anti-corruption/memo', name: 'anti-corruption-default'},
         ],
         meta: { title: 'Противодействие коррупции' }

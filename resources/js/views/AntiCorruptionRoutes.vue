@@ -10,7 +10,7 @@ window.scrollTo(0, 0)
 const tabs = ref([
     {
         id: 1,
-        name: 'Памятка',
+        name: 'Нормативные правовые и иные акты в сфере противодействия коррупции',
         link: '/anti-corruption/memo',
     },
     {
@@ -20,8 +20,13 @@ const tabs = ref([
     },
     {
         id: 3,
-        name: 'Буклеты о противодействии коррупции',
+        name: 'Методические материалы',
         link: '/anti-corruption/booklets',
+    },
+    {
+        id: 4,
+        name: 'Комиссия по урегулированию конфликта интересов',
+        link: '/anti-corruption/conflict-commission',
     },
 ])
 </script>

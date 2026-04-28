@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\AboutDescriptionContent;
 use App\Models\BoardTrusteesPageContent;
+use App\Models\CitizenAppealsPageContent;
 use App\Models\AvailableContent;
 use App\Models\ContactsContent;
 use App\Models\ExperienceContent;
@@ -14,6 +15,7 @@ use App\Models\StructureContent;
 use App\Support\SanitizeHtml;
 use Database\Seeders\AboutDescriptionSeeder;
 use Database\Seeders\BoardTrusteesPageContentSeeder;
+use Database\Seeders\CitizenAppealsPageContentSeeder;
 use Database\Seeders\SocialServicesPageContentSeeder;
 use Database\Seeders\StaffPageContentSeeder;
 use Illuminate\Support\Collection;
@@ -387,5 +389,77 @@ class ContentRepository
         }
 
         return $out;
+    }
+
+    public function getCitizenAppealsPageContent(): CitizenAppealsPageContent
+    {
+        try {
+            if (! CitizenAppealsPageContent::query()->exists()) {
+                (new CitizenAppealsPageContentSeeder)->run();
+            }
+
+            return CitizenAppealsPageContent::query()->firstOrFail();
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка загрузки данных');
+        }
+    }
+
+    /**
+     * @param  array{schedule_rows?: array<int, mixed>, legal_basis_items?: array<int, mixed>}  $data
+     */
+    public function updateCitizenAppealsPageContent(array $data): CitizenAppealsPageContent
+    {
+        try {
+            $row = CitizenAppealsPageContent::query()->firstOrFail();
+            if (array_key_exists('schedule_rows', $data)) {
+                $sr = $data['schedule_rows'];
+                $row->schedule_rows = $this->sanitizeCitizenAppealsScheduleRows(is_array($sr) ? $sr : []);
+            }
+            if (array_key_exists('legal_basis_items', $data)) {
+                $items = $data['legal_basis_items'];
+                $row->legal_basis_items = $this->sanitizeCitizenAppealsLegalBasisItems(is_array($items) ? $items : []);
+            }
+            $row->save();
+
+            return $row;
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+            throw new \Exception('Ошибка обновления данных');
+        }
+    }
+
+    /**
+     * @param  array<int, mixed>  $rows
+     * @return array<int, array{label: string, value: string}>
+     */
+    private function sanitizeCitizenAppealsScheduleRows(array $rows): array
+    {
+        $out = [];
+        foreach ($rows as $item) {
+            if (! is_array($item)) {
+                continue;
+            }
+            $out[] = [
+                'label' => mb_substr((string) ($item['label'] ?? ''), 0, 2000),
+                'value' => mb_substr((string) ($item['value'] ?? ''), 0, 10000),
+            ];
+        }
+
+        return array_values($out);
+    }
+
+    /**
+     * @param  array<int, mixed>  $items
+     * @return list<string>
+     */
+    private function sanitizeCitizenAppealsLegalBasisItems(array $items): array
+    {
+        $out = [];
+        foreach ($items as $item) {
+            $out[] = mb_substr((string) $item, 0, 2000);
+        }
+
+        return array_values($out);
     }
 }

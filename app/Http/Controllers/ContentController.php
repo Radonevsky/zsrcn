@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateAvailableRequest;
 use App\Http\Requests\UpdateContactsContentRequest;
 use App\Http\Requests\UpdateBoardTrusteesPageRequest;
 use App\Http\Requests\UpdateSocialServicesPageContentRequest;
+use App\Http\Requests\UpdateCitizenAppealsPageContentRequest;
 use App\Http\Requests\UpdateStaffPageContentRequest;
 use App\Repositories\ContentRepository;
 use Illuminate\Http\JsonResponse;
@@ -325,6 +326,43 @@ class ContentController extends Controller
                 'regulation_text' => $row->regulation_text,
                 'round_clock_text' => $row->round_clock_text,
                 'center_info_items' => $row->center_info_items ?? [],
+                'message' => 'Успешно обновлено!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function getCitizenAppealsPage(ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->getCitizenAppealsPageContent();
+
+            return response()->json([
+                'error' => false,
+                'schedule_rows' => $row->schedule_rows ?? [],
+                'legal_basis_items' => $row->legal_basis_items ?? [],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function updateCitizenAppealsPage(UpdateCitizenAppealsPageContentRequest $request, ContentRepository $cr): JsonResponse
+    {
+        try {
+            $row = $cr->updateCitizenAppealsPageContent($request->validated());
+
+            return response()->json([
+                'error' => false,
+                'schedule_rows' => $row->schedule_rows ?? [],
+                'legal_basis_items' => $row->legal_basis_items ?? [],
                 'message' => 'Успешно обновлено!',
             ]);
         } catch (\Exception $e) {
