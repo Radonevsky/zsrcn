@@ -45,6 +45,7 @@ Route::group(['prefix' => 'content', 'namespace' => 'Content'], function() {
     Route::get('/staff-page', [ContentController::class, 'getStaffPage'])->name('get_staff_page');
     Route::get('/board-trustees-page', [ContentController::class, 'getBoardTrusteesPage'])->name('get_board_trustees_page');
     Route::get('/social-services-page', [ContentController::class, 'getSocialServicesPage'])->name('get_social_services_page');
+    Route::get('/citizen-appeals-page', [ContentController::class, 'getCitizenAppealsPage'])->name('get_citizen_appeals_page');
 });
 
 Route::post('/send-feedback', [MailController::class, 'sendFeedback'])->name('send_feedback');
@@ -89,6 +90,7 @@ Route::group([
             Route::put('/staff-page', [ContentController::class, 'updateStaffPage'])->name('update_staff_page');
             Route::put('/board-trustees-page', [ContentController::class, 'updateBoardTrusteesPage'])->name('update_board_trustees_page');
             Route::put('/social-services-page', [ContentController::class, 'updateSocialServicesPage'])->name('update_social_services_page');
+            Route::put('/citizen-appeals-page', [ContentController::class, 'updateCitizenAppealsPage'])->name('update_citizen_appeals_page');
         });
     });
 });

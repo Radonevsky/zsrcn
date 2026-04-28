@@ -294,6 +294,30 @@ async function updateStaffPageContent(payload) {
         })
 }
 
+async function fetchCitizenAppealsPageContent() {
+    return axios.get(`/api/content/citizen-appeals-page`)
+        .then(response => ({
+            schedule_rows: Array.isArray(response.data.schedule_rows) ? response.data.schedule_rows : [],
+            legal_basis_items: Array.isArray(response.data.legal_basis_items) ? response.data.legal_basis_items : [],
+        }))
+        .catch(error => {
+            console.error('Error fetching citizen appeals page:', error)
+            return false
+        })
+}
+
+async function updateCitizenAppealsPageContent(payload) {
+    return adminApi.put(`/api/auth/content/citizen-appeals-page`, payload)
+        .then(() => {
+            alert('Сохранено')
+            return true
+        })
+        .catch(error => {
+            alert(error.response?.data?.message ?? 'Ошибка сохранения')
+            return false
+        })
+}
+
 async function fetchSocialServicesPageContent() {
     return axios.get(`/api/content/social-services-page`)
         .then(response => ({
@@ -389,6 +413,8 @@ export default function useCommon() {
         updateContactsContent,
         fetchStaffPageContent,
         updateStaffPageContent,
+        fetchCitizenAppealsPageContent,
+        updateCitizenAppealsPageContent,
         fetchSocialServicesPageContent,
         updateSocialServicesPageContent,
         fetchBoardTrusteesPageContent,
