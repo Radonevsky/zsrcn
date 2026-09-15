@@ -162,6 +162,16 @@ const routes = [
                 component: DocumentSection,
                 name: 'center-inspection-reports',
             },
+            {
+                path: 'minors-admission-conditions',
+                component: InspectionReports,
+                name: 'minors-admission-conditions-docs',
+            },
+            {
+                path: 'minors-admission-conditions/:uuid',
+                component: DocumentSection,
+                name: 'minors-admission-conditions-doc',
+            },
             { path: '', redirect: '/documents/charter', name: 'documents-default' },
         ],
         meta: { title: 'Документы' }

@@ -53,6 +53,11 @@ const tabs = ref([
         name: 'Акты проверок',
         link: '/documents/inspection-reports',
     },
+    {
+        id: 10,
+        name: 'Порядок и условия приема, содержания, обслуживания и снятия с обслуживания несовершеннолетних',
+        link: '/documents/minors-admission-conditions',
+    },
 ])
 
 </script>
