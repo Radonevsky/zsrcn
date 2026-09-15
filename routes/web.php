@@ -37,6 +37,9 @@ Route::get('/documents/passport/{any}', function () {
 Route::get('/documents/inspection-reports/{any}', function () {
     return view('app');
 });
+Route::get('/documents/minors-admission-conditions/{any}', function () {
+    return view('app');
+});
 Route::get('/statements/{any}', function () {
     return view('app');
 });
